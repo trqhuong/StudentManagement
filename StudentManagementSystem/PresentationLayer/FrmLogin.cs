@@ -52,6 +52,8 @@ namespace PresentationLayer
                 else if (taiKhoan.LoaiTaiKhoan == "Giáo viên")
                 {
                     // Mở giao diện dành cho giáo viên
+                    FrmMainTeacher frmMainTeacher = new FrmMainTeacher();
+                    frmMainTeacher.ShowDialog();
                 }
             }
             else

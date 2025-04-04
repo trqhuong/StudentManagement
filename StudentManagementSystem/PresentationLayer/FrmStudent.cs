@@ -16,5 +16,10 @@ namespace PresentationLayer
         {
             InitializeComponent();
         }
+
+        private void txtSID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

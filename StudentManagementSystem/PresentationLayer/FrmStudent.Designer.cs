@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lbCancel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,25 +57,11 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lbCancel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-2, -2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1069, 65);
             this.panel1.TabIndex = 0;
-            // 
-            // lbCancel
-            // 
-            this.lbCancel.BackColor = System.Drawing.Color.MidnightBlue;
-            this.lbCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCancel.ForeColor = System.Drawing.Color.White;
-            this.lbCancel.Location = new System.Drawing.Point(1009, 10);
-            this.lbCancel.Name = "lbCancel";
-            this.lbCancel.Size = new System.Drawing.Size(44, 44);
-            this.lbCancel.TabIndex = 0;
-            this.lbCancel.Text = "X";
-            this.lbCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -118,6 +103,7 @@
             this.txtSID.Name = "txtSID";
             this.txtSID.Size = new System.Drawing.Size(382, 44);
             this.txtSID.TabIndex = 1;
+            this.txtSID.TextChanged += new System.EventHandler(this.txtSID_TextChanged);
             // 
             // label3
             // 
@@ -347,7 +333,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lbCancel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSID;

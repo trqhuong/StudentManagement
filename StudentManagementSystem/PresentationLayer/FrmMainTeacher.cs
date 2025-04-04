@@ -10,11 +10,9 @@ using System.Windows.Forms;
 
 namespace PresentationLayer
 {
-    
-    public partial class FrmMain : Form
+    public partial class FrmMainTeacher: Form
     {
-        public static string Username="";
-        public FrmMain()
+        public FrmMainTeacher()
         {
             InitializeComponent();
         }
@@ -37,36 +35,29 @@ namespace PresentationLayer
 
         }
 
+        private void btList_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FrmClassList());
+        }
+
+        private void btInput_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FrmInput());
+        }
+
+        private void btExport_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FrmExport());
+        }
+
         private void lbCancel_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void btStudent_Click(object sender, EventArgs e)
+        private void FrmMainTeacher_Load(object sender, EventArgs e)
         {
-            OpenChildForm(new FrmStudent());
-
+            lbName.Text = FrmMain.Username;
         }
-
-        private void btTeacher_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new FrmTeacher());
-        }
-
-        private void btClass_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new FrmClass());
-        }
-
-        private void btSubject_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new FrmSubject());
-        }
-
-        private void FrmMain_Load(object sender, EventArgs e)
-        {
-            lbName.Text = Username;
-        }
-
     }
 }
