@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTeacher));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -49,7 +48,6 @@
             this.txtTID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvTeacher = new System.Windows.Forms.DataGridView();
-            this.lbCancel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTeacher)).BeginInit();
@@ -59,7 +57,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lbCancel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-1, 0);
             this.panel1.Name = "panel1";
@@ -80,7 +77,6 @@
             // 
             // pictureBox1
             // 
-            
             this.pictureBox1.Location = new System.Drawing.Point(12, 71);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(444, 410);
@@ -292,20 +288,6 @@
             this.dgvTeacher.Size = new System.Drawing.Size(1040, 185);
             this.dgvTeacher.TabIndex = 24;
             // 
-            // lbCancel
-            // 
-            this.lbCancel.BackColor = System.Drawing.Color.MidnightBlue;
-            this.lbCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCancel.ForeColor = System.Drawing.Color.White;
-            this.lbCancel.Location = new System.Drawing.Point(1008, 8);
-            this.lbCancel.Name = "lbCancel";
-            this.lbCancel.Size = new System.Drawing.Size(44, 44);
-            this.lbCancel.TabIndex = 0;
-            this.lbCancel.Text = "X";
-            this.lbCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-          
-            // 
             // FrmTeacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -366,6 +348,5 @@
         private System.Windows.Forms.TextBox txtTID;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvTeacher;
-        private System.Windows.Forms.Label lbCancel;
     }
 }
