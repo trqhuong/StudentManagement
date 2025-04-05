@@ -31,7 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbCancel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picQR = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,14 +43,15 @@
             this.label7 = new System.Windows.Forms.Label();
             this.checkNam = new System.Windows.Forms.CheckBox();
             this.checkNu = new System.Windows.Forms.CheckBox();
-            this.btSave = new System.Windows.Forms.Button();
+            this.btReset = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btDelete = new System.Windows.Forms.Button();
             this.dgvStudent = new System.Windows.Forms.DataGridView();
             this.cbbClass = new System.Windows.Forms.ComboBox();
+            this.btCreateQR = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picQR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudent)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,14 +91,14 @@
             this.label1.Text = "Student Management";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
+            // picQR
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 69);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(444, 410);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.picQR.Location = new System.Drawing.Point(12, 69);
+            this.picQR.Name = "picQR";
+            this.picQR.Size = new System.Drawing.Size(444, 331);
+            this.picQR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picQR.TabIndex = 1;
+            this.picQR.TabStop = false;
             // 
             // label2
             // 
@@ -177,6 +178,7 @@
             this.dtDob.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDob.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dtDob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtDob.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtDob.Location = new System.Drawing.Point(645, 252);
             this.dtDob.Name = "dtDob";
             this.dtDob.Size = new System.Drawing.Size(382, 30);
@@ -219,21 +221,22 @@
             this.checkNu.Text = "Nữ";
             this.checkNu.UseVisualStyleBackColor = true;
             // 
-            // btSave
+            // btReset
             // 
-            this.btSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btSave.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.BorderSize = 0;
-            this.btSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
-            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btSave.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btSave.Location = new System.Drawing.Point(495, 435);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(115, 44);
-            this.btSave.TabIndex = 7;
-            this.btSave.Text = "Save";
-            this.btSave.UseVisualStyleBackColor = true;
+            this.btReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btReset.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.btReset.FlatAppearance.BorderSize = 0;
+            this.btReset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
+            this.btReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
+            this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btReset.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btReset.Location = new System.Drawing.Point(912, 435);
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(115, 44);
+            this.btReset.TabIndex = 7;
+            this.btReset.Text = "Reset";
+            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
             // btAdd
             // 
@@ -244,12 +247,13 @@
             this.btAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAdd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAdd.Location = new System.Drawing.Point(634, 435);
+            this.btAdd.Location = new System.Drawing.Point(495, 437);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(115, 44);
             this.btAdd.TabIndex = 7;
             this.btAdd.Text = "Add";
             this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // btUpdate
             // 
@@ -260,12 +264,13 @@
             this.btUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btUpdate.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btUpdate.Location = new System.Drawing.Point(773, 435);
+            this.btUpdate.Location = new System.Drawing.Point(636, 435);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(115, 44);
             this.btUpdate.TabIndex = 7;
             this.btUpdate.Text = "Update";
             this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // btDelete
             // 
@@ -276,12 +281,13 @@
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btDelete.Location = new System.Drawing.Point(912, 435);
+            this.btDelete.Location = new System.Drawing.Point(772, 435);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(115, 44);
             this.btDelete.TabIndex = 7;
             this.btDelete.Text = "Delete";
             this.btDelete.UseVisualStyleBackColor = true;
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // dgvStudent
             // 
@@ -293,6 +299,7 @@
             this.dgvStudent.RowTemplate.Height = 24;
             this.dgvStudent.Size = new System.Drawing.Size(1040, 185);
             this.dgvStudent.TabIndex = 8;
+            this.dgvStudent.SelectionChanged += new System.EventHandler(this.dgvStudent_SelectionChanged);
             // 
             // cbbClass
             // 
@@ -303,18 +310,36 @@
             this.cbbClass.Size = new System.Drawing.Size(382, 33);
             this.cbbClass.TabIndex = 10;
             // 
+            // btCreateQR
+            // 
+            this.btCreateQR.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btCreateQR.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.btCreateQR.FlatAppearance.BorderSize = 0;
+            this.btCreateQR.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
+            this.btCreateQR.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
+            this.btCreateQR.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCreateQR.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btCreateQR.Location = new System.Drawing.Point(152, 435);
+            this.btCreateQR.Name = "btCreateQR";
+            this.btCreateQR.Size = new System.Drawing.Size(162, 44);
+            this.btCreateQR.TabIndex = 11;
+            this.btCreateQR.Text = "Create QR";
+            this.btCreateQR.UseVisualStyleBackColor = true;
+            this.btCreateQR.Click += new System.EventHandler(this.btCreateQR_Click);
+            // 
             // FrmStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.Controls.Add(this.btCreateQR);
             this.Controls.Add(this.cbbClass);
             this.Controls.Add(this.dgvStudent);
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.btAdd);
-            this.Controls.Add(this.btSave);
+            this.Controls.Add(this.btReset);
             this.Controls.Add(this.checkNu);
             this.Controls.Add(this.checkNam);
             this.Controls.Add(this.dtDob);
@@ -327,16 +352,17 @@
             this.Controls.Add(this.txtSID);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picQR);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmStudent";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmStudent";
+            this.Load += new System.EventHandler(this.FrmStudent_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picQR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudent)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -348,7 +374,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbCancel;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picQR;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSID;
         private System.Windows.Forms.Label label3;
@@ -360,11 +386,12 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkNam;
         private System.Windows.Forms.CheckBox checkNu;
-        private System.Windows.Forms.Button btSave;
+        private System.Windows.Forms.Button btReset;
         private System.Windows.Forms.Button btAdd;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.DataGridView dgvStudent;
         private System.Windows.Forms.ComboBox cbbClass;
+        private System.Windows.Forms.Button btCreateQR;
     }
 }
