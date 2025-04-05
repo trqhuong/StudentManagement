@@ -10,15 +10,11 @@ using System.Windows.Forms;
 
 namespace PresentationLayer
 {
-    public partial class FrmSubject : Form
+    public partial class FrmExport: Form
     {
-        public FrmSubject()
+        public FrmExport()
         {
             InitializeComponent();
         }
-
-
-
-
     }
 }

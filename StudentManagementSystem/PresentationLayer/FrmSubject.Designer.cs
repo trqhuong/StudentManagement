@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lbCancel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvSubject = new System.Windows.Forms.DataGridView();
             this.btDelete = new System.Windows.Forms.Button();
@@ -49,26 +48,11 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lbCancel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-3, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1068, 65);
             this.panel1.TabIndex = 43;
-            // 
-            // lbCancel
-            // 
-            this.lbCancel.BackColor = System.Drawing.Color.MidnightBlue;
-            this.lbCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCancel.ForeColor = System.Drawing.Color.White;
-            this.lbCancel.Location = new System.Drawing.Point(1008, 8);
-            this.lbCancel.Name = "lbCancel";
-            this.lbCancel.Size = new System.Drawing.Size(44, 44);
-            this.lbCancel.TabIndex = 0;
-            this.lbCancel.Text = "X";
-            this.lbCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-          
             // 
             // label1
             // 
@@ -240,7 +224,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lbCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvSubject;
         private System.Windows.Forms.Button btDelete;

@@ -281,5 +281,10 @@ namespace PresentationLayer
                 }
             } 
         }
+
+        private void txtSID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
