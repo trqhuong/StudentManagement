@@ -32,7 +32,7 @@ namespace BusinessLayer
             string qrText = $"{maHS}_{tenHS}"; // Nội dung mã QR
 
             // Đường dẫn lưu ảnh QR
-            string folderPath = @"D:\QR_Codes\";
+            string folderPath = @"D:\StudentManagement\QR_Codes\";
             string fileName = $"{maHS}_{tenHS}.png";
             string filePath = Path.Combine(folderPath, fileName);
 
@@ -83,12 +83,10 @@ namespace BusinessLayer
             string status = studentDAO.getTinhTrang(maHS);
 
   
-            if (status == "Nghỉ Học")
+            if (status == "Đang học")
             {
                 return true;
             }
-
-          
             return false;
         }
     }

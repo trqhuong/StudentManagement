@@ -33,6 +33,7 @@
             this.lbCancel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pnLeft = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lbName = new System.Windows.Forms.Label();
             this.btStatistical = new System.Windows.Forms.Button();
             this.btSchedule = new System.Windows.Forms.Button();
@@ -42,12 +43,12 @@
             this.btStudent = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnbody = new System.Windows.Forms.Panel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btAttendance = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnLeft.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnbody.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -91,6 +92,7 @@
             // 
             this.pnLeft.BackColor = System.Drawing.Color.MidnightBlue;
             this.pnLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnLeft.Controls.Add(this.btAttendance);
             this.pnLeft.Controls.Add(this.pictureBox2);
             this.pnLeft.Controls.Add(this.lbName);
             this.pnLeft.Controls.Add(this.btStatistical);
@@ -103,6 +105,16 @@
             this.pnLeft.Name = "pnLeft";
             this.pnLeft.Size = new System.Drawing.Size(265, 722);
             this.pnLeft.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(53, 7);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(158, 161);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
             // 
             // lbName
             // 
@@ -126,7 +138,7 @@
             this.btStatistical.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btStatistical.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btStatistical.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btStatistical.Location = new System.Drawing.Point(25, 598);
+            this.btStatistical.Location = new System.Drawing.Point(25, 660);
             this.btStatistical.Name = "btStatistical";
             this.btStatistical.Size = new System.Drawing.Size(216, 50);
             this.btStatistical.TabIndex = 2;
@@ -143,7 +155,7 @@
             this.btSchedule.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btSchedule.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btSchedule.Location = new System.Drawing.Point(25, 525);
+            this.btSchedule.Location = new System.Drawing.Point(25, 592);
             this.btSchedule.Name = "btSchedule";
             this.btSchedule.Size = new System.Drawing.Size(216, 50);
             this.btSchedule.TabIndex = 2;
@@ -241,15 +253,22 @@
             this.pnbody.Size = new System.Drawing.Size(1076, 718);
             this.pnbody.TabIndex = 2;
             // 
-            // pictureBox2
+            // btAttendance
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(53, 7);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(158, 161);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
+            this.btAttendance.BackColor = System.Drawing.Color.White;
+            this.btAttendance.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btAttendance.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
+            this.btAttendance.FlatAppearance.BorderSize = 0;
+            this.btAttendance.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MidnightBlue;
+            this.btAttendance.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
+            this.btAttendance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btAttendance.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btAttendance.Location = new System.Drawing.Point(25, 522);
+            this.btAttendance.Name = "btAttendance";
+            this.btAttendance.Size = new System.Drawing.Size(216, 50);
+            this.btAttendance.TabIndex = 5;
+            this.btAttendance.Text = "Attendance";
+            this.btAttendance.UseVisualStyleBackColor = false;
             // 
             // FrmMain
             // 
@@ -272,9 +291,9 @@
             this.panel1.PerformLayout();
             this.pnLeft.ResumeLayout(false);
             this.pnLeft.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnbody.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -295,5 +314,6 @@
         private System.Windows.Forms.Panel pnbody;
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button btAttendance;
     }
 }

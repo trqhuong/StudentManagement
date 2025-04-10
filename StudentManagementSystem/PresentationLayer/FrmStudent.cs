@@ -136,30 +136,37 @@ namespace PresentationLayer
 
         private void btUpdate_Click(object sender, EventArgs e)
         {
-            if (dgvStudent.CurrentRow == null)
+            if (string.IsNullOrWhiteSpace(txtSID.Text))
             {
-                MessageBox.Show("Vui lòng chọn một học sinh để cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            string tenHS = txtSName.Text;
-            DateTime ngaySinh = dtDob.Value;
-            string gioiTinh = checkNam.Checked ? "Nam" : "Nữ";
-            string qrPath = dgvStudent.CurrentRow.Cells["QRCodePath"].Value?.ToString();
-            string tenLop = cbbClass.Text;
+                if (dgvStudent.CurrentRow == null)
+                {
+                    MessageBox.Show("Vui lòng chọn một học sinh để cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                string tenHS = txtSName.Text;
+                DateTime ngaySinh = dtDob.Value;
+                string gioiTinh = checkNam.Checked ? "Nam" : "Nữ";
+                string qrPath = dgvStudent.CurrentRow.Cells["QRCodePath"].Value?.ToString();
+                string tenLop = cbbClass.Text;
 
-            int maHS = (int)dgvStudent.CurrentRow.Cells["MaHS"].Value;
+                int maHS = (int)dgvStudent.CurrentRow.Cells["MaHS"].Value;
 
-            StudentsDTO hs = new StudentsDTO(maHS, tenHS, ngaySinh, gioiTinh, "Đang học", qrPath, tenLop);
+                StudentsDTO hs = new StudentsDTO(maHS, tenHS, ngaySinh, gioiTinh, "Đang học", qrPath, tenLop);
 
-         
-            if (studentsBUS.UpdateHocSinh(hs))
-            {
-                MessageBox.Show("Cập nhật học sinh thành công!");
-                LoadHocSinh(); 
+
+                if (studentsBUS.UpdateHocSinh(hs))
+                {
+                    MessageBox.Show("Cập nhật học sinh thành công!");
+                    LoadHocSinh();
+                }
+                else
+                {
+                    MessageBox.Show("Lỗi! Không thể cập nhật học sinh.");
+                }
             }
             else
             {
-                MessageBox.Show("Lỗi! Không thể cập nhật học sinh.");
+                MessageBox.Show("Học sinh chưa tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -270,7 +277,7 @@ namespace PresentationLayer
             DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa học sinh này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                if (studentsBUS.DeleteHocSinh(maHS) && studentsBUS.Check_TinhTrang(maHS))
+                if (studentsBUS.Check_TinhTrang(maHS) && studentsBUS.DeleteHocSinh(maHS))
                 {
                     MessageBox.Show("Xóa học sinh thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadHocSinh(); 
