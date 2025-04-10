@@ -16,6 +16,12 @@ namespace TransferObject
 
         public ClassDTO() { }
 
+        public ClassDTO(int maLop, string tenLop)
+        {
+            MaLop = maLop;
+            TenLop = tenLop;
+        }
+
         public ClassDTO(int maLop, string tenLop, string namHoc, string gvQuanLi, int siSo)
         {
             MaLop = maLop;
