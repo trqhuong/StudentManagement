@@ -359,7 +359,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-<<<<<<< HEAD
         private System.Windows.Forms.Label lbCancel;
         private System.Windows.Forms.PictureBox picQR;
         private System.Windows.Forms.Label label2;

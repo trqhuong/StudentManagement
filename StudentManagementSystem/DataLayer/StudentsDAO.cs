@@ -167,7 +167,7 @@ namespace DataLayer
             {
                 conn.Open();
 
-                string updateStatusQuery = "UPDATE HOCSINH SET TinhTrang = 'Nghỉ Học' WHERE MaHocSinh = @MaHocSinh";
+                string updateStatusQuery = "UPDATE HOCSINH SET TinhTrang = N'Nghỉ Học' WHERE MaHocSinh = @MaHocSinh";
 
                 using (SqlCommand cmd = new SqlCommand(updateStatusQuery, conn))
                 {
