@@ -50,10 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttendanceDTO.cs" />
+    <Compile Include="AssignmentDTO.cs" />
     <Compile Include="ClassDTO.cs" />
+    <Compile Include="DisplayScoreDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoreDTO.cs" />
     <Compile Include="StudentsDTO.cs" />
     <Compile Include="Student_ClassDTO.cs" />
+    <Compile Include="SubjectDTO.cs" />
+    <Compile Include="TeacherDTO.cs" />
+    <Compile Include="TeacherSubjectDTO.cs" />
     <Compile Include="UsersDTO.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
