@@ -194,6 +194,7 @@
             this.txtDiem15P.Size = new System.Drawing.Size(107, 34);
             this.txtDiem15P.TabIndex = 18;
             this.txtDiem15P.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDiem15P.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowDecimalOnly_KeyPress);
             // 
             // label8
             // 
@@ -214,6 +215,7 @@
             this.txtDiem1T.Size = new System.Drawing.Size(115, 34);
             this.txtDiem1T.TabIndex = 18;
             this.txtDiem1T.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDiem1T.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowDecimalOnly_KeyPress);
             // 
             // label9
             // 
@@ -234,6 +236,7 @@
             this.txtDiemThi.Size = new System.Drawing.Size(120, 34);
             this.txtDiemThi.TabIndex = 18;
             this.txtDiemThi.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDiemThi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowDecimalOnly_KeyPress);
             // 
             // groupBox1
             // 

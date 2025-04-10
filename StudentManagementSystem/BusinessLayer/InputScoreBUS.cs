@@ -28,9 +28,9 @@ namespace BusinessLayer
             return inputBUS.GetScore(class_id,subject_id);
         }
 
-        public bool SaveScore (int class_id, int student_id, int subject_id, float student_score15, float student_score1 , float student_score)
+        public void SaveScore (int class_id, int student_id, int subject_id, float student_score15, float student_score1 , float student_score)
         {
-            return inputBUS.SaveScore(class_id, student_id, subject_id, student_score15, student_score1, student_score);
+             inputBUS.SaveScore(class_id, student_id, subject_id, student_score15, student_score1, student_score);
         }
 
     }

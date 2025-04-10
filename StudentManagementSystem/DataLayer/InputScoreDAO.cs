@@ -94,15 +94,15 @@ namespace DataLayer
                         Convert.ToInt32(reader["MaHS"]),
                         Convert.ToInt32(reader["MaMH"]),
                         Convert.ToInt32(reader["HocKy"]),
-                        Convert.ToInt32(reader["Diem15P"]),
-                        Convert.ToInt32(reader["Diem1T"]),
-                        Convert.ToInt32(reader["DiemThi"])
+                        Convert.ToSingle(reader["Diem15P"]),
+                        Convert.ToSingle(reader["Diem1T"]),
+                        Convert.ToSingle(reader["DiemThi"])
                         ));
                 }
             }
             return scores;
         }
-        public bool SaveScore(int class_id, int student_id, int subject_id, float student_score15, float student_score1, float student_score)
+        public void SaveScore(int class_id, int student_id, int subject_id, float student_score15, float student_score1, float student_score)
         {
             using (SqlConnection conn = new SqlConnection(cnn))
             {
@@ -143,7 +143,6 @@ namespace DataLayer
                     updateCmd.Parameters.AddWithValue("@subject_id", subject_id);
                     updateCmd.Parameters.AddWithValue("@semester_id", semester);
                     updateCmd.ExecuteNonQuery();
-                    MessageBox.Show("Đã cập nhật điểm.");
                 }
                 else
                 {
@@ -159,10 +158,8 @@ namespace DataLayer
                     insertCmd.Parameters.AddWithValue("@student_score1", student_score1);
                     insertCmd.Parameters.AddWithValue("@student_score", student_score);
                     insertCmd.ExecuteNonQuery();
-                    MessageBox.Show("Đã thêm điểm mới.");
                 }
             }
-            return true;
         }
     }
 }

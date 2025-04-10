@@ -13,10 +13,10 @@ namespace TransferObject
         public int MaMH { get; set; }
         public int HocKy { get; set; }
         public float Diem15P { get; set; }
-        public int Diem1T { get; set; }
-        public int DiemThi { get; set; }
+        public float Diem1T { get; set; }
+        public float DiemThi { get; set; }
 
-        public ScoreDTO(int maLop, int maHS, int maMH, int hocKy, float diem15P, int diem1T, int diemThi)
+        public ScoreDTO(int maLop, int maHS, int maMH, int hocKy, float diem15P, float diem1T, float diemThi)
         {
             MaLop = maLop;
             MaHS = maHS;

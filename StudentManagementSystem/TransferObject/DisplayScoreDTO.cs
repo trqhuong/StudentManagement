@@ -17,7 +17,7 @@ namespace TransferObject
 
         public DisplayScoreDTO() { }
 
-        public DisplayScoreDTO(int maHS, int sTT, string tenHocSinh, int diem15P, int diem1T, int diemThi)
+        public DisplayScoreDTO(int maHS, int sTT, string tenHocSinh, float diem15P, float diem1T, float diemThi)
         {
             MaHS = maHS;
             STT = sTT;
