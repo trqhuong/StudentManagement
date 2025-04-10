@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -173,10 +176,6 @@
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
       <Project>{61332dd4-6749-4b60-9252-5b7b53988eaf}</Project>
       <Name>BusinessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
-      <Project>{f8670175-92d1-4512-b28f-0d4d96252659}</Project>
-      <Name>DataLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\TransferObject\TransferObject.csproj">
       <Project>{3df4945a-adec-43af-9aa7-e852ca1ccc30}</Project>

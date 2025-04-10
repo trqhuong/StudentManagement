@@ -27,6 +27,20 @@ namespace TransferObject
             this.tenLop = tenLop;
         }
 
+        public StudentsDTO(int maHocSinh, string tenHocSinh, DateTime ngaySinh, string gioiTinh, string tinhTrang, string qRCodePath)
+        {
+            MaHS = maHocSinh;
+            TenHS = tenHocSinh;
+            NgaySinh = ngaySinh;
+            GioiTinh = gioiTinh;
+            TinhTrang = tinhTrang;
+            QRCodePath = qRCodePath;
+        }
+        public StudentsDTO(int maHocSinh, string tenHocSinh)
+        {
+            MaHS = maHocSinh;
+            TenHS = tenHocSinh;
+        }
         public StudentsDTO( string tenHS, DateTime ngaySinh, string gioiTinh, string tinhTrang, string qRImage, string tenLop)
         {
           
