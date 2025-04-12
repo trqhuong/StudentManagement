@@ -55,6 +55,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttendanceBUS.cs" />
     <Compile Include="ClassBUS.cs" />
     <Compile Include="ClassListBUS.cs" />
     <Compile Include="InputScoreBUS.cs" />

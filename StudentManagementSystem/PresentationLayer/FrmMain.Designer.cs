@@ -33,6 +33,7 @@
             this.lbCancel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pnLeft = new System.Windows.Forms.Panel();
+            this.btAttendance = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lbName = new System.Windows.Forms.Label();
             this.btStatistical = new System.Windows.Forms.Button();
@@ -43,7 +44,6 @@
             this.btStudent = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnbody = new System.Windows.Forms.Panel();
-            this.btAttendance = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -105,6 +105,24 @@
             this.pnLeft.Name = "pnLeft";
             this.pnLeft.Size = new System.Drawing.Size(265, 722);
             this.pnLeft.TabIndex = 1;
+            // 
+            // btAttendance
+            // 
+            this.btAttendance.BackColor = System.Drawing.Color.White;
+            this.btAttendance.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btAttendance.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
+            this.btAttendance.FlatAppearance.BorderSize = 0;
+            this.btAttendance.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MidnightBlue;
+            this.btAttendance.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
+            this.btAttendance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btAttendance.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btAttendance.Location = new System.Drawing.Point(25, 522);
+            this.btAttendance.Name = "btAttendance";
+            this.btAttendance.Size = new System.Drawing.Size(216, 50);
+            this.btAttendance.TabIndex = 5;
+            this.btAttendance.Text = "Attendance";
+            this.btAttendance.UseVisualStyleBackColor = false;
+            this.btAttendance.Click += new System.EventHandler(this.btAttendance_Click);
             // 
             // pictureBox2
             // 
@@ -252,23 +270,6 @@
             this.pnbody.Name = "pnbody";
             this.pnbody.Size = new System.Drawing.Size(1076, 718);
             this.pnbody.TabIndex = 2;
-            // 
-            // btAttendance
-            // 
-            this.btAttendance.BackColor = System.Drawing.Color.White;
-            this.btAttendance.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btAttendance.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
-            this.btAttendance.FlatAppearance.BorderSize = 0;
-            this.btAttendance.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MidnightBlue;
-            this.btAttendance.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
-            this.btAttendance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btAttendance.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAttendance.Location = new System.Drawing.Point(25, 522);
-            this.btAttendance.Name = "btAttendance";
-            this.btAttendance.Size = new System.Drawing.Size(216, 50);
-            this.btAttendance.TabIndex = 5;
-            this.btAttendance.Text = "Attendance";
-            this.btAttendance.UseVisualStyleBackColor = false;
             // 
             // FrmMain
             // 

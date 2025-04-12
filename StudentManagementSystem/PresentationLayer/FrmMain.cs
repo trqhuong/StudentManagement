@@ -68,5 +68,9 @@ namespace PresentationLayer
             lbName.Text = Username;
         }
 
+        private void btAttendance_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FrmAttendance());
+        }
     }
 }
