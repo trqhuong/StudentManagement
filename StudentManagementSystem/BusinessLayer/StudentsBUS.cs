@@ -21,6 +21,10 @@ namespace BusinessLayer
         {
             return studentDAO.GetAllHocSinh();
         }
+        public StudentsDTO GetHocSinhById(int maHS)
+        {
+            return studentDAO.GetHocSinhById(maHS);
+        }
         public bool AddStudent(StudentsDTO hs,  int id)
         {
             return studentDAO.AddStudent(hs, id) > 0;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -205,6 +206,52 @@ namespace DataLayer
                     }
                 }
             }
+        }
+
+        public StudentsDTO GetHocSinhById(int maHS)
+        {
+            StudentsDTO student = null;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(cnn))
+                {
+                    conn.Open();
+                    string query = "SELECT hs.MaHocSinh, hs.TenHocSinh, hs.NgaySinh, hs.GioiTinh, hs.TinhTrang, hs.QRCodePath, l.TenLop " +
+                            "FROM HOCSINH hs " +
+                            "INNER JOIN HOCSINH_LOP hs_l ON hs.MaHocSinh = hs_l.MaHS " +
+                            "INNER JOIN LOPHOC l ON hs_l.MaLop = l.MaLop " +
+                            "WHERE hs.MaHocSinh = @MaHocSinh";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.Add("@MaHocSinh", SqlDbType.Int).Value = maHS;
+
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                student = new StudentsDTO(
+                                    Convert.ToInt32(reader["MaHocSinh"]),
+                                    reader["TenHocSinh"].ToString(),
+                                    Convert.ToDateTime(reader["NgaySinh"]),
+                                    reader["GioiTinh"].ToString(),
+                                    reader["TinhTrang"].ToString(),
+                                    reader["QRCodePath"] as string,
+                                    reader["TenLop"].ToString()
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi chung
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return student;
         }
     }
 }

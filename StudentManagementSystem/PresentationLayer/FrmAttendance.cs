@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TransferObject;
+using ZXing;
 
 namespace PresentationLayer
 {
@@ -60,7 +61,7 @@ namespace PresentationLayer
             {
                 daQuetQR = true; // Đánh dấu là đã quét để ngăn quét lại
 
-                this.Invoke(new MethodInvoker(delegate ()
+                this.Invoke(new MethodInvoker(delegate () 
                 {
                     string qrText = ketQua.ToString();
                     int maHS;
@@ -105,13 +106,13 @@ namespace PresentationLayer
                         }
                         else
                         {
-                            StopCamera();
+                           
                             MessageBox.Show("Không tìm thấy học sinh trong hệ thống.");
                         }
                     }
                     else
                     {
-                        StopCamera();
+                       
                         MessageBox.Show("Mã QR không hợp lệ.");
                     }
                 }));
@@ -134,18 +135,18 @@ namespace PresentationLayer
             // Giữ lại camera hiện tại để đảm bảo không bị "cam mới" ghi đè
             var currentCam = cam;
 
-            Task.Run(() =>
+            Task.Run(() => //tạo 1 task chạy ngầm, xử lý dừng cam mà ko làm chậm tới giao diện
             {
                 if (currentCam != null && currentCam.IsRunning)
                 {
-                    currentCam.SignalToStop();
-                    currentCam.WaitForStop();
-                    currentCam.NewFrame -= camFrame;
+                    currentCam.SignalToStop();    // Gửi yêu cầu dừng camera
+                    currentCam.WaitForStop();     // Chờ camera dừng hoàn toàn
+                    currentCam.NewFrame -= camFrame; // Gỡ bỏ event xử lý ảnh
                 }
 
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new MethodInvoker(() =>
+                    this.Invoke(new MethodInvoker(() => //kiểm tra có phải đang ở thread phụ hay không
                     {
                         picQR.Image = null;
                         daQuetQR = false;
@@ -159,26 +160,11 @@ namespace PresentationLayer
             // cam gán null ở ngoài (tránh bị null trước khi Task xử lý xong)
             cam = null;
         }
-        private void StopCamera()
-        {
-            if (cam != null)
-            {
-                if (cam.IsRunning)
-                {
-                    cam.SignalToStop();       // Yêu cầu camera dừng
-                    cam.WaitForStop();        // Chờ camera dừng hẳn
-                }
-
-                cam.NewFrame -= camFrame;     // Gỡ bỏ event để tránh gọi lại sau khi dừng
-                cam = null;                   // Giải phóng đối tượng camera
-                picQR.Image = null;
-                daQuetQR = false;             // Reset lại để sẵn sàng quét tiếp
-            }
-        }
+   
 
         private void btStopQR_Click(object sender, EventArgs e)
         {
-            SafeStopCamera();
+           SafeStopCamera();
         }
 
     }
