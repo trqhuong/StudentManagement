@@ -16,5 +16,17 @@ namespace BusinessLayer
         {
             return classDAO.GetAllLopHoc();
         }
+        public bool AddClass(ClassDTO clas)
+        {
+            return classDAO.AddClass(clas)>0;
+        }
+        public bool UpdateClass(ClassDTO clas)
+        {
+            return classDAO.UpdateClass(clas) > 0;
+        }
+        public bool DeleteClass(int maLop)
+        {
+            return classDAO.DeleteClass(maLop);
+        }
     }
 }

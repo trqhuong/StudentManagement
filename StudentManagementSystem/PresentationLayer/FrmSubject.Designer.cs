@@ -34,12 +34,12 @@
             this.btDelete = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.btSave = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtSID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSName = new System.Windows.Forms.TextBox();
+            this.btReset = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubject)).BeginInit();
             this.SuspendLayout();
@@ -76,6 +76,7 @@
             this.dgvSubject.RowTemplate.Height = 24;
             this.dgvSubject.Size = new System.Drawing.Size(1040, 185);
             this.dgvSubject.TabIndex = 53;
+            this.dgvSubject.SelectionChanged += new System.EventHandler(this.dgvSubject_SelectionChanged);
             // 
             // btDelete
             // 
@@ -86,12 +87,13 @@
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btDelete.Location = new System.Drawing.Point(912, 443);
+            this.btDelete.Location = new System.Drawing.Point(772, 443);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(115, 44);
             this.btDelete.TabIndex = 49;
             this.btDelete.Text = "Delete";
             this.btDelete.UseVisualStyleBackColor = true;
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // btUpdate
             // 
@@ -102,12 +104,13 @@
             this.btUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btUpdate.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btUpdate.Location = new System.Drawing.Point(773, 443);
+            this.btUpdate.Location = new System.Drawing.Point(633, 443);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(115, 44);
             this.btUpdate.TabIndex = 50;
             this.btUpdate.Text = "Update";
             this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // btAdd
             // 
@@ -118,28 +121,13 @@
             this.btAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAdd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAdd.Location = new System.Drawing.Point(634, 443);
+            this.btAdd.Location = new System.Drawing.Point(494, 443);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(115, 44);
             this.btAdd.TabIndex = 51;
             this.btAdd.Text = "Add";
             this.btAdd.UseVisualStyleBackColor = true;
-            // 
-            // btSave
-            // 
-            this.btSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btSave.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.BorderSize = 0;
-            this.btSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
-            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btSave.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btSave.Location = new System.Drawing.Point(495, 443);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(115, 44);
-            this.btSave.TabIndex = 52;
-            this.btSave.Text = "Save";
-            this.btSave.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // label4
             // 
@@ -192,18 +180,30 @@
             this.txtSName.Size = new System.Drawing.Size(382, 44);
             this.txtSName.TabIndex = 48;
             // 
+            // btReset
+            // 
+            this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btReset.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btReset.Location = new System.Drawing.Point(912, 443);
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(115, 44);
+            this.btReset.TabIndex = 54;
+            this.btReset.Text = "Reset";
+            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
+            // 
             // FrmSubject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.Controls.Add(this.btReset);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvSubject);
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.btAdd);
-            this.Controls.Add(this.btSave);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtSID);
@@ -213,6 +213,7 @@
             this.Name = "FrmSubject";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmSubject";
+            this.Load += new System.EventHandler(this.FrmSubject_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubject)).EndInit();
@@ -229,11 +230,11 @@
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btAdd;
-        private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtSID;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSName;
+        private System.Windows.Forms.Button btReset;
     }
 }
