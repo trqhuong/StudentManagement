@@ -34,7 +34,6 @@
             this.btDelete = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.btSave = new System.Windows.Forms.Button();
             this.checkNu = new System.Windows.Forms.CheckBox();
             this.checkNam = new System.Windows.Forms.CheckBox();
             this.dtDob = new System.Windows.Forms.DateTimePicker();
@@ -48,6 +47,7 @@
             this.txtTID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvTeacher = new System.Windows.Forms.DataGridView();
+            this.btReset = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTeacher)).BeginInit();
@@ -93,12 +93,13 @@
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btDelete.Location = new System.Drawing.Point(914, 431);
+            this.btDelete.Location = new System.Drawing.Point(769, 431);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(115, 44);
             this.btDelete.TabIndex = 20;
             this.btDelete.Text = "Delete";
             this.btDelete.UseVisualStyleBackColor = true;
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // btUpdate
             // 
@@ -109,12 +110,13 @@
             this.btUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btUpdate.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btUpdate.Location = new System.Drawing.Point(775, 431);
+            this.btUpdate.Location = new System.Drawing.Point(630, 431);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(115, 44);
             this.btUpdate.TabIndex = 21;
             this.btUpdate.Text = "Update";
             this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // btAdd
             // 
@@ -125,28 +127,13 @@
             this.btAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAdd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAdd.Location = new System.Drawing.Point(636, 431);
+            this.btAdd.Location = new System.Drawing.Point(491, 431);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(115, 44);
             this.btAdd.TabIndex = 22;
             this.btAdd.Text = "Add";
             this.btAdd.UseVisualStyleBackColor = true;
-            // 
-            // btSave
-            // 
-            this.btSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btSave.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.BorderSize = 0;
-            this.btSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
-            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btSave.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btSave.Location = new System.Drawing.Point(497, 431);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(115, 44);
-            this.btSave.TabIndex = 23;
-            this.btSave.Text = "Save";
-            this.btSave.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // checkNu
             // 
@@ -287,6 +274,19 @@
             this.dgvTeacher.RowTemplate.Height = 24;
             this.dgvTeacher.Size = new System.Drawing.Size(1040, 185);
             this.dgvTeacher.TabIndex = 24;
+            this.dgvTeacher.SelectionChanged += new System.EventHandler(this.dgvTeacher_SelectionChanged);
+            // 
+            // btReset
+            // 
+            this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btReset.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btReset.Location = new System.Drawing.Point(914, 431);
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(115, 44);
+            this.btReset.TabIndex = 25;
+            this.btReset.Text = "Reset";
+            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
             // FrmTeacher
             // 
@@ -294,11 +294,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.Controls.Add(this.btReset);
             this.Controls.Add(this.dgvTeacher);
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.btAdd);
-            this.Controls.Add(this.btSave);
             this.Controls.Add(this.checkNu);
             this.Controls.Add(this.checkNam);
             this.Controls.Add(this.dtDob);
@@ -317,6 +317,7 @@
             this.Name = "FrmTeacher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmTeacher";
+            this.Load += new System.EventHandler(this.FrmTeacher_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -334,7 +335,6 @@
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btAdd;
-        private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.CheckBox checkNu;
         private System.Windows.Forms.CheckBox checkNam;
         private System.Windows.Forms.DateTimePicker dtDob;
@@ -348,5 +348,6 @@
         private System.Windows.Forms.TextBox txtTID;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvTeacher;
+        private System.Windows.Forms.Button btReset;
     }
 }

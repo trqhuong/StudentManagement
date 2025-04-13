@@ -15,5 +15,9 @@ namespace TransferObject
             MaMH = maMH;
             TenMH = tenMH;
         }
+        public SubjectDTO(string tenMH)
+        {
+            TenMH = tenMH;
+        }
     }
 }
