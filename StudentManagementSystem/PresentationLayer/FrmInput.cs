@@ -180,5 +180,10 @@ namespace PresentationLayer
             resetForm();
             showScore(class_id, subject_id);
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
