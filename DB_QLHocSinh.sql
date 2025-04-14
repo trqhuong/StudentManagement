@@ -78,7 +78,8 @@ BEGIN
         NgaySinh DATE NOT NULL CHECK (NgaySinh <= GETDATE()),
         GioiTinh NVARCHAR(3) NOT NULL CHECK (GioiTinh IN (N'Nam', N'Nữ')),
         DienThoai NVARCHAR(15) NULL,
-        TaiKhoan INT NOT NULL,
+        TaiKhoan INT NULL,
+		TinhTrang NVARCHAR(50) NOT NULL DEFAULT N'Đang dạy',
 		FOREIGN KEY (TaiKhoan) REFERENCES dbo.TAIKHOAN(MaTK)
     );
 END
