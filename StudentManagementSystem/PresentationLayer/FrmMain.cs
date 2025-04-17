@@ -72,5 +72,17 @@ namespace PresentationLayer
         {
             OpenChildForm(new FrmAttendance());
         }
+
+        private void btLogout_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmLogin login = new FrmLogin();
+            login.Show();
+        }
+
+        private void btSchedule_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FrmSchedule());
+        }
     }
 }

@@ -44,6 +44,7 @@
             this.btStudent = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnbody = new System.Windows.Forms.Panel();
+            this.btLogout = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -95,6 +96,7 @@
             this.pnLeft.Controls.Add(this.btAttendance);
             this.pnLeft.Controls.Add(this.pictureBox2);
             this.pnLeft.Controls.Add(this.lbName);
+            this.pnLeft.Controls.Add(this.btLogout);
             this.pnLeft.Controls.Add(this.btStatistical);
             this.pnLeft.Controls.Add(this.btSchedule);
             this.pnLeft.Controls.Add(this.btSubject);
@@ -116,7 +118,7 @@
             this.btAttendance.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btAttendance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAttendance.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAttendance.Location = new System.Drawing.Point(25, 522);
+            this.btAttendance.Location = new System.Drawing.Point(25, 432);
             this.btAttendance.Name = "btAttendance";
             this.btAttendance.Size = new System.Drawing.Size(216, 50);
             this.btAttendance.TabIndex = 5;
@@ -127,9 +129,9 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(53, 7);
+            this.pictureBox2.Location = new System.Drawing.Point(78, 3);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(158, 161);
+            this.pictureBox2.Size = new System.Drawing.Size(111, 111);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
@@ -139,7 +141,7 @@
             this.lbName.AutoSize = true;
             this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbName.ForeColor = System.Drawing.Color.AliceBlue;
-            this.lbName.Location = new System.Drawing.Point(91, 171);
+            this.lbName.Location = new System.Drawing.Point(96, 117);
             this.lbName.Name = "lbName";
             this.lbName.Size = new System.Drawing.Size(78, 29);
             this.lbName.TabIndex = 3;
@@ -156,7 +158,7 @@
             this.btStatistical.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btStatistical.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btStatistical.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btStatistical.Location = new System.Drawing.Point(25, 660);
+            this.btStatistical.Location = new System.Drawing.Point(25, 570);
             this.btStatistical.Name = "btStatistical";
             this.btStatistical.Size = new System.Drawing.Size(216, 50);
             this.btStatistical.TabIndex = 2;
@@ -173,12 +175,13 @@
             this.btSchedule.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btSchedule.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btSchedule.Location = new System.Drawing.Point(25, 592);
+            this.btSchedule.Location = new System.Drawing.Point(25, 502);
             this.btSchedule.Name = "btSchedule";
             this.btSchedule.Size = new System.Drawing.Size(216, 50);
             this.btSchedule.TabIndex = 2;
             this.btSchedule.Text = "Teaching Schedule";
             this.btSchedule.UseVisualStyleBackColor = false;
+            this.btSchedule.Click += new System.EventHandler(this.btSchedule_Click);
             // 
             // btSubject
             // 
@@ -190,7 +193,7 @@
             this.btSubject.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btSubject.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btSubject.Location = new System.Drawing.Point(25, 454);
+            this.btSubject.Location = new System.Drawing.Point(25, 364);
             this.btSubject.Name = "btSubject";
             this.btSubject.Size = new System.Drawing.Size(216, 50);
             this.btSubject.TabIndex = 2;
@@ -208,7 +211,7 @@
             this.btClass.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btClass.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btClass.Location = new System.Drawing.Point(25, 385);
+            this.btClass.Location = new System.Drawing.Point(25, 295);
             this.btClass.Name = "btClass";
             this.btClass.Size = new System.Drawing.Size(216, 50);
             this.btClass.TabIndex = 2;
@@ -226,7 +229,7 @@
             this.btTeacher.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btTeacher.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btTeacher.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btTeacher.Location = new System.Drawing.Point(25, 318);
+            this.btTeacher.Location = new System.Drawing.Point(25, 228);
             this.btTeacher.Name = "btTeacher";
             this.btTeacher.Size = new System.Drawing.Size(216, 50);
             this.btTeacher.TabIndex = 2;
@@ -244,7 +247,7 @@
             this.btStudent.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btStudent.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btStudent.Location = new System.Drawing.Point(25, 250);
+            this.btStudent.Location = new System.Drawing.Point(25, 160);
             this.btStudent.Name = "btStudent";
             this.btStudent.Size = new System.Drawing.Size(216, 50);
             this.btStudent.TabIndex = 2;
@@ -270,6 +273,24 @@
             this.pnbody.Name = "pnbody";
             this.pnbody.Size = new System.Drawing.Size(1076, 718);
             this.pnbody.TabIndex = 2;
+            // 
+            // btLogout
+            // 
+            this.btLogout.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btLogout.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.FlatAppearance.BorderSize = 0;
+            this.btLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btLogout.ForeColor = System.Drawing.Color.White;
+            this.btLogout.Location = new System.Drawing.Point(25, 648);
+            this.btLogout.Name = "btLogout";
+            this.btLogout.Size = new System.Drawing.Size(216, 50);
+            this.btLogout.TabIndex = 2;
+            this.btLogout.Text = "Log Out";
+            this.btLogout.UseVisualStyleBackColor = false;
+            this.btLogout.Click += new System.EventHandler(this.btLogout_Click);
             // 
             // FrmMain
             // 
@@ -316,5 +337,6 @@
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button btAttendance;
+        private System.Windows.Forms.Button btLogout;
     }
 }
