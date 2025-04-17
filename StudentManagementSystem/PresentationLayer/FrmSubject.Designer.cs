@@ -70,11 +70,11 @@
             // 
             this.dgvSubject.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvSubject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSubject.Location = new System.Drawing.Point(10, 511);
+            this.dgvSubject.Location = new System.Drawing.Point(10, 347);
             this.dgvSubject.Name = "dgvSubject";
             this.dgvSubject.RowHeadersWidth = 51;
             this.dgvSubject.RowTemplate.Height = 24;
-            this.dgvSubject.Size = new System.Drawing.Size(1040, 185);
+            this.dgvSubject.Size = new System.Drawing.Size(1040, 349);
             this.dgvSubject.TabIndex = 53;
             this.dgvSubject.SelectionChanged += new System.EventHandler(this.dgvSubject_SelectionChanged);
             // 
@@ -87,7 +87,7 @@
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btDelete.Location = new System.Drawing.Point(772, 443);
+            this.btDelete.Location = new System.Drawing.Point(540, 249);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(115, 44);
             this.btDelete.TabIndex = 49;
@@ -104,7 +104,7 @@
             this.btUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btUpdate.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btUpdate.Location = new System.Drawing.Point(633, 443);
+            this.btUpdate.Location = new System.Drawing.Point(401, 249);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(115, 44);
             this.btUpdate.TabIndex = 50;
@@ -121,7 +121,7 @@
             this.btAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAdd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAdd.Location = new System.Drawing.Point(494, 443);
+            this.btAdd.Location = new System.Drawing.Point(262, 249);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(115, 44);
             this.btAdd.TabIndex = 51;
@@ -134,7 +134,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(490, 216);
+            this.label4.Location = new System.Drawing.Point(536, 160);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 25);
             this.label4.TabIndex = 44;
@@ -145,7 +145,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(490, 155);
+            this.label3.Location = new System.Drawing.Point(30, 160);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 25);
             this.label3.TabIndex = 45;
@@ -154,10 +154,10 @@
             // txtSID
             // 
             this.txtSID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSID.Location = new System.Drawing.Point(645, 136);
+            this.txtSID.Location = new System.Drawing.Point(185, 141);
             this.txtSID.Multiline = true;
             this.txtSID.Name = "txtSID";
-            this.txtSID.Size = new System.Drawing.Size(382, 44);
+            this.txtSID.Size = new System.Drawing.Size(311, 44);
             this.txtSID.TabIndex = 47;
             // 
             // label2
@@ -165,7 +165,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(744, 83);
+            this.label2.Location = new System.Drawing.Point(466, 83);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(143, 29);
             this.label2.TabIndex = 46;
@@ -174,17 +174,17 @@
             // txtSName
             // 
             this.txtSName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSName.Location = new System.Drawing.Point(645, 197);
+            this.txtSName.Location = new System.Drawing.Point(691, 141);
             this.txtSName.Multiline = true;
             this.txtSName.Name = "txtSName";
-            this.txtSName.Size = new System.Drawing.Size(382, 44);
+            this.txtSName.Size = new System.Drawing.Size(311, 44);
             this.txtSName.TabIndex = 48;
             // 
             // btReset
             // 
             this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btReset.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btReset.Location = new System.Drawing.Point(912, 443);
+            this.btReset.Location = new System.Drawing.Point(680, 249);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(115, 44);
             this.btReset.TabIndex = 54;
