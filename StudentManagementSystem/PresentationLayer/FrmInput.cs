@@ -29,33 +29,40 @@ namespace PresentationLayer
             cbbSubject.DataSource = subjects;
             cbbSubject.DisplayMember = "TenMH";
             cbbSubject.ValueMember = "MaMH";
-            //thiết kế column
-            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaHS", DataPropertyName = "MaHS", HeaderText = "MaHS", Width = 50 });
-            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "STT", DataPropertyName = "STT", HeaderText = "STT", Width = 50 });
-            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenHocSinh", DataPropertyName = "TenHocSinh", HeaderText = "Họ và tên", Width = 250 });
-            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "Diem15P", DataPropertyName = "Diem15P", HeaderText = "Điểm 15 phút", Width = 100 });
-            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "Diem1T", DataPropertyName = "Diem1T", HeaderText = "Điểm 1 tiết", Width = 100 });
-            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "DiemThi", DataPropertyName = "DiemThi", HeaderText = "Điểm Thi", Width = 100 });
-            dgvScore.Columns["MaHS"].Visible = false;
-            // Font & màu
-            dgvScore.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgvScore.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dgvScore.DefaultCellStyle.BackColor = Color.White;
-            dgvScore.EnableHeadersVisualStyles = false;
-            dgvScore.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
-            dgvScore.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            // Căn giữa header
-            dgvScore.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            // Không cho chỉnh sửa
-            dgvScore.ReadOnly = true;
-            // Giãn cột cho vừa
-            dgvScore.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            // Không cho thêm/sửa/xoá dòng
-            dgvScore.AllowUserToAddRows = false;
-            dgvScore.AllowUserToDeleteRows = false;
-            dgvScore.AllowUserToOrderColumns = false;
-            // Không cho chọn nhiều
-            dgvScore.MultiSelect = false;          
+        }
+
+        public void designData()
+        {
+            if(dgvScore.Columns.Count == 0)
+            {
+                //thiết kế column
+                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaHS", DataPropertyName = "MaHS", HeaderText = "MaHS", Width = 50 });
+                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "STT", DataPropertyName = "STT", HeaderText = "STT", Width = 50 });
+                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenHocSinh", DataPropertyName = "TenHocSinh", HeaderText = "Họ và tên", Width = 250 });
+                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "Diem15P", DataPropertyName = "DiemSo1", HeaderText = "Điểm 15 phút", Width = 100 });
+                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "Diem1T", DataPropertyName = "DiemSo2", HeaderText = "Điểm 1 tiết", Width = 100 });
+                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "DiemThi", DataPropertyName = "DiemSo3", HeaderText = "Điểm Thi", Width = 100 });
+                dgvScore.Columns["MaHS"].Visible = false;
+                // Font & màu
+                dgvScore.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                dgvScore.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                dgvScore.DefaultCellStyle.BackColor = Color.White;
+                dgvScore.EnableHeadersVisualStyles = false;
+                dgvScore.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
+                dgvScore.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                // Căn giữa header
+                dgvScore.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                // Không cho chỉnh sửa
+                dgvScore.ReadOnly = true;
+                // Giãn cột cho vừa
+                dgvScore.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                // Không cho thêm/sửa/xoá dòng
+                dgvScore.AllowUserToAddRows = false;
+                dgvScore.AllowUserToDeleteRows = false;
+                dgvScore.AllowUserToOrderColumns = false;
+                // Không cho chọn nhiều
+                dgvScore.MultiSelect = false;
+            }    
         }
 
         public void resetForm()
@@ -78,9 +85,9 @@ namespace PresentationLayer
                     MaHS = s.MaHS,
                     STT = index + 1,
                     TenHocSinh = s.TenHS,
-                    Diem15P = score?.Diem15P ?? 0,
-                    Diem1T = score?.Diem1T ?? 0,
-                    DiemThi = score?.DiemThi ?? 0
+                    DiemSo1 = score?.Diem15P ?? 0,
+                    DiemSo2 = score?.Diem1T ?? 0,
+                    DiemSo3 = score?.DiemThi ?? 0
                 };
             }).ToList();
             dgvScore.DataSource = displayList;
@@ -110,6 +117,7 @@ namespace PresentationLayer
         private void cbbSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvScore.DataSource = null;
+            designData();
             if (cbbSubject.SelectedValue != null && int.TryParse(cbbSubject.SelectedValue?.ToString(), out int subject_id) && subject_id > 0)
             {
                 List<ClassDTO> classes = inputScore.GetAssignmentClass(1, subject_id);
@@ -139,6 +147,7 @@ namespace PresentationLayer
             else
             {
                 dgvScore.DataSource = null;
+                designData();
             }    
         }
 
