@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransferObject
 {
-    class AssignmentDTO
+   public class AssignmentDTO
     {
         public int MaGV { get; set; }
         public int MaLop { get; set; }

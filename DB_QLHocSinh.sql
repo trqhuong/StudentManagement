@@ -79,7 +79,8 @@ BEGIN
         GioiTinh NVARCHAR(3) NOT NULL CHECK (GioiTinh IN (N'Nam', N'Nữ')),
         DienThoai NVARCHAR(15) NULL,
         TaiKhoan INT NULL,
-		FOREIGN KEY (TaiKhoan) REFERENCES dbo.TAIKHOAN(MaTK)
+        TinhTrang NVARCHAR(50) NOT NULL DEFAULT N'Đang dạy',
+        FOREIGN KEY (TaiKhoan) REFERENCES dbo.TAIKHOAN(MaTK)
     );
 END
 GO

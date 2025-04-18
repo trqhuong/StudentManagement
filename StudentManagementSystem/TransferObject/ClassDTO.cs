@@ -30,5 +30,13 @@ namespace TransferObject
             GVQuanLi = gvQuanLi;
             SiSo = siSo;
         }
+
+        public ClassDTO(string tenLop,string namHoc, string gvQuanLi, int siSo)
+        {
+            TenLop = tenLop;
+            NamHoc = namHoc;
+            GVQuanLi = gvQuanLi;
+            SiSo = siSo;
+        }
     }
 }

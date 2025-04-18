@@ -49,12 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttendanceDAO.cs" />
     <Compile Include="ClassDAO.cs" />
     <Compile Include="ClassListDAO.cs" />
     <Compile Include="ExportScoreDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentsDAO.cs" />
     <Compile Include="InputScoreDAO.cs" />
+    <Compile Include="SubjectDAO.cs" />
+    <Compile Include="TeacherDAO.cs" />
     <Compile Include="UsersDAO.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -80,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TransferObject\TransferObject.csproj">
-      <Project>{3DF4945A-ADEC-43AF-9AA7-E852CA1CCC30}</Project>
+      <Project>{3df4945a-adec-43af-9aa7-e852ca1ccc30}</Project>
       <Name>TransferObject</Name>
     </ProjectReference>
   </ItemGroup>

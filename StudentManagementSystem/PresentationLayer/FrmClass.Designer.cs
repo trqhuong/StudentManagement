@@ -32,9 +32,6 @@
             this.btDelete = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.btSave = new System.Windows.Forms.Button();
-            this.dtDate = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -46,6 +43,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtCTID = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.btReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,12 +52,13 @@
             // 
             this.dgvClass.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClass.Location = new System.Drawing.Point(10, 511);
+            this.dgvClass.Location = new System.Drawing.Point(10, 400);
             this.dgvClass.Name = "dgvClass";
             this.dgvClass.RowHeadersWidth = 51;
             this.dgvClass.RowTemplate.Height = 24;
-            this.dgvClass.Size = new System.Drawing.Size(1040, 185);
+            this.dgvClass.Size = new System.Drawing.Size(1040, 296);
             this.dgvClass.TabIndex = 42;
+            this.dgvClass.SelectionChanged += new System.EventHandler(this.dgvClass_SelectionChanged);
             // 
             // btDelete
             // 
@@ -70,12 +69,13 @@
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btDelete.Location = new System.Drawing.Point(912, 443);
+            this.btDelete.Location = new System.Drawing.Point(548, 301);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(115, 44);
             this.btDelete.TabIndex = 9;
             this.btDelete.Text = "Delete";
             this.btDelete.UseVisualStyleBackColor = true;
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // btUpdate
             // 
@@ -86,12 +86,13 @@
             this.btUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btUpdate.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btUpdate.Location = new System.Drawing.Point(773, 443);
+            this.btUpdate.Location = new System.Drawing.Point(409, 301);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(115, 44);
             this.btUpdate.TabIndex = 8;
             this.btUpdate.Text = "Update";
             this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // btAdd
             // 
@@ -102,56 +103,20 @@
             this.btAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAdd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAdd.Location = new System.Drawing.Point(634, 443);
+            this.btAdd.Location = new System.Drawing.Point(270, 301);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(115, 44);
             this.btAdd.TabIndex = 7;
             this.btAdd.Text = "Add";
             this.btAdd.UseVisualStyleBackColor = true;
-            // 
-            // btSave
-            // 
-            this.btSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btSave.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.BorderSize = 0;
-            this.btSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
-            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btSave.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btSave.Location = new System.Drawing.Point(495, 443);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(115, 44);
-            this.btSave.TabIndex = 6;
-            this.btSave.Text = "Save";
-            this.btSave.UseVisualStyleBackColor = true;
-            // 
-            // dtDate
-            // 
-            this.dtDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtDate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dtDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtDate.Location = new System.Drawing.Point(645, 381);
-            this.dtDate.Name = "dtDate";
-            this.dtDate.Size = new System.Drawing.Size(382, 30);
-            this.dtDate.TabIndex = 5;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(490, 386);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 25);
-            this.label7.TabIndex = 26;
-            this.label7.Text = "Date:";
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(490, 277);
+            this.label5.Location = new System.Drawing.Point(547, 159);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 25);
             this.label5.TabIndex = 27;
@@ -162,7 +127,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(490, 216);
+            this.label4.Location = new System.Drawing.Point(32, 220);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(120, 25);
             this.label4.TabIndex = 28;
@@ -173,7 +138,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(490, 155);
+            this.label3.Location = new System.Drawing.Point(32, 159);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 25);
             this.label3.TabIndex = 29;
@@ -182,19 +147,19 @@
             // txtCNumber
             // 
             this.txtCNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCNumber.Location = new System.Drawing.Point(645, 258);
+            this.txtCNumber.Location = new System.Drawing.Point(702, 140);
             this.txtCNumber.Multiline = true;
             this.txtCNumber.Name = "txtCNumber";
-            this.txtCNumber.Size = new System.Drawing.Size(382, 44);
+            this.txtCNumber.Size = new System.Drawing.Size(304, 44);
             this.txtCNumber.TabIndex = 3;
             // 
             // txtCID
             // 
             this.txtCID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCID.Location = new System.Drawing.Point(645, 136);
+            this.txtCID.Location = new System.Drawing.Point(187, 140);
             this.txtCID.Multiline = true;
             this.txtCID.Name = "txtCID";
-            this.txtCID.Size = new System.Drawing.Size(382, 44);
+            this.txtCID.Size = new System.Drawing.Size(304, 44);
             this.txtCID.TabIndex = 1;
             // 
             // label2
@@ -202,7 +167,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(744, 83);
+            this.label2.Location = new System.Drawing.Point(466, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(143, 29);
             this.label2.TabIndex = 30;
@@ -223,10 +188,10 @@
             // txtCName
             // 
             this.txtCName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCName.Location = new System.Drawing.Point(645, 197);
+            this.txtCName.Location = new System.Drawing.Point(187, 201);
             this.txtCName.Multiline = true;
             this.txtCName.Name = "txtCName";
-            this.txtCName.Size = new System.Drawing.Size(382, 44);
+            this.txtCName.Size = new System.Drawing.Size(304, 44);
             this.txtCName.TabIndex = 2;
             // 
             // panel1
@@ -242,10 +207,10 @@
             // txtCTID
             // 
             this.txtCTID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCTID.Location = new System.Drawing.Point(645, 319);
+            this.txtCTID.Location = new System.Drawing.Point(702, 201);
             this.txtCTID.Multiline = true;
             this.txtCTID.Name = "txtCTID";
-            this.txtCTID.Size = new System.Drawing.Size(382, 44);
+            this.txtCTID.Size = new System.Drawing.Size(304, 44);
             this.txtCTID.TabIndex = 4;
             // 
             // label6
@@ -253,11 +218,23 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(490, 338);
+            this.label6.Location = new System.Drawing.Point(547, 220);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(110, 25);
             this.label6.TabIndex = 29;
             this.label6.Text = "TeacherID:";
+            // 
+            // btReset
+            // 
+            this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btReset.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btReset.Location = new System.Drawing.Point(688, 301);
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(115, 44);
+            this.btReset.TabIndex = 55;
+            this.btReset.Text = "Reset";
+            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
             // FrmClass
             // 
@@ -265,13 +242,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.Controls.Add(this.btReset);
             this.Controls.Add(this.dgvClass);
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.btAdd);
-            this.Controls.Add(this.btSave);
-            this.Controls.Add(this.dtDate);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label6);
@@ -286,6 +261,7 @@
             this.Name = "FrmClass";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmClass";
+            this.Load += new System.EventHandler(this.FrmClass_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -300,9 +276,6 @@
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btAdd;
-        private System.Windows.Forms.Button btSave;
-        private System.Windows.Forms.DateTimePicker dtDate;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -314,5 +287,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtCTID;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btReset;
     }
 }

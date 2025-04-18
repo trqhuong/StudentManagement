@@ -30,11 +30,9 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btDelete = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.btSave = new System.Windows.Forms.Button();
             this.checkNu = new System.Windows.Forms.CheckBox();
             this.checkNam = new System.Windows.Forms.CheckBox();
             this.dtDob = new System.Windows.Forms.DateTimePicker();
@@ -48,8 +46,8 @@
             this.txtTID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvTeacher = new System.Windows.Forms.DataGridView();
+            this.btReset = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTeacher)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,15 +73,6 @@
             this.label1.Text = "Teacher Management";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 71);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(444, 410);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
             // btDelete
             // 
             this.btDelete.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -93,12 +82,13 @@
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btDelete.Location = new System.Drawing.Point(914, 431);
+            this.btDelete.Location = new System.Drawing.Point(532, 324);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(115, 44);
             this.btDelete.TabIndex = 20;
             this.btDelete.Text = "Delete";
             this.btDelete.UseVisualStyleBackColor = true;
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // btUpdate
             // 
@@ -109,12 +99,13 @@
             this.btUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btUpdate.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btUpdate.Location = new System.Drawing.Point(775, 431);
+            this.btUpdate.Location = new System.Drawing.Point(393, 324);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(115, 44);
             this.btUpdate.TabIndex = 21;
             this.btUpdate.Text = "Update";
             this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // btAdd
             // 
@@ -125,28 +116,13 @@
             this.btAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAdd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAdd.Location = new System.Drawing.Point(636, 431);
+            this.btAdd.Location = new System.Drawing.Point(254, 324);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(115, 44);
             this.btAdd.TabIndex = 22;
             this.btAdd.Text = "Add";
             this.btAdd.UseVisualStyleBackColor = true;
-            // 
-            // btSave
-            // 
-            this.btSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btSave.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.BorderSize = 0;
-            this.btSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
-            this.btSave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
-            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btSave.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btSave.Location = new System.Drawing.Point(497, 431);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(115, 44);
-            this.btSave.TabIndex = 23;
-            this.btSave.Text = "Save";
-            this.btSave.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // checkNu
             // 
@@ -154,7 +130,7 @@
             this.checkNu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkNu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkNu.ForeColor = System.Drawing.Color.White;
-            this.checkNu.Location = new System.Drawing.Point(769, 365);
+            this.checkNu.Location = new System.Drawing.Point(830, 200);
             this.checkNu.Name = "checkNu";
             this.checkNu.Size = new System.Drawing.Size(59, 29);
             this.checkNu.TabIndex = 19;
@@ -167,7 +143,7 @@
             this.checkNam.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkNam.ForeColor = System.Drawing.Color.White;
-            this.checkNam.Location = new System.Drawing.Point(647, 365);
+            this.checkNam.Location = new System.Drawing.Point(708, 200);
             this.checkNam.Name = "checkNam";
             this.checkNam.Size = new System.Drawing.Size(75, 29);
             this.checkNam.TabIndex = 18;
@@ -179,9 +155,9 @@
             this.dtDob.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDob.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dtDob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtDob.Location = new System.Drawing.Point(647, 309);
+            this.dtDob.Location = new System.Drawing.Point(708, 144);
             this.dtDob.Name = "dtDob";
-            this.dtDob.Size = new System.Drawing.Size(382, 30);
+            this.dtDob.Size = new System.Drawing.Size(301, 30);
             this.dtDob.TabIndex = 17;
             // 
             // label7
@@ -189,7 +165,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(492, 314);
+            this.label7.Location = new System.Drawing.Point(586, 149);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 25);
             this.label7.TabIndex = 8;
@@ -200,7 +176,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(492, 366);
+            this.label6.Location = new System.Drawing.Point(586, 201);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(83, 25);
             this.label6.TabIndex = 13;
@@ -211,7 +187,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(492, 265);
+            this.label5.Location = new System.Drawing.Point(34, 265);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 25);
             this.label5.TabIndex = 9;
@@ -222,7 +198,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(492, 204);
+            this.label4.Location = new System.Drawing.Point(34, 204);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(143, 25);
             this.label4.TabIndex = 10;
@@ -233,7 +209,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(492, 143);
+            this.label3.Location = new System.Drawing.Point(34, 143);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(110, 25);
             this.label3.TabIndex = 11;
@@ -242,28 +218,28 @@
             // txtTPhone
             // 
             this.txtTPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTPhone.Location = new System.Drawing.Point(647, 246);
+            this.txtTPhone.Location = new System.Drawing.Point(189, 246);
             this.txtTPhone.Multiline = true;
             this.txtTPhone.Name = "txtTPhone";
-            this.txtTPhone.Size = new System.Drawing.Size(382, 44);
+            this.txtTPhone.Size = new System.Drawing.Size(301, 44);
             this.txtTPhone.TabIndex = 16;
             // 
             // txtTName
             // 
             this.txtTName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTName.Location = new System.Drawing.Point(647, 185);
+            this.txtTName.Location = new System.Drawing.Point(189, 185);
             this.txtTName.Multiline = true;
             this.txtTName.Name = "txtTName";
-            this.txtTName.Size = new System.Drawing.Size(382, 44);
+            this.txtTName.Size = new System.Drawing.Size(301, 44);
             this.txtTName.TabIndex = 15;
             // 
             // txtTID
             // 
             this.txtTID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTID.Location = new System.Drawing.Point(647, 124);
+            this.txtTID.Location = new System.Drawing.Point(189, 124);
             this.txtTID.Multiline = true;
             this.txtTID.Name = "txtTID";
-            this.txtTID.Size = new System.Drawing.Size(382, 44);
+            this.txtTID.Size = new System.Drawing.Size(301, 44);
             this.txtTID.TabIndex = 14;
             // 
             // label2
@@ -271,7 +247,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(746, 71);
+            this.label2.Location = new System.Drawing.Point(448, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(143, 29);
             this.label2.TabIndex = 12;
@@ -281,12 +257,25 @@
             // 
             this.dgvTeacher.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvTeacher.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTeacher.Location = new System.Drawing.Point(12, 499);
+            this.dgvTeacher.Location = new System.Drawing.Point(12, 408);
             this.dgvTeacher.Name = "dgvTeacher";
             this.dgvTeacher.RowHeadersWidth = 51;
             this.dgvTeacher.RowTemplate.Height = 24;
-            this.dgvTeacher.Size = new System.Drawing.Size(1040, 185);
+            this.dgvTeacher.Size = new System.Drawing.Size(1040, 276);
             this.dgvTeacher.TabIndex = 24;
+            this.dgvTeacher.SelectionChanged += new System.EventHandler(this.dgvTeacher_SelectionChanged);
+            // 
+            // btReset
+            // 
+            this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btReset.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btReset.Location = new System.Drawing.Point(677, 324);
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(115, 44);
+            this.btReset.TabIndex = 25;
+            this.btReset.Text = "Reset";
+            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
             // FrmTeacher
             // 
@@ -294,11 +283,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.Controls.Add(this.btReset);
             this.Controls.Add(this.dgvTeacher);
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.btAdd);
-            this.Controls.Add(this.btSave);
             this.Controls.Add(this.checkNu);
             this.Controls.Add(this.checkNam);
             this.Controls.Add(this.dtDob);
@@ -311,15 +300,14 @@
             this.Controls.Add(this.txtTName);
             this.Controls.Add(this.txtTID);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmTeacher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmTeacher";
+            this.Load += new System.EventHandler(this.FrmTeacher_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTeacher)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -330,11 +318,9 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btAdd;
-        private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.CheckBox checkNu;
         private System.Windows.Forms.CheckBox checkNam;
         private System.Windows.Forms.DateTimePicker dtDob;
@@ -348,5 +334,6 @@
         private System.Windows.Forms.TextBox txtTID;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvTeacher;
+        private System.Windows.Forms.Button btReset;
     }
 }
