@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,18 @@ namespace DataLayer
                 }
             }
         }
-        
+        public void ChangeStatus(string username)
+        {
+            using (SqlConnection conn = new SqlConnection(cnn))
+            {
+                conn.Open();
+                string query = "UPDATE TAIKHOAN " +
+                    "SET TrangThai = 1 WHERE TenTaiKhoan = @username";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
     }
 }

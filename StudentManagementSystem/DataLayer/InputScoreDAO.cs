@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -12,44 +13,42 @@ namespace DataLayer
     public class InputScoreDAO
     {
         private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
-        public List<SubjectDTO> GetAssignmentSubject (int teacher_id)
+        public List<SubjectDTO> GetAssignmentSubject(int teacher_id)
         {
             List<SubjectDTO> subjects = new List<SubjectDTO>();
             using (SqlConnection conn = new SqlConnection(cnn))
             {
                 conn.Open();
-                string query = "SELECT * FROM MONHOC where MaMonHoc in ( SELECT MaMH FROM PHANCONG " +
-                    "where MaGV = @teacher_id)";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@teacher_id", teacher_id);
+                SqlCommand cmd = new SqlCommand("sp_GetAssignmentSubject", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaGV", teacher_id);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     subjects.Add(new SubjectDTO(
                         Convert.ToInt32(reader["MaMonHoc"]),
                         reader["TenMonHoc"].ToString()
-                        ));
+                    ));
                 }
             }
             return subjects;
         }
-        public List<ClassDTO> GetAssignmentClass(int teacher_id, int subject_id )
+        public List<ClassDTO> GetAssignmentClass(int teacher_id, int subject_id)
         {
             List<ClassDTO> classes = new List<ClassDTO>();
             using (SqlConnection conn = new SqlConnection(cnn))
             {
                 conn.Open();
-                string query = "SELECT * FROM LOPHOC WHERE MaLop in (SELECT p.MaLop FROM PHANCONG p, LOPHOC l, NAMHOC m " +
-                    "where p.MaLop = l.MaLop and l.NamHoc = m.MaNH and p.MaGV = @teacher_id and p.MaMH = @subject_id and m.TrangThai = 1)";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@subject_id", subject_id);
-                cmd.Parameters.AddWithValue("@teacher_id", teacher_id);
+                SqlCommand cmd = new SqlCommand("sp_GetAssignmentClass", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaGV", teacher_id);
+                cmd.Parameters.AddWithValue("@MaMH", subject_id);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    classes.Add(new ClassDTO (
-                     Convert.ToInt32(reader["MaLop"]),
-                     reader["TenLop"].ToString()
+                    classes.Add(new ClassDTO(
+                        Convert.ToInt32(reader["MaLop"]),
+                        reader["TenLop"].ToString()
                     ));
                 }
             }
