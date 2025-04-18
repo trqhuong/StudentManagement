@@ -78,7 +78,7 @@ BEGIN
         NgaySinh DATE NOT NULL CHECK (NgaySinh <= GETDATE()),
         GioiTinh NVARCHAR(3) NOT NULL CHECK (GioiTinh IN (N'Nam', N'Nữ')),
         DienThoai NVARCHAR(15) NULL,
-        TaiKhoan INT NOT NULL,
+        TaiKhoan INT NULL,
 		FOREIGN KEY (TaiKhoan) REFERENCES dbo.TAIKHOAN(MaTK)
     );
 END
@@ -237,68 +237,67 @@ VALUES
     (1, 3, 1),
     (2, 3, 2),
     (3, 3, 3)
-/*-- BẢNG ĐIỂM
--- Lớp 12C1
-INSERT INTO BANGDIEM (MaGV, MaLop, MaMH, HocKy) VALUES 
-(1, 3, 1, 1),  
-(2, 3, 2, 1),  
-(3, 3, 3, 1);
--- Lớp 11B1
-INSERT INTO BANGDIEM (MaGV, MaLop, MaMH, HocKy) VALUES 
-(1, 2, 1, 1),  
-(2, 2, 2, 1),  
-(3, 2, 3, 1);
--- Lớp 10A1
-INSERT INTO BANGDIEM (MaGV, MaLop, MaMH, HocKy) VALUES 
-(1, 1, 1, 1),  
-(2, 1, 2, 1),  
-(3, 1, 3, 1);
 GO
--- ĐIỂM
-INSERT INTO DIEM (MaBD, MaHS, Diem, LoaiDiem, SoCot)
-VALUES 
-      -- HS001 - Lớp 12A1
-	(1, 1, 7.5, N'15P', 1),(1, 1, 8.5, N'1T', 1), (1, 1, 8.5, N'Thi', 1),
-	(2, 1, 6.5, N'15P', 1),(2, 1, 7.5, N'1T', 1), (2, 1, 8.5, N'Thi', 1),
-	(3, 1, 9.0, N'15P', 1),(3, 1, 9.0, N'1T', 1),(3, 1, 8.5, N'Thi', 1),
+--Stored Procedure: 
+-- Lấy môn học giáo viên đang dạy
+CREATE PROCEDURE sp_GetAssignmentSubject
+    @MaGV INT
+AS
+BEGIN
+    SELECT * 
+    FROM dbo.MONHOC
+    WHERE MaMonHoc IN (
+        SELECT MaMH 
+        FROM dbo.PHANCONG 
+        WHERE MaGV = @MaGV
+    );
+END
+GO
+--Lấy các lớp giáo viên đang dạy môn học này
+CREATE PROCEDURE sp_GetAssignmentClass
+    @MaGV INT,
+    @MaMH INT
+AS
+BEGIN
+    SELECT * 
+    FROM LOPHOC 
+    WHERE MaLop IN (
+        SELECT p.MaLop 
+        FROM PHANCONG p
+        JOIN LOPHOC l ON p.MaLop = l.MaLop
+        JOIN NAMHOC m ON l.NamHoc = m.MaNH
+        WHERE p.MaGV = @MaGV 
+          AND p.MaMH = @MaMH 
+          AND m.TrangThai = 1
+    );
+END
+GO
+-- Xuất điểm
+CREATE PROCEDURE sp_ExportScore
+    @MaLop INT,
+    @MaMH INT,
+    @MaNH INT
+AS
+BEGIN
+    SELECT 
+        hs.MaHocSinh,
+        -- Tính điểm TB học kỳ 1
+		ROUND(AVG(CASE WHEN hk.SoHocKy = 1 THEN 
+			(ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0) * 2 + ISNULL(d.DiemThi, 0) * 3) / 6 
+		END), 1) AS DiemTBHK1,
 
-    -- HS002 - Lớp 12A1
-	(1, 2, 8.0, N'15P', 1),(1, 2, 8.0, N'1T', 1),(1, 2, 7.0, N'Thi', 1),
-	(2, 2, 7.5, N'15P', 1),(2, 2, 7.5, N'1T', 1),(2, 2, 6.5, N'Thi', 1),
-	(3, 2, 9.5, N'15P', 1),(3, 2, 9.0, N'1T', 1),(3, 2, 8.0, N'Thi', 1),
-
-    -- HS003 - Lớp 12A1
-	(1, 3, 6.5, N'15P', 1),(1, 3, 7.5, N'1T', 1),(1, 3, 7.5, N'Thi', 1),
-	(2, 3, 8.0, N'15P', 1), (2, 3, 8.0, N'1T', 1),(2, 3, 8.0, N'Thi', 1),
-	(3, 3, 9.0, N'15P', 1),(3, 3, 9.5, N'1T', 1),(3, 3, 9.5, N'Thi', 1),
-
-    -- HS004 - Lớp 11A1
-	(4, 4, 7.0, N'15P', 1),(4, 4, 8.0, N'1T', 1),(4, 4, 9.0, N'Thi', 1),
-	(5, 4, 6.0, N'15P', 1),(5, 4, 7.0, N'1T', 1), (5, 4, 5.0, N'Thi', 1),
-	(6, 4, 8.5, N'15P', 1),(6, 4, 9.0, N'1T', 1),(6, 4, 10.0, N'Thi', 1),
-
-    -- HS005 - Lớp 11A1
-	(4, 5, 6.5, N'15P', 1),(4, 5, 7.5, N'1T', 1),(4, 5, 7.5, N'Thi', 1),
-	(5, 5, 7.5, N'15P', 1),(5, 5, 8.5, N'1T', 1),(5, 5, 8.5, N'Thi', 1),
-	(6, 5, 9.0, N'15P', 1),(6, 5, 9.5, N'1T', 1),(6, 5, 9.0, N'Thi', 1),
-
-	-- HS006 - Lớp 11A1
-	(4, 6, 8, N'15P', 1),(4, 6, 7.5, N'1T', 1),(4, 6, 8.5, N'Thi', 1),
-	(5, 6, 7.5, N'15P', 1),(5, 6, 9, N'1T', 1),(5, 6, 8.5, N'Thi', 1),
-	(6, 6, 9.0, N'15P', 1),(6, 6, 9.5, N'1T', 1),(6, 6, 8.0, N'Thi', 1),
-
-    -- HS007 - Lớp 10A1
-	(7, 7, 8.5, N'15P', 1),(7, 7, 9.5, N'1T', 1),(7, 7, 8.0, N'Thi', 1),
-	(8, 7, 7.0, N'15P', 1),(8, 7, 8.0, N'1T', 1), (8, 7, 6.0, N'Thi', 1),
-	(9, 7, 8.5, N'15P', 1),(9, 7, 9.5, N'1T', 1),(9, 7, 8.0, N'Thi', 1),
-
-    -- HS008 - Lớp 10A1
-	(7, 8, 5.5, N'15P', 1),(7, 8, 7.5, N'1T', 1),(7, 8, 5.0, N'Thi', 1),
-	(8, 8, 8.0, N'15P', 1),(8, 8, 9.0, N'1T', 1),(8, 8, 9.0, N'Thi', 1),
-	(9, 8, 9.5, N'15P', 1),(9, 8, 8.5, N'1T', 1),(9, 8, 6.0, N'Thi', 1),
-
-    -- HS009 - Lớp 10A1
-	(7, 9, 7.0, N'15P', 1),(7, 9, 8.0, N'1T', 1), (7, 9, 8.0, N'Thi', 1),
-	(8, 9, 6.5, N'15P', 1), (8, 9, 7.5, N'1T', 1),(8, 9, 7.5, N'Thi', 1),
-	(9, 9, 9.0, N'15P', 1), (9, 9, 9.5, N'1T', 1),(9, 9, 9.5, N'Thi', 1)
-GO*/
+		ROUND(AVG(CASE WHEN hk.SoHocKy = 2 THEN 
+			(ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0) * 2 + ISNULL(d.DiemThi, 0) * 3) / 6 
+		END), 1) AS DiemTBHK2
+    FROM DIEM d
+    INNER JOIN HOCSINH hs ON d.MaHS = hs.MaHocSinh
+    INNER JOIN MONHOC mh ON d.MaMH = mh.MaMonHoc
+    INNER JOIN LOPHOC l ON d.MaLop = l.MaLop
+    INNER JOIN HOCKY hk ON d.HocKy = hk.MaHK
+    INNER JOIN NAMHOC nh ON l.NamHoc = nh.MaNH
+    WHERE d.MaLop = @MaLop
+        AND d.MaMH = @MaMH
+        AND nh.MaNH = @MaNH
+    GROUP BY hs.MaHocSinh
+END
+GO

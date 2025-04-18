@@ -19,5 +19,9 @@ namespace BusinessLayer
 
             return taiKhoanDAO.GetTaiKhoan(username, password);
         }
+        public void ChangeStatus (string username)
+        {
+            taiKhoanDAO.ChangeStatus(username);
+        }
     }
 }

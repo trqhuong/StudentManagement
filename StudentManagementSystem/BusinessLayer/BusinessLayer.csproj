@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ClassBUS.cs" />
     <Compile Include="ClassListBUS.cs" />
+    <Compile Include="ExportScoreBUS.cs" />
     <Compile Include="InputScoreBUS.cs" />
     <Compile Include="LoginBUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

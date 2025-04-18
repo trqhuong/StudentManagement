@@ -35,8 +35,9 @@
             this.cbbClass = new System.Windows.Forms.ComboBox();
             this.cbbSubject = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cbbSemester = new System.Windows.Forms.ComboBox();
+            this.cbbSchoolYear = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btExport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExport)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -45,11 +46,12 @@
             // 
             this.dgvExport.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvExport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvExport.Location = new System.Drawing.Point(12, 285);
+            this.dgvExport.Location = new System.Drawing.Point(14, 272);
+            this.dgvExport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvExport.Name = "dgvExport";
             this.dgvExport.RowHeadersWidth = 51;
             this.dgvExport.RowTemplate.Height = 24;
-            this.dgvExport.Size = new System.Drawing.Size(1040, 412);
+            this.dgvExport.Size = new System.Drawing.Size(1170, 599);
             this.dgvExport.TabIndex = 13;
             // 
             // panel1
@@ -58,8 +60,9 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-2, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1068, 69);
+            this.panel1.Size = new System.Drawing.Size(1201, 86);
             this.panel1.TabIndex = 12;
             // 
             // label1
@@ -67,9 +70,9 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label1.Location = new System.Drawing.Point(444, 11);
+            this.label1.Location = new System.Drawing.Point(474, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(220, 36);
+            this.label1.Size = new System.Drawing.Size(262, 40);
             this.label1.TabIndex = 1;
             this.label1.Text = "Export Grades";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -79,9 +82,9 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(370, 122);
+            this.label3.Location = new System.Drawing.Point(758, 162);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 25);
+            this.label3.Size = new System.Drawing.Size(79, 29);
             this.label3.TabIndex = 18;
             this.label3.Text = "Class:";
             // 
@@ -89,68 +92,95 @@
             // 
             this.cbbClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbClass.FormattingEnabled = true;
-            this.cbbClass.Location = new System.Drawing.Point(492, 116);
+            this.cbbClass.Location = new System.Drawing.Point(843, 159);
+            this.cbbClass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbbClass.Name = "cbbClass";
-            this.cbbClass.Size = new System.Drawing.Size(226, 33);
+            this.cbbClass.Size = new System.Drawing.Size(160, 37);
             this.cbbClass.TabIndex = 17;
+            this.cbbClass.SelectedIndexChanged += new System.EventHandler(this.cbbClass_SelectedIndexChanged);
             // 
             // cbbSubject
             // 
             this.cbbSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbSubject.FormattingEnabled = true;
-            this.cbbSubject.Location = new System.Drawing.Point(492, 166);
+            this.cbbSubject.Location = new System.Drawing.Point(523, 159);
+            this.cbbSubject.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbbSubject.Name = "cbbSubject";
-            this.cbbSubject.Size = new System.Drawing.Size(226, 33);
+            this.cbbSubject.Size = new System.Drawing.Size(202, 37);
             this.cbbSubject.TabIndex = 17;
+            this.cbbSubject.SelectedIndexChanged += new System.EventHandler(this.cbbSubject_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(370, 172);
+            this.label2.Location = new System.Drawing.Point(417, 165);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 25);
+            this.label2.Size = new System.Drawing.Size(100, 29);
             this.label2.TabIndex = 18;
             this.label2.Text = "Subject:";
             // 
-            // cbbSemester
+            // cbbSchoolYear
             // 
-            this.cbbSemester.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbSemester.FormattingEnabled = true;
-            this.cbbSemester.Location = new System.Drawing.Point(492, 218);
-            this.cbbSemester.Name = "cbbSemester";
-            this.cbbSemester.Size = new System.Drawing.Size(226, 33);
-            this.cbbSemester.TabIndex = 17;
+            this.cbbSchoolYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbSchoolYear.FormattingEnabled = true;
+            this.cbbSchoolYear.Location = new System.Drawing.Point(188, 159);
+            this.cbbSchoolYear.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cbbSchoolYear.Name = "cbbSchoolYear";
+            this.cbbSchoolYear.Size = new System.Drawing.Size(202, 37);
+            this.cbbSchoolYear.TabIndex = 17;
+            this.cbbSchoolYear.SelectedIndexChanged += new System.EventHandler(this.cbbSchoolYear_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(370, 224);
+            this.label4.Location = new System.Drawing.Point(31, 162);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(102, 25);
+            this.label4.Size = new System.Drawing.Size(151, 29);
             this.label4.TabIndex = 18;
-            this.label4.Text = "Semester:";
+            this.label4.Text = "School Year:";
+            // 
+            // btExport
+            // 
+            this.btExport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btExport.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.btExport.FlatAppearance.BorderSize = 0;
+            this.btExport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
+            this.btExport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
+            this.btExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btExport.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btExport.Location = new System.Drawing.Point(1038, 159);
+            this.btExport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btExport.Name = "btExport";
+            this.btExport.Size = new System.Drawing.Size(129, 42);
+            this.btExport.TabIndex = 20;
+            this.btExport.Text = "Lưu";
+            this.btExport.UseVisualStyleBackColor = true;
+            this.btExport.Click += new System.EventHandler(this.btExport_Click);
             // 
             // FrmExport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.ClientSize = new System.Drawing.Size(1197, 886);
+            this.Controls.Add(this.btExport);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.cbbSemester);
+            this.Controls.Add(this.cbbSchoolYear);
             this.Controls.Add(this.cbbSubject);
             this.Controls.Add(this.cbbClass);
             this.Controls.Add(this.dgvExport);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmExport";
             this.Text = "FrmExport";
+            this.Load += new System.EventHandler(this.FrmExport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvExport)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -168,7 +198,8 @@
         private System.Windows.Forms.ComboBox cbbClass;
         private System.Windows.Forms.ComboBox cbbSubject;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbbSemester;
+        private System.Windows.Forms.ComboBox cbbSchoolYear;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btExport;
     }
 }

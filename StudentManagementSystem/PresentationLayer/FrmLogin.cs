@@ -43,7 +43,7 @@ namespace PresentationLayer
                 this.DialogResult = DialogResult.OK;
                 FrmMain.Username = username;
                 this.Hide();
-
+                //taiKhoanBUS.ChangeStatus(taiKhoan.TenDangNhap);
                 if (taiKhoan.LoaiTaiKhoan == "Admin")
                 {
                     FrmMain frmMain = new FrmMain();
@@ -63,5 +63,6 @@ namespace PresentationLayer
                 txtPassword.Focus();
             }
         }
+
     }
 }

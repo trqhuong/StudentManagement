@@ -11,20 +11,20 @@ namespace TransferObject
         public int MaHS { get; set; }
         public int STT { get; set; }
         public string TenHocSinh { get; set; }
-        public float Diem15P { get; set; }
-        public float Diem1T { get; set; }
-        public float DiemThi { get; set; }
+        public float DiemSo1 { get; set; }
+        public float DiemSo2 { get; set; }
+        public float DiemSo3 { get; set; }
 
         public DisplayScoreDTO() { }
 
-        public DisplayScoreDTO(int maHS, int sTT, string tenHocSinh, float diem15P, float diem1T, float diemThi)
+        public DisplayScoreDTO(int maHS, int sTT, string tenHocSinh, float diemSo1, float diemSo2, float diemSo3)
         {
             MaHS = maHS;
             STT = sTT;
             TenHocSinh = tenHocSinh;
-            Diem15P = diem15P;
-            Diem1T = diem1T;
-            DiemThi = diemThi;
+            DiemSo1 = diemSo1;
+            DiemSo2 = diemSo2;
+            DiemSo3 = diemSo3;
         }
     }
 }
