@@ -12,8 +12,16 @@ namespace TransferObject
         public DateTime NgayDiemDanh { get; set; }
         public string TrangThai { get; set; }
         public int MaHS { get; set; }
-        public AttendanceDTO(int maHS, DateTime ngayDiemDanh, string trangThai)
+        public AttendanceDTO(int maDiemDanh, int maHS, DateTime ngayDiemDanh, string trangThai)
         {
+            MaDiemDanh = maDiemDanh;
+            MaHS = maHS;
+            NgayDiemDanh = ngayDiemDanh;
+            TrangThai = trangThai;
+        }
+        public AttendanceDTO( int maHS, DateTime ngayDiemDanh, string trangThai)
+        {
+         
             MaHS = maHS;
             NgayDiemDanh = ngayDiemDanh;
             TrangThai = trangThai;

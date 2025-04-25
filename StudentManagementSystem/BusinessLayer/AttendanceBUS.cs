@@ -16,5 +16,10 @@ namespace BusinessLayer
         {
             return diemDanh.InsertDiemDanh(dto);
         }
+
+        public List<AttendanceDTO> GetAllAttendance()
+        {
+            return diemDanh.GetAllAttendance(); 
+        }
     }
 }

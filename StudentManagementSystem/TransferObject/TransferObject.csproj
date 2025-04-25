@@ -58,8 +58,10 @@
     <Compile Include="ClassDTO.cs" />
     <Compile Include="DisplayScoreDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportDTO.cs" />
     <Compile Include="SchoolYearDTO.cs" />
     <Compile Include="ScoreDTO.cs" />
+    <Compile Include="SemesterDTO.cs" />
     <Compile Include="StudentsDTO.cs" />
     <Compile Include="Student_ClassDTO.cs" />
     <Compile Include="SubjectDTO.cs" />

@@ -36,6 +36,7 @@
             this.btAttendance = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lbName = new System.Windows.Forms.Label();
+            this.btLogout = new System.Windows.Forms.Button();
             this.btStatistical = new System.Windows.Forms.Button();
             this.btSchedule = new System.Windows.Forms.Button();
             this.btSubject = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@
             this.btStudent = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnbody = new System.Windows.Forms.Panel();
-            this.btLogout = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -148,6 +148,24 @@
             this.lbName.Text = "Name";
             this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btLogout
+            // 
+            this.btLogout.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btLogout.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.FlatAppearance.BorderSize = 0;
+            this.btLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btLogout.ForeColor = System.Drawing.Color.White;
+            this.btLogout.Location = new System.Drawing.Point(25, 648);
+            this.btLogout.Name = "btLogout";
+            this.btLogout.Size = new System.Drawing.Size(216, 50);
+            this.btLogout.TabIndex = 2;
+            this.btLogout.Text = "Log Out";
+            this.btLogout.UseVisualStyleBackColor = false;
+            this.btLogout.Click += new System.EventHandler(this.btLogout_Click);
+            // 
             // btStatistical
             // 
             this.btStatistical.BackColor = System.Drawing.Color.White;
@@ -164,6 +182,7 @@
             this.btStatistical.TabIndex = 2;
             this.btStatistical.Text = "Statistical report";
             this.btStatistical.UseVisualStyleBackColor = false;
+            this.btStatistical.Click += new System.EventHandler(this.btStatistical_Click);
             // 
             // btSchedule
             // 
@@ -273,24 +292,6 @@
             this.pnbody.Name = "pnbody";
             this.pnbody.Size = new System.Drawing.Size(1076, 718);
             this.pnbody.TabIndex = 2;
-            // 
-            // btLogout
-            // 
-            this.btLogout.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btLogout.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btLogout.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
-            this.btLogout.FlatAppearance.BorderSize = 0;
-            this.btLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MidnightBlue;
-            this.btLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
-            this.btLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btLogout.ForeColor = System.Drawing.Color.White;
-            this.btLogout.Location = new System.Drawing.Point(25, 648);
-            this.btLogout.Name = "btLogout";
-            this.btLogout.Size = new System.Drawing.Size(216, 50);
-            this.btLogout.TabIndex = 2;
-            this.btLogout.Text = "Log Out";
-            this.btLogout.UseVisualStyleBackColor = false;
-            this.btLogout.Click += new System.EventHandler(this.btLogout_Click);
             // 
             // FrmMain
             // 
