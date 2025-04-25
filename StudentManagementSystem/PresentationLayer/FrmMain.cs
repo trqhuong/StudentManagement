@@ -84,5 +84,10 @@ namespace PresentationLayer
         {
             OpenChildForm(new FrmSchedule());
         }
+
+        private void btStatistical_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FrmReport());
+        }
     }
 }

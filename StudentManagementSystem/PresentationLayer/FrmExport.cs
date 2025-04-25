@@ -18,7 +18,7 @@ using System.Diagnostics;
 namespace PresentationLayer
 {
 
-    public partial class FrmExport: Form
+    public partial class FrmExport : Form
     {
         private ExportScoreBUS exportBUS = new ExportScoreBUS();
         List<DisplayScoreDTO> displayList = new List<DisplayScoreDTO>();
@@ -33,7 +33,7 @@ namespace PresentationLayer
         {
             //năm học
             List<SchoolYearDTO> years = exportBUS.GetSchoolYear();
-            years.Insert(0, new SchoolYearDTO(0,0,0));
+            years.Insert(0, new SchoolYearDTO(0, 0, 0));
             cbbSchoolYear.DataSource = years;
             cbbSchoolYear.DisplayMember = "NamHienThi";
             cbbSchoolYear.ValueMember = "MaNH";
@@ -86,12 +86,12 @@ namespace PresentationLayer
                 if (int.TryParse(cbbSubject.SelectedValue?.ToString(), out int subject_id) && subject_id > 0)
                 {
                     //lấy danh sách các lớp
-                    List<ClassDTO> classes = exportBUS.GetAssignmentClass(1,subject_id,year_id);
+                    List<ClassDTO> classes = exportBUS.GetAssignmentClass(1, subject_id, year_id);
                     classes.Insert(0, new ClassDTO(0, "Chọn lớp"));
                     cbbClass.DataSource = classes;
                     cbbClass.DisplayMember = "TenLop";
                     cbbClass.ValueMember = "MaLop";
-                }    
+                }
             }
             else
             {
@@ -130,7 +130,8 @@ namespace PresentationLayer
                 List<AverageScoreDTO> averagescores = exportBUS.ExportScore(subject_id, class_id, year_id);
                 List<StudentsDTO> students = exportBUS.GetStudentInClass(class_id);
                 // Gộp 2 danh sách lại theo MaHocSinh
-                displayList = students.Select((s, index) => {
+                displayList = students.Select((s, index) =>
+                {
                     var score = averagescores.FirstOrDefault(sc => sc.MaHocSinh == s.MaHS);
                     return new DisplayScoreDTO
                     {
@@ -148,7 +149,7 @@ namespace PresentationLayer
             {
                 dgvExport.DataSource = null;
                 designData();
-            }    
+            }
         }
         public void ExportToPDF(List<DisplayScoreDTO> displayList, string class_name, string year_name, string subject_name)
         {
@@ -217,7 +218,7 @@ namespace PresentationLayer
                 };
                 doc.Add(signature);
                 doc.Close();
-                MessageBox.Show("File lưu tại " + filePath, "Thông báo", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("File lưu tại " + filePath, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -229,7 +230,7 @@ namespace PresentationLayer
                 string class_name = cbbClass.Text;
                 string year_name = cbbSchoolYear.Text;
                 ExportToPDF(displayList, class_name, year_name, subject_name);
-            }    
+            }
             return;
         }
     }

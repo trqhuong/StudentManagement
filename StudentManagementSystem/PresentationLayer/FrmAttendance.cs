@@ -21,9 +21,11 @@ namespace PresentationLayer
         private FilterInfoCollection thongTinThietBi;
         private VideoCaptureDevice cam;
         private bool daQuetQR = false;
+        private AttendanceBUS diemDanh = new AttendanceBUS();
         public FrmAttendance()
         {
             InitializeComponent();
+            LoadData();
             thongTinThietBi = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo device in thongTinThietBi)
             {
@@ -31,7 +33,11 @@ namespace PresentationLayer
             }
             cbbThietBi.SelectedIndex = 0;
         }
-
+        private void LoadData()
+        {
+            dgvDiemDanh.DataSource = diemDanh.GetAllAttendance();
+       
+        }
         private void btScanQR_Click(object sender, EventArgs e)
         {
             if (cam != null && cam.IsRunning)
@@ -95,6 +101,7 @@ namespace PresentationLayer
                             if (isDiemDanh)
                             {
                                 MessageBox.Show("Điểm danh thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                LoadData();
                                 //SafeStopCamera();
                             }
                             else
@@ -102,7 +109,6 @@ namespace PresentationLayer
                                 MessageBox.Show("Điểm danh thất bại hoặc học sinh đã điểm danh rồi!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 //SafeStopCamera();
                             }
-
                         }
                         else
                         {

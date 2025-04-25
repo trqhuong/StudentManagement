@@ -158,6 +158,7 @@ BEGIN
     );
 END
 -- THÊM DỮ LIỆU BAN ĐẦU
+
 -- TÀI KHOẢN
 INSERT INTO TAIKHOAN (TenDangNhap, MatKhau, LoaiTaiKhoan)
 VALUES 
@@ -239,6 +240,17 @@ VALUES
     (2, 3, 2),
     (3, 3, 3)
 GO
+--Điểm
+INSERT INTO DIEM (MaLop, MaHS, MaMH, HocKy, Diem15P, Diem1T, DiemThi)
+VALUES 
+(1, 1, 1, 1, 4.5, 1.0, 2.0), 
+(2, 2, 2, 1, 6.5, 8.0, 7.5),
+(3, 3, 1, 1, 9.0, 8.5, 8.5),
+(1, 1, 2, 1, 8.5, 7.0, 9.0), 
+(1, 2, 1, 1, 6.5, 8.0, 7.5),
+(2, 3, 3, 2, 9.0, 8.5, 8.5),
+(3, 3, 3, 2, 4.0, 3.5, 2.5);
+go
 --Stored Procedure: 
 -- Lấy môn học giáo viên đang dạy
 CREATE PROCEDURE sp_GetAssignmentSubject
@@ -302,3 +314,31 @@ BEGIN
     GROUP BY hs.MaHocSinh
 END
 GO
+
+--Tính thống kê
+CREATE PROCEDURE sp_ThongKeTyLeDat
+    @maMon INT,
+    @hocKy INT,
+    @namHoc INT
+AS
+BEGIN
+    SELECT 
+        l.MaLop, 
+        l.TenLop,
+        COUNT(DISTINCT d.MaHS) AS SiSo,
+        SUM(CASE WHEN 
+                ((ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0) * 2 + ISNULL(d.DiemThi, 0) * 3) / 6.0) >= 5 
+            THEN 1 ELSE 0 
+        END) AS SoLuongDat
+    FROM LOPHOC l
+    INNER JOIN DIEM d ON l.MaLop = d.MaLop
+    INNER JOIN MONHOC mh ON d.MaMH = mh.MaMonHoc
+    INNER JOIN HOCKY hk ON d.HocKy = hk.MaHK
+    WHERE mh.MaMonHoc = @maMon 
+      AND d.HocKy = @hocKy 
+      AND hk.NamHoc = @namHoc
+    GROUP BY l.MaLop, l.TenLop
+    ORDER BY l.MaLop;
+END
+GO
+

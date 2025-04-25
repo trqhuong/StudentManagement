@@ -3,60 +3,59 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using TransferObject;
 
 
 
 namespace DataLayer
 {
-    public class UsersDAO
+    public class UsersDAO:DataProvider
     {
-        private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
-
-        public UsersDTO GetTaiKhoan(string username, string password)
+        public List<UsersDTO> GetTaiKhoan(string username, string password)
         {
+            List<UsersDTO> list = new List<UsersDTO>();
             string sql = "SELECT * FROM TAIKHOAN WHERE tendangnhap = @username AND matkhau = @password";
 
-            using (SqlConnection cn = new SqlConnection(cnn))
+            // Tạo danh sách tham số
+            List<SqlParameter> parameters = new List<SqlParameter>
             {
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
+                new SqlParameter("@username", SqlDbType.NVarChar) { Value = username },
+                new SqlParameter("@password", SqlDbType.NVarChar) { Value = password }
+            };
 
-                cn.Open();
-                SqlDataReader reader = cmd.ExecuteReader(); // đọc dữ liệu từ sql
+            // Thực thi câu lệnh với tham số
+            DataTable result = MyExecuteReader(sql, CommandType.Text, parameters);
 
-                if (reader.Read()) // Nếu có dữ liệu trả về
-                {
-                    // Lấy thông tin từ DB
-                    string tenDangNhap = reader["tendangnhap"].ToString();
-                    string matKhau = reader["matkhau"].ToString();
-                    string loaiTaiKhoan = reader["loaitaikhoan"].ToString();
+            foreach (DataRow row in result.Rows)
+            {
+                string tenDangNhap = row["tendangnhap"].ToString();
+                string matKhau = row["matkhau"].ToString();
+                string loaiTaiKhoan = row["loaitaikhoan"].ToString();
 
-                    cn.Close();
-                    return new UsersDTO(tenDangNhap, matKhau, loaiTaiKhoan);
-                }
-                else
-                {
-                    cn.Close();
-                    return null; // Không tìm thấy tài khoản
-                }
+                UsersDTO user = new UsersDTO(tenDangNhap, matKhau, loaiTaiKhoan);
+                list.Add(user);
             }
+
+            return list;
         }
+
         public void ChangeStatus(string username)
         {
-            using (SqlConnection conn = new SqlConnection(cnn))
+            string query = "UPDATE TAIKHOAN SET TrangThai = 1 WHERE TenTaiKhoan = @username";
+
+        
+            List<SqlParameter> parameters = new List<SqlParameter>
             {
-                conn.Open();
-                string query = "UPDATE TAIKHOAN " +
-                    "SET TrangThai = 1 WHERE TenTaiKhoan = @username";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.ExecuteNonQuery();
-            }
+                new SqlParameter("@username", username)
+            };
+         
+            MyExecuteNonQuery(query, CommandType.Text, parameters);
         }
+
 
     }
 }
