@@ -18,7 +18,8 @@ BEGIN
         TenDangNhap NVARCHAR(50) , 
         MatKhau NVARCHAR(255) NOT NULL,      
         LoaiTaiKhoan NVARCHAR(20) NOT NULL CHECK (LoaiTaiKhoan IN (N'Admin', N'Giáo viên')), 
-        TrangThai BIT DEFAULT 0     
+        TrangThai BIT DEFAULT 0,
+		Email NVARCHAR(100) NULL,
     );
 END
 -- BẢNG NĂM HỌC
@@ -160,12 +161,12 @@ END
 -- THÊM DỮ LIỆU BAN ĐẦU
 
 -- TÀI KHOẢN
-INSERT INTO TAIKHOAN (TenDangNhap, MatKhau, LoaiTaiKhoan)
+INSERT INTO TAIKHOAN (TenDangNhap, MatKhau, LoaiTaiKhoan, Email)
 VALUES 
-    (N'admin', '123456', N'Admin'),
-    (N'gv001', '123456', N'Giáo viên'),
-    (N'gv002', '123456', N'Giáo viên'),
-    (N'gv003', '123456', N'Giáo viên');
+    (N'admin', '123456', N'Admin','quynhhuongtran314@gmail.com'),
+    (N'gv001', '123456', N'Giáo viên','sheisthy29@gmail.com'),
+    (N'gv002', '123456', N'Giáo viên',NULL),
+    (N'gv003', '123456', N'Giáo viên',NULL);
 GO
 -- NĂM HỌC, HỌC KỲ, MÔN HỌC
 INSERT INTO NAMHOC (NamBatDau,NamKetThuc,TrangThai) VALUES (2024,2025,1)
@@ -341,4 +342,26 @@ BEGIN
     ORDER BY l.MaLop;
 END
 GO
+
+--Lấy hs bằng ID
+CREATE PROCEDURE sp_GetHocSinhById
+    @MaHocSinh INT
+AS
+BEGIN
+    SELECT hs.MaHocSinh, 
+           hs.TenHocSinh, 
+           hs.NgaySinh, 
+           hs.GioiTinh, 
+           hs.TinhTrang, 
+           hs.QRCodePath, 
+           l.TenLop
+    FROM HOCSINH hs
+    INNER JOIN HOCSINH_LOP hs_l ON hs.MaHocSinh = hs_l.MaHS
+    INNER JOIN LOPHOC l ON hs_l.MaLop = l.MaLop
+    WHERE hs.MaHocSinh = @MaHocSinh
+END
+GO
+
+
+
 

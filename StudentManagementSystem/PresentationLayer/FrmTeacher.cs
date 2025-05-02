@@ -14,7 +14,7 @@ namespace PresentationLayer
 {
     public partial class FrmTeacher : Form
     {
-        private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
+   
         private TeacherBUS teacherBUS = new TeacherBUS();
         public FrmTeacher()
         {
