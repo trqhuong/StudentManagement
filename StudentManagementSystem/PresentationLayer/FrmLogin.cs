@@ -68,5 +68,14 @@ namespace PresentationLayer
         {
 
         }
+
+        private void btForgotPass_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ForgotPassword forgotPassword = new ForgotPassword();
+            forgotPassword.ShowDialog();
+        
+            
+        }
     }
 }

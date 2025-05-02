@@ -208,11 +208,7 @@ namespace DataLayer
         public StudentsDTO GetHocSinhById(int maHS)
         {
             StudentsDTO student = null;
-            string query = "SELECT hs.MaHocSinh, hs.TenHocSinh, hs.NgaySinh, hs.GioiTinh, hs.TinhTrang, hs.QRCodePath, l.TenLop " +
-                           "FROM HOCSINH hs " +
-                           "INNER JOIN HOCSINH_LOP hs_l ON hs.MaHocSinh = hs_l.MaHS " +
-                           "INNER JOIN LOPHOC l ON hs_l.MaLop = l.MaLop " +
-                           "WHERE hs.MaHocSinh = @MaHocSinh";
+            string query = "sp_GetHocSinhById";
 
             var parameters = new List<SqlParameter>
             {
@@ -222,7 +218,7 @@ namespace DataLayer
             try
             {
                 // Sử dụng MyExecuteReader để lấy dữ liệu
-                DataTable dt = MyExecuteReader(query, CommandType.Text, parameters);
+                DataTable dt = MyExecuteReader(query, CommandType.StoredProcedure, parameters);
 
                 if (dt.Rows.Count > 0)
                 {
@@ -240,7 +236,7 @@ namespace DataLayer
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi chung
+         
                 Console.WriteLine("Error: " + ex.Message);
             }
 

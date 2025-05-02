@@ -18,7 +18,7 @@ namespace PresentationLayer
     {
         private StudentsBUS studentsBUS = new StudentsBUS();
         private ClassBUS classBUS = new ClassBUS();
-        private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
+     
 
         public FrmStudent()
         {
