@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PresentationLayer
-{
-    
+{   
     public partial class FrmMain : Form
     {
+        private LoginBUS taiKhoanBUS = new LoginBUS();
         public static string Username="";
         public FrmMain()
         {
@@ -40,6 +41,7 @@ namespace PresentationLayer
         private void lbCancel_Click(object sender, EventArgs e)
         {
             Application.Exit();
+            taiKhoanBUS.Logout();
         }
 
         private void btStudent_Click(object sender, EventArgs e)
@@ -76,6 +78,7 @@ namespace PresentationLayer
         private void btLogout_Click(object sender, EventArgs e)
         {
             this.Hide();
+            taiKhoanBUS.Logout();
             FrmLogin login = new FrmLogin();
             login.Show();
         }
@@ -83,6 +86,11 @@ namespace PresentationLayer
         private void btSchedule_Click(object sender, EventArgs e)
         {
             OpenChildForm(new FrmSchedule());
+        }
+
+        private void btEnd_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new FrmYear_Semester());
         }
 
         private void btStatistical_Click(object sender, EventArgs e)

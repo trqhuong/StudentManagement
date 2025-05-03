@@ -167,6 +167,11 @@
     <Compile Include="FrmTeacher.Designer.cs">
       <DependentUpon>FrmTeacher.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmYear_Semester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmYear_Semester.Designer.cs">
+      <DependentUpon>FrmYear_Semester.cs</DependentUpon>
     <Compile Include="OTP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +228,8 @@
     <EmbeddedResource Include="FrmTeacher.resx">
       <DependentUpon>FrmTeacher.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmYear_Semester.resx">
+      <DependentUpon>FrmYear_Semester.cs</DependentUpon>
     <EmbeddedResource Include="OTP.resx">
       <DependentUpon>OTP.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,6 +241,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -258,6 +266,9 @@
       <Project>{3df4945a-adec-43af-9aa7-e852ca1ccc30}</Project>
       <Name>TransferObject</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

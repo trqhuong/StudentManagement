@@ -4,10 +4,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TransferObject;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 
 
@@ -42,18 +44,21 @@ namespace DataLayer
 
             return list;
         }
-
-        public void ChangeStatus(string username)
+        public void Login(string username)
         {
-            string query = "UPDATE TAIKHOAN SET TrangThai = 1 WHERE TenTaiKhoan = @username";
-
-        
+            string query = "UPDATE TAIKHOAN SET TrangThai = 1 WHERE TenDangNhap = @username";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@username", username)
             };
          
             MyExecuteNonQuery(query, CommandType.Text, parameters);
+        }
+        public void Logout()
+        {
+            string query = "UPDATE TAIKHOAN " +
+                    "SET TrangThai = 0 WHERE TrangThai = 1 ";
+            MyExecuteNonQuery(query, CommandType.Text);
         }
 
         public bool KiemTraUsernameTonTai(string username)

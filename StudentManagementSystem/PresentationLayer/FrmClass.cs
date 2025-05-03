@@ -14,7 +14,6 @@ namespace PresentationLayer
 {
     public partial class FrmClass : Form
     {
-        private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
         private ClassBUS classBUS = new ClassBUS();
         public FrmClass()
         {

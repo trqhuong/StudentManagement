@@ -13,6 +13,7 @@ namespace TransferObject
         public int NamKetThuc { get; set; }
         public int TrangThai { get; set; }
 
+        public SchoolYearDTO() { }
         public SchoolYearDTO(int maNH, int namBatDau, int namKetThuc)
         {
             MaNH = maNH;

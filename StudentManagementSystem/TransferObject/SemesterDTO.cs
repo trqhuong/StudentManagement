@@ -12,5 +12,13 @@ namespace TransferObject
         public int SoHocKy { get; set; }
         public int NamHoc { get; set; }
         public bool TrangThai { get; set; }
+
+        public SemesterDTO() { }
+        public SemesterDTO(int maHK, int soHocKy, int namHoc)
+        {
+            MaHK = maHK;
+            SoHocKy = soHocKy;
+            NamHoc = namHoc;
+        }
     }
 }

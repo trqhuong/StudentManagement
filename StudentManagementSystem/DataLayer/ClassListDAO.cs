@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -8,20 +9,19 @@ using TransferObject;
 
 namespace DataLayer
 {
-    public class ClassListDAO
+    public class ClassListDAO : DataProvider
     {
-        private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
         public List<StudentsDTO> GetAllStudent(int classID)
         {
             List<StudentsDTO> students = new List<StudentsDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
-            {
-                conn.Open();
-                string query = "SELECT * FROM HOCSINH WHERE MaHocSinh in (SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
+            string query = "SELECT * FROM HOCSINH WHERE MaHocSinh in (SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
                     "where hl.MaHS = h.MaHocSinh and hl.MaLop = @classID )";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@classID", classID);
-                SqlDataReader reader = cmd.ExecuteReader();
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@classID", classID)
+            };
+            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            {
                 while (reader.Read())
                 {
                     students.Add(new StudentsDTO(
@@ -37,29 +37,35 @@ namespace DataLayer
             return students;
         }
 
-        public List<ClassDTO> GetClassTeacher(int teacherID)
+        public List<ClassDTO> GetClassTeacher()
         {
             List<ClassDTO> lopHoc = new List<ClassDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            // Lấy mã giáo viên
+            int teacher_id = Convert.ToInt32(MyExecuteScalar("sp_GetTeacherActive", CommandType.StoredProcedure));
+            //lấy lớp
+            string query = @"SELECT l.* FROM LOPHOC l
+                     INNER JOIN PHANCONG p ON p.MaLop = l.MaLop
+                     INNER JOIN NAMHOC m ON l.NamHoc = m.MaNH
+                     WHERE p.MaGV = @teacherID AND m.TrangThai = 1";
+            List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@teacherID", teacher_id)
+                };
+            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
             {
-                conn.Open();
-                string query = "SELECT * FROM LOPHOC WHERE MaLop in (SELECT p.MaLop FROM PHANCONG p, LOPHOC l, NAMHOC m " +
-                    "where p.MaLop = l.MaLop and l.NamHoc = m.MaNH and p.MaGV = @teacherID and m.TrangThai = 1)";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@teacherID", teacherID);
-                SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     lopHoc.Add(new ClassDTO(
-                     Convert.ToInt32(reader["MaLop"]),
-                     reader["TenLop"].ToString(),
-                     reader["NamHoc"].ToString(),
-                     reader["GVQuanLi"].ToString(),
-                     Convert.ToInt32(reader["SiSo"])
+                        Convert.ToInt32(reader["MaLop"]),
+                        reader["TenLop"].ToString(),
+                        reader["NamHoc"].ToString(),
+                        reader["GVQuanLi"].ToString(),
+                        Convert.ToInt32(reader["SiSo"])
                     ));
                 }
             }
             return lopHoc;
         }
+
     }
 }

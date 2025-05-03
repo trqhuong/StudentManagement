@@ -11,7 +11,6 @@ namespace BusinessLayer
     public class ReportBUS
     {
         private ReportDAO report = new ReportDAO();
-
         public List<ReportDTO> ThongKeTyLeDat(int maMon, int hocKy, int namHoc)
         {
 

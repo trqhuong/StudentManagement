@@ -12,9 +12,9 @@ namespace BusinessLayer
     {
         private ClassListDAO classList = new ClassListDAO();
 
-        public List<ClassDTO> GetClassTeacher(int teacherID)
+        public List<ClassDTO> GetClassTeacher()
         {
-            return classList.GetClassTeacher(teacherID);
+            return classList.GetClassTeacher();
         }
 
         public List<StudentsDTO> GetAllStudent(int classID)

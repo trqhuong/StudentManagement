@@ -11,13 +11,13 @@ namespace BusinessLayer
     public class InputScoreBUS
     {
         private InputScoreDAO inputBUS = new InputScoreDAO();
-        public List<SubjectDTO> GetAssignmentSubject(int teacher_id)
+        public List<SubjectDTO> GetAssignmentSubject()
         {
-            return inputBUS.GetAssignmentSubject(teacher_id);
+            return inputBUS.GetAssignmentSubject();
         }
-        public List<ClassDTO> GetAssignmentClass(int teacher_id, int subject_id)
+        public List<ClassDTO> GetAssignmentClass(int subject_id)
         {
-            return inputBUS.GetAssignmentClass(teacher_id, subject_id);
+            return inputBUS.GetAssignmentClass(subject_id);
         }
         public List<StudentsDTO> GetStudentInClass(int class_id)
         {
@@ -28,9 +28,9 @@ namespace BusinessLayer
             return inputBUS.GetScore(class_id,subject_id);
         }
 
-        public void SaveScore (int class_id, int student_id, int subject_id, float student_score15, float student_score1 , float student_score)
+        public bool SaveScore (ScoreDTO score)
         {
-             inputBUS.SaveScore(class_id, student_id, subject_id, student_score15, student_score1, student_score);
+             return inputBUS.SaveScore(score);
         }
 
     }
