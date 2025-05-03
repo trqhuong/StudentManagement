@@ -53,10 +53,12 @@
     <Compile Include="ClassDAO.cs" />
     <Compile Include="ClassListDAO.cs" />
     <Compile Include="DataProvider.cs" />
+    <Compile Include="EndSemesterDAO.cs" />
     <Compile Include="ExportScoreDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportDAO.cs" />
     <Compile Include="SemesterDAO.cs" />
+    <Compile Include="ScheduleDAO.cs" />
     <Compile Include="StudentsDAO.cs" />
     <Compile Include="InputScoreDAO.cs" />
     <Compile Include="SubjectDAO.cs" />

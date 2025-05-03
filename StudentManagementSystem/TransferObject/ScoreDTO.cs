@@ -26,5 +26,14 @@ namespace TransferObject
             Diem1T = diem1T;
             DiemThi = diemThi;
         }
+        public ScoreDTO(int maLop, int maHS, int maMH, float diem15P, float diem1T, float diemThi)
+        {
+            MaLop = maLop;
+            MaHS = maHS;
+            MaMH = maMH;
+            Diem15P = diem15P;
+            Diem1T = diem1T;
+            DiemThi = diemThi;
+        }
     }
 }

@@ -12,26 +12,26 @@ namespace BusinessLayer
 {
     public class ExportScoreBUS
     {
-        private ExportScoreDAO exportBUS = new ExportScoreDAO();
-        public List<SubjectDTO> GetAssignmentSubject(int teacher_id)
+        private ExportScoreDAO exportDAO = new ExportScoreDAO();
+        public List<SubjectDTO> GetAssignmentSubject()
         {
-            return exportBUS.GetAssignmentSubject(teacher_id);
+            return exportDAO.GetAssignmentSubject();
         }
-        public List<ClassDTO> GetAssignmentClass(int teacher_id, int subject_id, int year_id)
+        public List<ClassDTO> GetAssignmentClass(int subject_id, int year_id)
         {
-            return exportBUS.GetAssignmentClass(teacher_id, subject_id, year_id);
+            return exportDAO.GetAssignmentClass(subject_id, year_id);
         }
         public List<SchoolYearDTO> GetSchoolYear()
         {
-            return exportBUS.GetSchoolYear();
+            return exportDAO.GetSchoolYear();
         }
         public List<StudentsDTO> GetStudentInClass(int class_id)
         {
-            return exportBUS.GetStudentInClass(class_id);
+            return exportDAO.GetStudentInClass(class_id);
         }
         public List<AverageScoreDTO> ExportScore( int subject_id, int class_id, int year_id)
         {
-            return exportBUS.ExportScore(subject_id, class_id, year_id);
+            return exportDAO.ExportScore(subject_id, class_id, year_id);
         }
     }
 }

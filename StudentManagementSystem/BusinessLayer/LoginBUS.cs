@@ -36,10 +36,13 @@ namespace BusinessLayer
             // Nếu tìm thấy tài khoản, trả về đối tượng người dùng đầu tiên
             return users.FirstOrDefault();
         }
-
-        public void ChangeStatus (string username)
+        public void Login (string username)
         {
-            taiKhoanDAO.ChangeStatus(username);
+            taiKhoanDAO.Login(username);
+        }
+        public void Logout()
+        {
+            taiKhoanDAO.Logout();
         }
     }
 }

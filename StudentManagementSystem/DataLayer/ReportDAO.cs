@@ -11,7 +11,6 @@ namespace DataLayer
 {
     public class ReportDAO: DataProvider
     {
-       
         public List<ReportDTO> ThongKeTyLeDat(int maMon, int hocKy, int namHoc)
         {
             List<ReportDTO> list = new List<ReportDTO>();

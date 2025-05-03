@@ -16,6 +16,11 @@ namespace TransferObject
         public string TinhTrang { get; set; }
         public int TaiKhoan { get; set; } // Mã tài khoản của giáo viên
 
+        public TeacherDTO(int maGV, string tenGV)
+        {
+            MaGV = maGV;
+            TenGV = tenGV;
+        }
         public TeacherDTO(int maGV, string tenGV, DateTime ngaySinh, string gioiTinh, string dienThoai)
         {
             MaGV = maGV;

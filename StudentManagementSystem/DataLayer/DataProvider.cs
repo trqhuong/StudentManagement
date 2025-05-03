@@ -12,17 +12,15 @@ namespace DataLayer
     public class DataProvider
     {
         private SqlConnection cnn;
-
         public DataProvider() { 
             string cnStr = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
-            cnn=new SqlConnection(cnStr);
+            cnn = new SqlConnection(cnStr);
         }
-
         private void Connect()
         {
             try
             {
-                if(cnn!=null && cnn.State == System.Data.ConnectionState.Closed)
+                if(cnn!=null && cnn.State == ConnectionState.Closed)
                 {
                     cnn.Open();
                 }
@@ -32,12 +30,11 @@ namespace DataLayer
                 throw ex;
             }
         }
-
         public void DisConnect()
         {
             try
             {
-                if (cnn != null && cnn.State == System.Data.ConnectionState.Closed)
+                if (cnn != null && cnn.State == ConnectionState.Closed)
                 {
                     cnn.Close();
                 }
@@ -45,6 +42,29 @@ namespace DataLayer
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public SqlDataReader ExecuteReader(string sql, CommandType type, List<SqlParameter> parameters = null)
+        {
+            SqlCommand cmd = new SqlCommand(sql, cnn);
+            cmd.CommandType = type;
+            if (parameters != null)
+            {
+                cmd.Parameters.AddRange(parameters.ToArray());
+            }
+            try
+            {
+                Connect();
+                return (cmd.ExecuteReader());
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DisConnect();
             }
         }
 
@@ -71,7 +91,32 @@ namespace DataLayer
             }
         }
 
-        public DataTable MyExecuteReader(string sql, CommandType type ,List<SqlParameter> parameters = null)
+
+        public int MyExecuteNonQuery(string sql, CommandType type, List<SqlParameter> parameters = null)
+        {
+            SqlCommand cd = new SqlCommand(sql, cnn);
+            cd.CommandType = type;
+            if (parameters != null)
+            {
+                cd.Parameters.AddRange(parameters.ToArray());
+            }
+            try
+            {
+                Connect();
+                return cd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                DisConnect();
+            }
+        }
+
+        public DataTable MyExecuteReader(string sql, CommandType type, List<SqlParameter> parameters = null)
         {
             SqlCommand cd = new SqlCommand(sql, cnn);
             cd.CommandType = type;
@@ -86,29 +131,6 @@ namespace DataLayer
                 DataTable dt = new DataTable();
                 dt.Load(cd.ExecuteReader());
                 return dt;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                DisConnect();
-            }
-        }
-        public int MyExecuteNonQuery(string sql, CommandType type, List<SqlParameter> parameters = null)
-        {
-            SqlCommand cd = new SqlCommand(sql, cnn);
-            cd.CommandType = type;
-            if (parameters != null)
-            {
-                cd.Parameters.AddRange(parameters.ToArray());
-            }
-            try
-            {
-                Connect();
-                return cd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

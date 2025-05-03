@@ -22,7 +22,7 @@ namespace PresentationLayer
 
         private void FrmInput_Load(object sender, EventArgs e)
         {
-            List<SubjectDTO> subjects = inputScore.GetAssignmentSubject(1);
+            List<SubjectDTO> subjects = inputScore.GetAssignmentSubject();
             // Thêm dòng đầu tiên "Chọn môn học"
             subjects.Insert(0, new SubjectDTO(0, "Chọn môn học"));
             // Gán dữ liệu vào ComboBox
@@ -33,36 +33,35 @@ namespace PresentationLayer
 
         public void designData()
         {
-            if(dgvScore.Columns.Count == 0)
-            {
-                //thiết kế column
-                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaHS", DataPropertyName = "MaHS", HeaderText = "MaHS", Width = 50 });
-                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "STT", DataPropertyName = "STT", HeaderText = "STT", Width = 50 });
-                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenHocSinh", DataPropertyName = "TenHocSinh", HeaderText = "Họ và tên", Width = 250 });
-                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "Diem15P", DataPropertyName = "DiemSo1", HeaderText = "Điểm 15 phút", Width = 100 });
-                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "Diem1T", DataPropertyName = "DiemSo2", HeaderText = "Điểm 1 tiết", Width = 100 });
-                dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "DiemThi", DataPropertyName = "DiemSo3", HeaderText = "Điểm Thi", Width = 100 });
-                dgvScore.Columns["MaHS"].Visible = false;
-                // Font & màu
-                dgvScore.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-                dgvScore.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-                dgvScore.DefaultCellStyle.BackColor = Color.White;
-                dgvScore.EnableHeadersVisualStyles = false;
-                dgvScore.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
-                dgvScore.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                // Căn giữa header
-                dgvScore.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                // Không cho chỉnh sửa
-                dgvScore.ReadOnly = true;
-                // Giãn cột cho vừa
-                dgvScore.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                // Không cho thêm/sửa/xoá dòng
-                dgvScore.AllowUserToAddRows = false;
-                dgvScore.AllowUserToDeleteRows = false;
-                dgvScore.AllowUserToOrderColumns = false;
-                // Không cho chọn nhiều
-                dgvScore.MultiSelect = false;
-            }    
+            dgvScore.Columns.Clear();
+            //thiết kế column
+            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "MaHS", DataPropertyName = "MaHS", HeaderText = "MaHS", Width = 10 });
+            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "STT", DataPropertyName = "STT", HeaderText = "STT", Width = 30 });
+            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "TenHocSinh", DataPropertyName = "TenHocSinh", HeaderText = "Họ và tên", Width = 250 });
+            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "Diem15P", DataPropertyName = "DiemSo1", HeaderText = "Điểm 15 phút", Width = 100 });
+            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "Diem1T", DataPropertyName = "DiemSo2", HeaderText = "Điểm 1 tiết", Width = 100 });
+            dgvScore.Columns.Add(new DataGridViewTextBoxColumn { Name = "DiemThi", DataPropertyName = "DiemSo3", HeaderText = "Điểm Thi", Width = 100 });
+            dgvScore.Columns.Add(new DataGridViewImageColumn { Name = "Edit", HeaderText = "Sửa", Width = 40, Image = Properties.Resources.edit, ImageLayout = DataGridViewImageCellLayout.Zoom });
+            dgvScore.Columns["MaHS"].Visible = false;
+            // Font & màu
+            dgvScore.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvScore.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dgvScore.DefaultCellStyle.BackColor = Color.White;
+            dgvScore.EnableHeadersVisualStyles = false;
+            dgvScore.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
+            dgvScore.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            // Căn giữa header
+            dgvScore.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            // Không cho chỉnh sửa
+            dgvScore.ReadOnly = true;
+            // Giãn cột cho vừa
+            dgvScore.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            // Không cho thêm/sửa/xoá dòng
+            dgvScore.AllowUserToAddRows = false;
+            dgvScore.AllowUserToDeleteRows = false;
+            dgvScore.AllowUserToOrderColumns = false;
+            // Không cho chọn nhiều
+            dgvScore.MultiSelect = false;
         }
 
         public void resetForm()
@@ -120,7 +119,7 @@ namespace PresentationLayer
             designData();
             if (cbbSubject.SelectedValue != null && int.TryParse(cbbSubject.SelectedValue?.ToString(), out int subject_id) && subject_id > 0)
             {
-                List<ClassDTO> classes = inputScore.GetAssignmentClass(1, subject_id);
+                List<ClassDTO> classes = inputScore.GetAssignmentClass(subject_id);
                 // Thêm dòng đầu tiên "Chọn lớp"
                 classes.Insert(0, new ClassDTO(0, "Chọn lớp"));
                 // Gán dữ liệu vào ComboBox
@@ -151,15 +150,17 @@ namespace PresentationLayer
             }    
         }
 
-        private void dgvScore_SelectionChanged(object sender, EventArgs e)
+        private void dgvScore_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvScore.SelectedRows.Count == 0)
-                return;
-            DataGridViewRow row = dgvScore.SelectedRows[0];
-            txtHoTen.Text = row.Cells["TenHocSinh"].Value?.ToString();
-            txtDiem15P.Text = row.Cells["Diem15P"].Value?.ToString();
-            txtDiem1T.Text = row.Cells["Diem1T"].Value?.ToString();
-            txtDiemThi.Text = row.Cells["DiemThi"].Value?.ToString();
+            if (e.RowIndex >= 0 && dgvScore.Columns[e.ColumnIndex].Name == "Edit")
+            {
+                DataGridViewRow row = dgvScore.Rows[e.RowIndex];
+                txtHoTen.Text = row.Cells["TenHocSinh"].Value?.ToString();
+                txtDiem15P.Text = row.Cells["Diem15P"].Value?.ToString();
+                txtDiem1T.Text = row.Cells["Diem1T"].Value?.ToString();
+                txtDiemThi.Text = row.Cells["DiemThi"].Value?.ToString();
+                dgvScore.Rows[e.RowIndex].Selected = true;
+            }
         }
 
         private void btSave_Click(object sender, EventArgs e)
@@ -183,16 +184,15 @@ namespace PresentationLayer
                 student_id = selectedStudent.MaHS;
             
             }
-            inputScore.SaveScore(class_id, student_id, subject_id, Diem15P, Diem1T, DiemThi);
-            MessageBox.Show("Đã cập nhật điểm thành công ! ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ScoreDTO score = new ScoreDTO(class_id, student_id, subject_id, Diem15P, Diem1T, DiemThi);
+            bool result = inputScore.SaveScore(score);
+            if (result)
+                MessageBox.Show("Đã cập nhật điểm thành công ! ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Lưu thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //load lại điểm
             resetForm();
             showScore(class_id, subject_id);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

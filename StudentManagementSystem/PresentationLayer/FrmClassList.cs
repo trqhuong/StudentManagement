@@ -23,7 +23,7 @@ namespace PresentationLayer
 
         private void FrmClassList_Load(object sender, EventArgs e)
         {
-            List<ClassDTO> classList = classListBUS.GetClassTeacher(1);
+            List<ClassDTO> classList = classListBUS.GetClassTeacher();
             // Thêm dòng đầu tiên "Chọn lớp"
             classList.Insert(0, new ClassDTO(0, "Chọn lớp"));
             // Gán dữ liệu vào ComboBox

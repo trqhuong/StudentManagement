@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,19 +11,20 @@ using TransferObject;
 
 namespace DataLayer
 {
-    public class InputScoreDAO
+    public class InputScoreDAO: DataProvider
     {
-        private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
-        public List<SubjectDTO> GetAssignmentSubject(int teacher_id)
+        public List<SubjectDTO> GetAssignmentSubject()
         {
             List<SubjectDTO> subjects = new List<SubjectDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            // Lấy mã giáo viên
+            int teacher_id = Convert.ToInt32(MyExecuteScalar("sp_GetTeacherActive", CommandType.StoredProcedure));
+            //lấy môn học
+            List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@MaGV", teacher_id)
+                };
+            using (SqlDataReader reader = ExecuteReader("sp_GetAssignmentSubject", CommandType.StoredProcedure, parameters))
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetAssignmentSubject", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MaGV", teacher_id);
-                SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     subjects.Add(new SubjectDTO(
@@ -33,17 +35,19 @@ namespace DataLayer
             }
             return subjects;
         }
-        public List<ClassDTO> GetAssignmentClass(int teacher_id, int subject_id)
+        public List<ClassDTO> GetAssignmentClass(int subject_id)
         {
             List<ClassDTO> classes = new List<ClassDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            // Lấy mã giáo viên
+            int teacher_id = Convert.ToInt32(MyExecuteScalar("sp_GetTeacherActive", CommandType.StoredProcedure));
+            //lấy môn học
+            List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@MaGV", teacher_id),
+                    new SqlParameter("@MaMH", subject_id)
+                };
+            using (SqlDataReader reader = ExecuteReader("sp_GetAssignmentClass", CommandType.StoredProcedure, parameters))
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetAssignmentClass", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MaGV", teacher_id);
-                cmd.Parameters.AddWithValue("@MaMH", subject_id);
-                SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     classes.Add(new ClassDTO(
@@ -57,14 +61,14 @@ namespace DataLayer
         public List<StudentsDTO> GetStudentInClass(int class_id)
         {
             List<StudentsDTO> students = new List<StudentsDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            string query = "SELECT MaHocSinh, TenHocSinh FROM HOCSINH WHERE MaHocSinh in (SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
+                "where hl.MaHS = h.MaHocSinh and hl.MaLop = @class_id )";
+            List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@class_id", class_id)
+                };
+            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
             {
-                conn.Open();
-                string query = "SELECT MaHocSinh, TenHocSinh FROM HOCSINH WHERE MaHocSinh in (SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
-                    "where hl.MaHS = h.MaHocSinh and hl.MaLop = @class_id )";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@class_id", class_id);
-                SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     students.Add(new StudentsDTO(
@@ -78,14 +82,15 @@ namespace DataLayer
         public List<ScoreDTO> GetScore(int class_id, int subject_id)
         {
             List<ScoreDTO> scores = new List<ScoreDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            string query = "SELECT * FROM DIEM WHERE MaLop = @class_id AND MaMH = @subject_id";
+            List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@class_id", class_id),
+                    new SqlParameter("@subject_id", subject_id)
+                };
+
+            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
             {
-                conn.Open();
-                string query = "SELECT * FROM DIEM where Malop = @class_id and MaMh = @subject_id ";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@class_id", class_id);
-                cmd.Parameters.AddWithValue("@subject_id", subject_id);
-                SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     scores.Add(new ScoreDTO(
@@ -96,69 +101,58 @@ namespace DataLayer
                         Convert.ToSingle(reader["Diem15P"]),
                         Convert.ToSingle(reader["Diem1T"]),
                         Convert.ToSingle(reader["DiemThi"])
-                        ));
+                    ));
                 }
             }
             return scores;
         }
-        public void SaveScore(int class_id, int student_id, int subject_id, float student_score15, float student_score1, float student_score)
+
+        public bool SaveScore(ScoreDTO score)
         {
-            using (SqlConnection conn = new SqlConnection(cnn))
+            // B1: Lấy học kỳ hiện tại
+            string q = "SELECT MaHK FROM HOCKY WHERE TrangThai = 1";
+            int semester = Convert.ToInt32(MyExecuteScalar(q, CommandType.Text));
+            // B2: Kiểm tra điểm đã tồn tại chưa
+            string checkQuery = @"SELECT COUNT(*) FROM DIEM 
+                          WHERE MaLop = @class_id AND MaHS = @student_id AND MaMH = @subject_id AND HocKy = @semester_id";
+            List<SqlParameter> checkParams = new List<SqlParameter>
             {
-                conn.Open();
-                // B1: Lấy học kỳ hiện tại
-                int semester = 0;
-                string query1 = "SELECT MaHK FROM HOCKY WHERE TrangThai = 1";
-                SqlCommand cmd1 = new SqlCommand(query1, conn);
-                SqlDataReader reader1 = cmd1.ExecuteReader();
-                if (reader1.Read())
-                {
-                    semester = Convert.ToInt32(reader1["MaHK"]);
-                }
-                reader1.Close();
-                // B2: Kiểm tra tồn tại
-                string checkQuery = "SELECT COUNT(*) FROM DIEM " +
-                    "WHERE MaLop = @class_id AND MaHS = @student_id AND MaMH = @subject_id AND HocKy = @semester_id";
-                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
-                checkCmd.Parameters.AddWithValue("@class_id", class_id);
-                checkCmd.Parameters.AddWithValue("@student_id", student_id);
-                checkCmd.Parameters.AddWithValue("@subject_id", subject_id);
-                checkCmd.Parameters.AddWithValue("@semester_id", semester);
-                int count = (int)checkCmd.ExecuteScalar(); // trả về số dòng
-                if (count > 0)
-                {
-                    // B3.1: Đã có → UPDATE
-                    string updateQuery = @"UPDATE DIEM SET 
-                            Diem15P = @student_score15, 
-                            Diem1T = @student_score1, 
-                            DiemThi = @student_score
-                         WHERE MaLop = @class_id AND MaHS = @student_id AND MaMH = @subject_id AND HocKy = @semester_id";
-                    SqlCommand updateCmd = new SqlCommand(updateQuery, conn);
-                    updateCmd.Parameters.AddWithValue("@student_score15", student_score15);
-                    updateCmd.Parameters.AddWithValue("@student_score1", student_score1);
-                    updateCmd.Parameters.AddWithValue("@student_score", student_score);
-                    updateCmd.Parameters.AddWithValue("@class_id", class_id);
-                    updateCmd.Parameters.AddWithValue("@student_id", student_id);
-                    updateCmd.Parameters.AddWithValue("@subject_id", subject_id);
-                    updateCmd.Parameters.AddWithValue("@semester_id", semester);
-                    updateCmd.ExecuteNonQuery();
-                }
-                else
-                {
-                    // B3.2: Chưa có → INSERT
-                    string insertQuery = @" INSERT INTO DIEM (MaLop, MaHS, MaMH, HocKy, Diem15P, Diem1T, DiemThi)
-                        VALUES (@class_id, @student_id, @subject_id, @semester_id, @student_score15, @student_score1, @student_score)";
-                    SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
-                    insertCmd.Parameters.AddWithValue("@class_id", class_id);
-                    insertCmd.Parameters.AddWithValue("@student_id", student_id);
-                    insertCmd.Parameters.AddWithValue("@subject_id", subject_id);
-                    insertCmd.Parameters.AddWithValue("@semester_id", semester);
-                    insertCmd.Parameters.AddWithValue("@student_score15", student_score15);
-                    insertCmd.Parameters.AddWithValue("@student_score1", student_score1);
-                    insertCmd.Parameters.AddWithValue("@student_score", student_score);
-                    insertCmd.ExecuteNonQuery();
-                }
+                new SqlParameter("@class_id", score.MaLop),
+                new SqlParameter("@student_id", score.MaHS),
+                new SqlParameter("@subject_id", score.MaMH),
+                new SqlParameter("@semester_id", semester)
+            };
+            // trả về số dòng
+            int count = Convert.ToInt32(MyExecuteScalar(checkQuery, CommandType.Text, checkParams));
+            // B3: Thực hiện INSERT hoặc UPDATE
+            string query;
+            List<SqlParameter> scoreParams = new List<SqlParameter>
+            {
+                new SqlParameter("@student_score15", score.Diem15P),
+                new SqlParameter("@student_score1",  score.Diem1T),
+                new SqlParameter("@student_score",  score.DiemThi),
+                new SqlParameter("@class_id", score.MaLop),
+                new SqlParameter("@student_id", score.MaHS),
+                new SqlParameter("@subject_id", score.MaMH),
+                new SqlParameter("@semester_id", semester)
+            };
+
+            if (count > 0)
+            {
+                // Cập nhật
+                query = @"UPDATE DIEM SET 
+                    Diem15P = @student_score15, 
+                    Diem1T = @student_score1, 
+                    DiemThi = @student_score
+                  WHERE MaLop = @class_id AND MaHS = @student_id AND MaMH = @subject_id AND HocKy = @semester_id";
             }
+            else
+            {
+                // Thêm mới
+                query = @"INSERT INTO DIEM (MaLop, MaHS, MaMH, HocKy, Diem15P, Diem1T, DiemThi)
+                  VALUES (@class_id, @student_id, @subject_id, @semester_id, @student_score15, @student_score1, @student_score)";
+            }
+            return MyExecuteNonQuery(query, CommandType.Text, scoreParams) > 0;
         }
     }
 }

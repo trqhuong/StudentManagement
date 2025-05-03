@@ -18,7 +18,8 @@ BEGIN
         TenDangNhap NVARCHAR(50) , 
         MatKhau NVARCHAR(255) NOT NULL,      
         LoaiTaiKhoan NVARCHAR(20) NOT NULL CHECK (LoaiTaiKhoan IN (N'Admin', N'Giáo viên')), 
-        TrangThai BIT DEFAULT 0     
+        TrangThai BIT DEFAULT 0,
+		Email NVARCHAR(100) NULL
     );
 END
 -- BẢNG NĂM HỌC
@@ -158,19 +159,17 @@ BEGIN
     );
 END
 -- THÊM DỮ LIỆU BAN ĐẦU
-
 -- TÀI KHOẢN
-INSERT INTO TAIKHOAN (TenDangNhap, MatKhau, LoaiTaiKhoan)
+INSERT INTO TAIKHOAN (TenDangNhap, MatKhau, LoaiTaiKhoan, Email)
 VALUES 
-    (N'admin', '123456', N'Admin'),
-    (N'gv001', '123456', N'Giáo viên'),
-    (N'gv002', '123456', N'Giáo viên'),
-    (N'gv003', '123456', N'Giáo viên');
+    (N'admin', '123456', N'Admin','quynhhuongtran314@gmail.com'),
+    (N'gv001', '123456', N'Giáo viên','sheisthy29@gmail.com'),
+    (N'gv002', '123456', N'Giáo viên',NULL),
+    (N'gv003', '123456', N'Giáo viên',NULL);
 GO
 -- NĂM HỌC, HỌC KỲ, MÔN HỌC
 INSERT INTO NAMHOC (NamBatDau,NamKetThuc,TrangThai) VALUES (2024,2025,1)
 INSERT INTO HOCKY (SoHocKy,NamHoc,TrangThai) VALUES (1,1,1)
-INSERT INTO HOCKY (SoHocKy,NamHoc,TrangThai) VALUES  (2,1,0)
 INSERT INTO MONHOC ([TenMonHoc]) 
 VALUES 
 	(N'Toán'),
@@ -193,9 +192,9 @@ GO
 -- GIÁO VIÊN
 INSERT INTO GIAOVIEN (TenGiaoVien, NgaySinh, GioiTinh, DienThoai, TaiKhoan)
 VALUES 
-(N'Nguyễn Văn An', '1985-06-15', N'Nam', '0987654321', 1),
-( N'Trần Thị Hồng', '1990-09-22', N'Nữ', '0976543210', 2),
-( N'Lê Văn Khoa', '1982-12-30', N'Nam', '0965432109', 3);
+(N'Nguyễn Văn An', '1985-06-15', N'Nam', '0987654321', 2),
+( N'Trần Thị Hồng', '1990-09-22', N'Nữ', '0976543210', 3),
+( N'Lê Văn Khoa', '1982-12-30', N'Nam', '0965432109', 4);
 GO
 -- GIÁO VIÊN DẠY MÔN HỌC
 INSERT INTO GIAOVIEN_DAY_MONHOC (MaGV, MaMH) 
@@ -204,8 +203,8 @@ VALUES (1, 1), (2, 2), (3, 3)
 INSERT LOPHOC (TenLop, SiSo, GVQuanLi, NamHoc) 
 VALUES 
 	(N'10A1', 0, 1,1),
-	(N'11A1', 0, 2,1),
-	(N'12A1', 0, 3,1)
+	(N'11B1', 0, 2,1),
+	(N'12C1', 0, 3,1)
 GO
 -- HỌC SINH HỌC LỚP
 INSERT HOCSINH_LOP(MaHS, MaLop) 
@@ -234,24 +233,35 @@ VALUES
     -- Lớp 11A1 (MaLop = 2)
     (1, 2, 1),
     (2, 2, 2),
-    (3, 2, 3),
-    -- Lớp 12A1 (MaLop = 3)
-    (1, 3, 1),
-    (2, 3, 2),
-    (3, 3, 3)
+    (3, 2, 3)
 GO
 --Điểm
 INSERT INTO DIEM (MaLop, MaHS, MaMH, HocKy, Diem15P, Diem1T, DiemThi)
 VALUES 
-(1, 1, 1, 1, 4.5, 1.0, 2.0), 
-(2, 2, 2, 1, 6.5, 8.0, 7.5),
-(3, 3, 1, 1, 9.0, 8.5, 8.5),
-(1, 1, 2, 1, 8.5, 7.0, 9.0), 
-(1, 2, 1, 1, 6.5, 8.0, 7.5),
-(2, 3, 3, 2, 9.0, 8.5, 8.5),
-(3, 3, 3, 2, 4.0, 3.5, 2.5);
-go
+-- Lớp 12C1 (HS1–3)
+(3, 1, 1, 1, 6.0, 7.5, 8.0),
+(3, 3, 3, 1, 8.5, 9.0, 9.0),
+-- Lớp 11B1 (HS4–6)
+(2, 4, 1, 1, 7.0, 8.0, 7.5),
+(2, 5, 2, 1, 6.5, 7.0, 7.0),
+-- Lớp 10A1 (HS7–9)
+(1, 8, 2, 1, 6.0, 7.0, 7.5),
+(1, 9, 3, 1, 7.5, 8.0, 8.0);
+GO
 --Stored Procedure: 
+-- lấy mã giáo viên đang đăng nhập
+CREATE PROCEDURE sp_GetTeacherActive
+AS
+BEGIN
+    SELECT MaGiaoVien
+    FROM GIAOVIEN
+    WHERE TaiKhoan IN (
+        SELECT MaTK
+        FROM TAIKHOAN
+        WHERE TrangThai = 1
+    )
+END
+GO
 -- Lấy môn học giáo viên đang dạy
 CREATE PROCEDURE sp_GetAssignmentSubject
     @MaGV INT
@@ -298,7 +308,7 @@ BEGIN
 		ROUND(AVG(CASE WHEN hk.SoHocKy = 1 THEN 
 			(ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0) * 2 + ISNULL(d.DiemThi, 0) * 3) / 6 
 		END), 1) AS DiemTBHK1,
-
+		-- Tính điểm TB học kỳ 2
 		ROUND(AVG(CASE WHEN hk.SoHocKy = 2 THEN 
 			(ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0) * 2 + ISNULL(d.DiemThi, 0) * 3) / 6 
 		END), 1) AS DiemTBHK2
@@ -341,4 +351,5 @@ BEGIN
     ORDER BY l.MaLop;
 END
 GO
+--
 

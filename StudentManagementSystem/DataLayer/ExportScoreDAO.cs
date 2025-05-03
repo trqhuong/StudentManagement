@@ -9,19 +9,20 @@ using TransferObject;
 
 namespace DataLayer
 {
-    public class ExportScoreDAO
+    public class ExportScoreDAO: DataProvider
     {
-        private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
-        public List<SubjectDTO> GetAssignmentSubject(int teacher_id)
+        public List<SubjectDTO> GetAssignmentSubject()
         {
             List<SubjectDTO> subjects = new List<SubjectDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            // Lấy mã giáo viên
+            int teacher_id = Convert.ToInt32(MyExecuteScalar("sp_GetTeacherActive", CommandType.StoredProcedure));
+            //lấy môn học
+            List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@MaGV", teacher_id)
+                };
+            using (SqlDataReader reader = ExecuteReader("sp_GetAssignmentSubject", CommandType.StoredProcedure, parameters))
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetAssignmentSubject", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MaGV", teacher_id);
-                SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     subjects.Add(new SubjectDTO(
@@ -32,19 +33,27 @@ namespace DataLayer
             }
             return subjects;
         }
-        public List<ClassDTO> GetAssignmentClass(int teacher_id, int subject_id, int year_id)
+        public List<ClassDTO> GetAssignmentClass(int subject_id, int year_id)
         {
             List<ClassDTO> classes = new List<ClassDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            // B1: Lấy mã giáo viên đang hoạt động
+            int teacher_id = Convert.ToInt32(MyExecuteScalar("sp_GetTeacherActive", CommandType.StoredProcedure));
+            // B2: Lấy danh sách lớp được phân công
+            string query = @"SELECT * FROM LOPHOC WHERE MaLop IN (
+                        SELECT p.MaLop FROM PHANCONG p, LOPHOC l
+                        WHERE p.MaLop = l.MaLop 
+                          AND p.MaMH = @subject_id 
+                          AND p.MaGV = @teacher_id 
+                          AND l.NamHoc = @year_id
+                     )";
+            List<SqlParameter> parameters = new List<SqlParameter>
             {
-                conn.Open();
-                string query = "SELECT * FROM LOPHOC WHERE MaLop IN ( SELECT p.MaLop FROM PHANCONG p, LOPHOC l " +
-                    "where p.MaLop = l.MaLop and p.MaMH = @subject_id and p.MaGV = @teacher_id and l.NamHoc = @year_id)";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@teacher_id", teacher_id);
-                cmd.Parameters.AddWithValue("@subject_id", subject_id);
-                cmd.Parameters.AddWithValue("@year_id", year_id);
-                SqlDataReader reader = cmd.ExecuteReader();
+                new SqlParameter("@subject_id", subject_id),
+                new SqlParameter("@teacher_id", teacher_id),
+                new SqlParameter("@year_id", year_id)
+            };
+            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            {
                 while (reader.Read())
                 {
                     classes.Add(new ClassDTO(
@@ -55,15 +64,13 @@ namespace DataLayer
             }
             return classes;
         }
+
         public List<SchoolYearDTO> GetSchoolYear()
         {
             List<SchoolYearDTO> schoolyears = new List<SchoolYearDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            string query = "SELECT * FROM NAMHOC";
+            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text))
             {
-                conn.Open();
-                string query = "SELECT * FROM NAMHOC";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     schoolyears.Add(new SchoolYearDTO(
@@ -75,17 +82,20 @@ namespace DataLayer
             }
             return schoolyears;
         }
+
         public List<StudentsDTO> GetStudentInClass(int class_id)
         {
             List<StudentsDTO> students = new List<StudentsDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            string query = "SELECT MaHocSinh, TenHocSinh FROM HOCSINH WHERE MaHocSinh IN " +
+                           "(SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
+                           "WHERE hl.MaHS = h.MaHocSinh AND hl.MaLop = @class_id)";
+            List<SqlParameter> parameters = new List<SqlParameter>
             {
-                conn.Open();
-                string query = "SELECT MaHocSinh, TenHocSinh FROM HOCSINH WHERE MaHocSinh in (SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
-                    "where hl.MaHS = h.MaHocSinh and hl.MaLop = @class_id )";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@class_id", class_id);
-                SqlDataReader reader = cmd.ExecuteReader();
+                new SqlParameter("@class_id", class_id)
+            };
+
+            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            {
                 while (reader.Read())
                 {
                     students.Add(new StudentsDTO(
@@ -96,25 +106,27 @@ namespace DataLayer
             }
             return students;
         }
-        public List<AverageScoreDTO> ExportScore(int subject_id,int class_id, int year_id)
+
+        public List<AverageScoreDTO> ExportScore(int subject_id, int class_id, int year_id)
         {
             List<AverageScoreDTO> averagescores = new List<AverageScoreDTO>();
-            using (SqlConnection conn = new SqlConnection(cnn))
+            string procedureName = "sp_ExportScore";
+            List<SqlParameter> parameters = new List<SqlParameter>
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_ExportScore", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@MaLop", class_id);
-                cmd.Parameters.AddWithValue("@MaMH", subject_id);
-                cmd.Parameters.AddWithValue("@MaNH", year_id);
-                SqlDataReader reader = cmd.ExecuteReader();
+                new SqlParameter("@MaLop", class_id),
+                new SqlParameter("@MaMH", subject_id),
+                new SqlParameter("@MaNH", year_id)
+            };
+
+            using (SqlDataReader reader = ExecuteReader(procedureName, CommandType.StoredProcedure, parameters))
+            {
                 while (reader.Read())
                 {
                     float diemHK1 = reader["DiemTBHK1"] != DBNull.Value ? Convert.ToSingle(reader["DiemTBHK1"]) : 0;
                     float diemHK2 = reader["DiemTBHK2"] != DBNull.Value ? Convert.ToSingle(reader["DiemTBHK2"]) : 0;
                     float diemCaNam = (float)Math.Round((diemHK1 + diemHK2 * 2) / 3, 1);
                     averagescores.Add(new AverageScoreDTO(
-                        Convert.ToInt32(reader["MaHocSinh"].ToString()),
+                        Convert.ToInt32(reader["MaHocSinh"]),
                         diemHK1,
                         diemHK2,
                         diemCaNam
@@ -123,5 +135,6 @@ namespace DataLayer
             }
             return averagescores;
         }
+
     }
 }
