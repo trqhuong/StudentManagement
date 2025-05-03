@@ -28,5 +28,9 @@ namespace BusinessLayer
         {
             return classDAO.DeleteClass(maLop);
         }
+        public List<ClassDTO> GetDanhSachLopTheoTrangThai()
+        {
+            return classDAO.GetAllLopHocTheoTrangThai();
+        }
     }
 }

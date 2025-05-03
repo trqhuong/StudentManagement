@@ -18,15 +18,17 @@ namespace PresentationLayer
         private ReportBUS thongKeBUS = new ReportBUS();
         private SubjectBUS subjectBUS = new SubjectBUS();
         private SemesterBUS semesterBUS = new SemesterBUS();
+        private SchoolYearBUS schoolYearBUS = new SchoolYearBUS();
+
         public FrmReport()
         {
 
             InitializeComponent();
-            LoadInfor();
+            LoadData();
         }
 
 
-        private void LoadInfor()
+        private void LoadData()
         {
             var listMonHoc = subjectBUS.GetAllSubject();
 
@@ -42,27 +44,17 @@ namespace PresentationLayer
                 MessageBox.Show("Không có môn học nào để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            var listHocKy = semesterBUS.GetAllHocKy();
+            cbbSemester.Items.Clear();
+            cbbSemester.Items.Add("1");
+            cbbSemester.Items.Add("2");
+            cbbSemester.SelectedIndex = 0;
 
-            if (listHocKy != null && listHocKy.Count > 0)
-            {
-                cbbSemester.DataSource = listHocKy;
-                cbbSemester.DisplayMember = "SoHocKy";
-                cbbSemester.ValueMember = "MaHK";
-            }
-            else
-            {
-                MessageBox.Show("Không có học kỳ nào để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
 
-            List<SchoolYearDTO> listSchoolYear = new List<SchoolYearDTO>()
-             {
-                    new SchoolYearDTO(1, 2024,2025)
-
-             };
+            List<SchoolYearDTO> listSchoolYear = schoolYearBUS.GetAllSchoolYears();
             cbbYear.DataSource = listSchoolYear;
             cbbYear.DisplayMember = "NamHienThi";
             cbbYear.ValueMember = "MaNH";
+
         }
         private void LoadChartData(List<ReportDTO> reportData)
         {
@@ -101,7 +93,7 @@ namespace PresentationLayer
         private void btReport_Click(object sender, EventArgs e)
         {
             int maMon = Convert.ToInt32(cbbSubject.SelectedValue);
-            int hocKy = Convert.ToInt32(cbbSemester.SelectedValue);
+            int hocKy = Convert.ToInt32(cbbSemester.SelectedItem.ToString());
             int namHoc = Convert.ToInt32(cbbYear.SelectedValue);
 
             var reportData = thongKeBUS.ThongKeTyLeDat(maMon, hocKy, namHoc);
