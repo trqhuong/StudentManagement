@@ -170,8 +170,10 @@
     <Compile Include="FrmYear_Semester.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmYear_Semester.Designer.cs">
-      <DependentUpon>FrmYear_Semester.cs</DependentUpon>
+   <Compile Include="FrmYear_Semester.Designer.cs">
+  <DependentUpon>FrmYear_Semester.cs</DependentUpon>
+</Compile>
+
     <Compile Include="OTP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,8 +230,10 @@
     <EmbeddedResource Include="FrmTeacher.resx">
       <DependentUpon>FrmTeacher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmYear_Semester.resx">
-      <DependentUpon>FrmYear_Semester.cs</DependentUpon>
+   <EmbeddedResource Include="FrmYear_Semester.resx">
+  <DependentUpon>FrmYear_Semester.cs</DependentUpon>
+</EmbeddedResource>
+
     <EmbeddedResource Include="OTP.resx">
       <DependentUpon>OTP.cs</DependentUpon>
     </EmbeddedResource>

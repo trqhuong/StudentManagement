@@ -53,39 +53,45 @@ namespace DataLayer
                             "VALUES (@TenHocSinh, @NgaySinh, @GioiTinh, @TinhTrang, @QRCodePath); " +
                             "SELECT SCOPE_IDENTITY();";
 
-        
             var parameters1 = new List<SqlParameter>
-             {
+            {
                 new SqlParameter("@TenHocSinh", hs.TenHS),
                 new SqlParameter("@NgaySinh", hs.NgaySinh),
                 new SqlParameter("@GioiTinh", hs.GioiTinh),
                 new SqlParameter("@TinhTrang", hs.TinhTrang),
                 new SqlParameter("@QRCodePath", (object)hs.QRCodePath ?? DBNull.Value)
-             };
+            };
 
             try
             {
-                // Thực thi câu lệnh SQL để lấy MaHocSinh
                 int maHS = Convert.ToInt32(MyExecuteScalar(query1, CommandType.Text, parameters1));
 
                 // Thêm học sinh vào bảng HocSinh_Lop
                 string query2 = "INSERT INTO HocSinh_Lop (MaHS, MaLop) VALUES (@MaHS, @MaLop)";
-                var parameters2 = new List<SqlParameter>
+                        var parameters2 = new List<SqlParameter>
                 {
                     new SqlParameter("@MaHS", maHS),
                     new SqlParameter("@MaLop", idLop)
                 };
-
                 MyExecuteNonQuery(query2, CommandType.Text, parameters2);
 
-                return maHS; // Trả về ID của học sinh mới thêm
+                // Cập nhật sĩ số lớp
+                string query3 = "UPDATE LOPHOC SET SiSo = SiSo + 1 WHERE MaLop = @MaLop";
+                var parameters3 = new List<SqlParameter>
+                {
+                    new SqlParameter("@MaLop", idLop)
+                };
+                MyExecuteNonQuery(query3, CommandType.Text, parameters3);
+
+                return maHS;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-                return -1; // Lỗi
+                return -1;
             }
         }
+
 
 
         public bool UpdateQRCode(int maHS, string filePath)
@@ -242,6 +248,7 @@ namespace DataLayer
 
             return student;
         }
+     
 
     }
 }
