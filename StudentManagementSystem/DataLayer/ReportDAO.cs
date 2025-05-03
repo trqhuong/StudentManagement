@@ -27,7 +27,7 @@ namespace DataLayer
             };
 
             // Sử dụng MyExecuteReader từ DataProvider để gọi stored procedure và nhận về DataTable
-            DataTable dt = new DataProvider().MyExecuteReader(sql, CommandType.StoredProcedure, parameters);
+            DataTable dt = MyExecuteReader(sql, CommandType.StoredProcedure, parameters);
 
             // Duyệt qua DataTable và tạo các đối tượng ReportDTO
             foreach (DataRow row in dt.Rows)

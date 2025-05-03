@@ -63,5 +63,17 @@ namespace PresentationLayer
                 txtPassword.Focus();
             }
         }
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btForgotPass_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ForgotPassword forgotPassword = new ForgotPassword();
+            forgotPassword.ShowDialog();            
+        }
     }
 }

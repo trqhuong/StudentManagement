@@ -177,6 +177,7 @@ namespace DataLayer
                         cmd1.Parameters.AddWithValue("@MaGV", maGV);
                         cmd1.ExecuteNonQuery();
                     }
+                    transaction.Commit();
 
                     // 2. Xóa tài khoản giáo viên
                     string tenDangNhap = "gv" + maGV.ToString("D3");

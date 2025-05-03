@@ -19,7 +19,7 @@ BEGIN
         MatKhau NVARCHAR(255) NOT NULL,      
         LoaiTaiKhoan NVARCHAR(20) NOT NULL CHECK (LoaiTaiKhoan IN (N'Admin', N'Giáo viên')), 
         TrangThai BIT DEFAULT 0,
-		Email NVARCHAR(100) NULL
+		    Email NVARCHAR(100) NULL
     );
 END
 -- BẢNG NĂM HỌC
@@ -352,4 +352,26 @@ BEGIN
 END
 GO
 --
+
+--Lấy hs bằng ID
+CREATE PROCEDURE sp_GetHocSinhById
+    @MaHocSinh INT
+AS
+BEGIN
+    SELECT hs.MaHocSinh, 
+           hs.TenHocSinh, 
+           hs.NgaySinh, 
+           hs.GioiTinh, 
+           hs.TinhTrang, 
+           hs.QRCodePath, 
+           l.TenLop
+    FROM HOCSINH hs
+    INNER JOIN HOCSINH_LOP hs_l ON hs.MaHocSinh = hs_l.MaHS
+    INNER JOIN LOPHOC l ON hs_l.MaLop = l.MaLop
+    WHERE hs.MaHocSinh = @MaHocSinh
+END
+GO
+
+
+
 

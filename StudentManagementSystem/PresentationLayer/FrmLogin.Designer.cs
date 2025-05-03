@@ -38,6 +38,7 @@
             this.btLogin = new System.Windows.Forms.Button();
             this.lbCancel = new System.Windows.Forms.Label();
             this.checkShowPass = new System.Windows.Forms.CheckBox();
+            this.btForgotPass = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -148,12 +149,26 @@
             this.checkShowPass.UseVisualStyleBackColor = true;
             this.checkShowPass.CheckedChanged += new System.EventHandler(this.checkShowPass_CheckedChanged);
             // 
+            // btForgotPass
+            // 
+            this.btForgotPass.BackColor = System.Drawing.Color.White;
+            this.btForgotPass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btForgotPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btForgotPass.Location = new System.Drawing.Point(556, 409);
+            this.btForgotPass.Name = "btForgotPass";
+            this.btForgotPass.Size = new System.Drawing.Size(180, 32);
+            this.btForgotPass.TabIndex = 6;
+            this.btForgotPass.Text = "Forgot password";
+            this.btForgotPass.UseVisualStyleBackColor = false;
+            this.btForgotPass.Click += new System.EventHandler(this.btForgotPass_Click);
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(782, 453);
+            this.Controls.Add(this.btForgotPass);
             this.Controls.Add(this.checkShowPass);
             this.Controls.Add(this.lbCancel);
             this.Controls.Add(this.btLogin);
@@ -186,5 +201,6 @@
         private System.Windows.Forms.Button btLogin;
         private System.Windows.Forms.Label lbCancel;
         private System.Windows.Forms.CheckBox checkShowPass;
+        private System.Windows.Forms.Button btForgotPass;
     }
 }

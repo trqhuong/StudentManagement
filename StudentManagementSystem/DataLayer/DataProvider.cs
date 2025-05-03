@@ -16,6 +16,7 @@ namespace DataLayer
             string cnStr = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
             cnn = new SqlConnection(cnStr);
         }
+
         private void Connect()
         {
             try
@@ -96,6 +97,7 @@ namespace DataLayer
         {
             SqlCommand cd = new SqlCommand(sql, cnn);
             cd.CommandType = type;
+
             if (parameters != null)
             {
                 cd.Parameters.AddRange(parameters.ToArray());
@@ -142,6 +144,8 @@ namespace DataLayer
                 DisConnect();
             }
         }
+
+
 
     }
 }

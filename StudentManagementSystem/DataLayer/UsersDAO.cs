@@ -61,6 +61,49 @@ namespace DataLayer
             MyExecuteNonQuery(query, CommandType.Text);
         }
 
+        public bool KiemTraUsernameTonTai(string username)
+        {
+            string sql = "SELECT COUNT(*) FROM TAIKHOAN WHERE  tendangnhap = @username";
+            List<SqlParameter> parameters = new List<SqlParameter>()
+            {
+                new SqlParameter("@username", username)
+            };
+
+            object result = MyExecuteScalar(sql, CommandType.Text, parameters);
+
+            if (result != null && int.TryParse(result.ToString(), out int count))
+            {
+                return count > 0;
+            }
+
+            return false;
+        }
+
+        public string LayEmailTheoUsername(string username)
+        {
+            string sql = "SELECT Email FROM TAIKHOAN WHERE  tendangnhap=@username";
+            List<SqlParameter> parameters = new List<SqlParameter>()
+            {
+                new SqlParameter("@username", username)
+            };
+
+            object result = MyExecuteScalar(sql, CommandType.Text, parameters);
+
+            return result?.ToString(); // Trả về null nếu không có
+        }
+
+        public bool UpdateMatKhau(string username, string newPassword)
+        {
+            string sql = "UPDATE TAIKHOAN SET matkhau = @password WHERE tendangnhap = @username";
+            List<SqlParameter> parameters = new List<SqlParameter>()
+            {
+                new SqlParameter("@password", newPassword),
+                new SqlParameter("@username", username)
+            };
+
+            return MyExecuteNonQuery(sql, CommandType.Text, parameters) > 0;
+        }
+
 
     }
 }
