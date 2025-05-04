@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace PresentationLayer
 {
     public partial class FrmMainTeacher: Form
     {
+        private LoginBUS taiKhoanBUS = new LoginBUS();
         public FrmMainTeacher()
         {
             InitializeComponent();
@@ -58,6 +60,14 @@ namespace PresentationLayer
         private void FrmMainTeacher_Load(object sender, EventArgs e)
         {
             lbName.Text = FrmMain.Username;
+        }
+
+        private void btLogout_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            taiKhoanBUS.Logout();
+            FrmLogin login = new FrmLogin();
+            login.Show();
         }
     }
 }

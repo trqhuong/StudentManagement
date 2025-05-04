@@ -89,6 +89,10 @@ namespace DataLayer
                         List<SqlParameter> namhoc = new List<SqlParameter> { new SqlParameter("@namhoc", new_year) };
                         return MyExecuteNonQuery(insert_semester, CommandType.Text, namhoc) > 0;
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
             catch (Exception ex)
