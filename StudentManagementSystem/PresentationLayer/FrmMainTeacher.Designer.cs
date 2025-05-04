@@ -40,6 +40,7 @@
             this.btList = new System.Windows.Forms.Button();
             this.pnbody = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btLogout = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -88,6 +89,7 @@
             // 
             this.pnLeft.BackColor = System.Drawing.Color.MidnightBlue;
             this.pnLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnLeft.Controls.Add(this.btLogout);
             this.pnLeft.Controls.Add(this.lbName);
             this.pnLeft.Controls.Add(this.pictureBox2);
             this.pnLeft.Controls.Add(this.btExport);
@@ -193,6 +195,24 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // btLogout
+            // 
+            this.btLogout.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btLogout.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.FlatAppearance.BorderSize = 0;
+            this.btLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
+            this.btLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btLogout.ForeColor = System.Drawing.Color.White;
+            this.btLogout.Location = new System.Drawing.Point(29, 469);
+            this.btLogout.Name = "btLogout";
+            this.btLogout.Size = new System.Drawing.Size(216, 50);
+            this.btLogout.TabIndex = 4;
+            this.btLogout.Text = "Log Out";
+            this.btLogout.UseVisualStyleBackColor = false;
+            this.btLogout.Click += new System.EventHandler(this.btLogout_Click);
+            // 
             // FrmMainTeacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -231,5 +251,6 @@
         private System.Windows.Forms.Button btList;
         private System.Windows.Forms.Panel pnbody;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btLogout;
     }
 }

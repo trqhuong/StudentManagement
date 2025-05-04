@@ -1,129 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TransferObject;
 
 namespace DataLayer
 {
-    public class TeacherDAO
+    public class TeacherDAO : DataProvider
     {
-        private string cnn = "Data Source=.;Initial Catalog=QLHocSinh;Integrated Security=True";
         public List<TeacherDTO> GetAllTeacher()
         {
             List<TeacherDTO> teachers = new List<TeacherDTO>();
+            string query = "SELECT gv.MaGiaoVien, gv.TenGiaoVien, gv.NgaySinh, gv.GioiTinh, gv.DienThoai, gv.TaiKhoan, gv.TinhTrang, tk.Email FROM GIAOVIEN gv " +
+                "           JOIN TAIKHOAN tk ON gv.TaiKhoan=tk.MaTK";
+
             try
             {
-                using (SqlConnection connect = new SqlConnection(cnn))
+                DataTable dt = MyExecuteReader(query, CommandType.Text);
+                foreach (DataRow row in dt.Rows)
                 {
-                    connect.Open();
-                    //lay du lieu giao vien
-                    string query = "SELECT gv.MaGiaoVien,gv.TenGiaoVien,gv.NgaySinh,gv.GioiTinh,gv.DienThoai,gv.TaiKhoan,gv.TinhTrang FROM GIAOVIEN gv";
-
-
-                    using (SqlCommand cmd = new SqlCommand(query, connect))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                teachers.Add(new TeacherDTO(
-                                Convert.ToInt32(reader["MaGiaoVien"]),
-                                reader["TenGiaoVien"].ToString(),
-                                Convert.ToDateTime(reader["NgaySinh"]),
-                                reader["GioiTinh"].ToString(),
-                                reader["DienThoai"].ToString(),
-                                Convert.ToInt32(reader["TaiKhoan"]),
-                                reader["TinhTrang"].ToString()));
-
-                            }
-                        }
-                    }
+                    teachers.Add(new TeacherDTO(
+                        Convert.ToInt32(row["MaGiaoVien"]),
+                        row["TenGiaoVien"].ToString(),
+                        Convert.ToDateTime(row["NgaySinh"]),
+                        row["GioiTinh"].ToString(),
+                        row["DienThoai"].ToString(),
+                        Convert.ToInt32(row["TaiKhoan"]),
+                        row["TinhTrang"].ToString(),
+                        row["Email"].ToString()
+                    ));
                 }
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi chung
                 Console.WriteLine("Error: " + ex.Message);
             }
 
             return teachers;
         }
+
         public int AddTeacher(TeacherDTO gv)
         {
-            using (SqlConnection conn = new SqlConnection(cnn))
+            try
             {
-                conn.Open();
-                SqlTransaction transaction = conn.BeginTransaction();
-                try
-                {
-                    // 1. Thêm giáo viên
-                    string query = "INSERT INTO GIAOVIEN (TenGiaoVien, NgaySinh, GioiTinh, DienThoai) " +
-                                   "VALUES (@TenGiaoVien, @NgaySinh, @GioiTinh, @DienThoai); " +
-                                   "SELECT SCOPE_IDENTITY();"; // SCOPE_IDENTITY() lấy MaGiaoVien mới
+                // Tạo tài khoản tạm
+                int maTaiKhoan = Convert.ToInt32(MyExecuteScalar(
+                    "INSERT INTO TAIKHOAN (TenDangNhap, MatKhau, LoaiTaiKhoan, TrangThai, Email) " +
+                    "VALUES ('temp', '123456', N'Giáo viên', 0, @Email); SELECT SCOPE_IDENTITY();",
+                     CommandType.Text, new List<SqlParameter>
+                     {
+                        new SqlParameter("@Email", gv.Email ?? (object)DBNull.Value)
+                     }));
 
-                    int maGiaoVien;
-                    int taiKhoan = 0; // Giá trị mặc định cho TaiKhoan (sẽ được tính sau khi có MaGiaoVien)
+                if (maTaiKhoan <= 0) throw new Exception("Không tạo được tài khoản.");
 
-                    using (SqlCommand cmd = new SqlCommand(query, conn, transaction))
+                // Thêm giáo viên, gán tài khoản
+                int maGiaoVien = Convert.ToInt32(MyExecuteScalar(
+                    "INSERT INTO GIAOVIEN (TenGiaoVien, NgaySinh, GioiTinh, DienThoai, TaiKhoan) " +
+                    "VALUES (@TenGiaoVien, @NgaySinh, @GioiTinh, @DienThoai, @TaiKhoan); SELECT SCOPE_IDENTITY();",
+                    CommandType.Text, new List<SqlParameter>
                     {
-                        cmd.Parameters.AddWithValue("@TenGiaoVien", gv.TenGV);
-                        cmd.Parameters.AddWithValue("@NgaySinh", gv.NgaySinh);
-                        cmd.Parameters.AddWithValue("@GioiTinh", gv.GioiTinh);
-                        cmd.Parameters.AddWithValue("@DienThoai", gv.DienThoai);
+                        new SqlParameter("@TenGiaoVien", gv.TenGV),
+                        new SqlParameter("@NgaySinh", gv.NgaySinh),
+                        new SqlParameter("@GioiTinh", gv.GioiTinh),
+                        new SqlParameter("@DienThoai", gv.DienThoai),
+                        new SqlParameter("@TaiKhoan", maTaiKhoan)
+                    }));
 
-                        // Lấy MaGiaoVien sau khi insert vào bảng GIAOVIEN
-                        maGiaoVien = Convert.ToInt32(cmd.ExecuteScalar());
-                        taiKhoan = maGiaoVien; // Gán taiKhoan là MaGiaoVien
-                    }
+                if (maGiaoVien <= 0) throw new Exception("Không thêm được giáo viên.");
 
-                    // 2. Cập nhật tài khoản trong bảng GIAOVIEN
-                    string updateQuery = "UPDATE GIAOVIEN SET TaiKhoan = @TaiKhoan WHERE MaGiaoVien = @MaGiaoVien";
-
-                    using (SqlCommand cmd2 = new SqlCommand(updateQuery, conn, transaction))
+                // Update lại tên đăng nhập
+                MyExecuteNonQuery(
+                    "UPDATE TAIKHOAN SET TenDangNhap = @TenDangNhap WHERE MaTK = @MaTK",
+                    CommandType.Text, new List<SqlParameter>
                     {
-                        cmd2.Parameters.AddWithValue("@TaiKhoan", taiKhoan);
-                        cmd2.Parameters.AddWithValue("@MaGiaoVien", maGiaoVien);
-                        cmd2.ExecuteNonQuery();
-                    }
+                        new SqlParameter("@TenDangNhap", "gv00" + maGiaoVien),
+                        new SqlParameter("@MaTK", maTaiKhoan)
+                    });
 
-                    // 3. Thêm vào bảng TAIKHOAN
-                    string insertAccount = "INSERT INTO TAIKHOAN (TenDangNhap, MatKhau, LoaiTaiKhoan, TrangThai) " +
-                                           "VALUES (@TenDangNhap, @MatKhau, @LoaiTaiKhoan, @TrangThai)";
-
-                    string tenDangNhap = "gv00" + taiKhoan; // Tạo tên đăng nhập mặc định (có thể thay đổi logic nếu cần)
-
-                    using (SqlCommand cmd3 = new SqlCommand(insertAccount, conn, transaction))
-                    {
-                        cmd3.Parameters.AddWithValue("@TenDangNhap", tenDangNhap);
-                        cmd3.Parameters.AddWithValue("@MatKhau", "123456"); // Mật khẩu mặc định
-                        cmd3.Parameters.AddWithValue("@LoaiTaiKhoan", "Giáo viên");
-                        cmd3.Parameters.AddWithValue("@TrangThai", 0);
-                        cmd3.ExecuteNonQuery();
-                    }
-
-                    // Commit giao dịch nếu mọi thứ thành công
-                    transaction.Commit();
-
-                    // Trả về mã giáo viên vừa thêm
-                    return maGiaoVien;
-                }
-                catch (Exception ex)
-                {
-                    // Rollback giao dịch nếu có lỗi
-                    transaction.Rollback();
-
-                    // Ghi lỗi chi tiết vào MessageBox và log
-                    MessageBox.Show($"Lỗi khi thêm giáo viên:\n{ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    // Log chi tiết lỗi vào Console
-                    Console.WriteLine($"Error: {ex.Message}\nStackTrace: {ex.StackTrace}");
-
-                    return -1; // Trả về -1 nếu có lỗi
-                }
+                return maGiaoVien;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thêm giáo viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
             }
         }
 
@@ -131,76 +92,76 @@ namespace DataLayer
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(cnn))
+                string updateQuery = "UPDATE GIAOVIEN SET TenGiaoVien=@TenGiaoVien, NgaySinh=@NgaySinh, GioiTinh=@GioiTinh, DienThoai=@DienThoai, TaiKhoan=@TaiKhoan, TinhTrang=@TinhTrang WHERE MaGiaoVien=@MaGiaoVien";
+
+                var parameters = new List<SqlParameter>
                 {
-                    conn.Open();
+                    new SqlParameter("@MaGiaoVien", gv.MaGV),
+                    new SqlParameter("@TenGiaoVien", gv.TenGV),
+                    new SqlParameter("@NgaySinh", gv.NgaySinh),
+                    new SqlParameter("@GioiTinh", gv.GioiTinh),
+                    new SqlParameter("@DienThoai", gv.DienThoai),
+                    new SqlParameter("@TaiKhoan", gv.TaiKhoan),
+                    new SqlParameter("@TinhTrang", gv.TinhTrang)
+                };
+                string updateTaiKhoanQuery = "UPDATE TAIKHOAN SET Email = @Email WHERE MaTK = @MaTK";
+                MyExecuteNonQuery(updateTaiKhoanQuery, CommandType.Text, new List<SqlParameter>
+                {
+                    new SqlParameter("@Email", gv.Email ?? (object)DBNull.Value),
+                    new SqlParameter("@MaTK", gv.TaiKhoan)
+                });
 
-                    string updateQuerry = "UPDATE GIAOVIEN " +
-                      "SET TenGiaoVien=@TenGiaoVien, NgaySinh=@NgaySinh, GioiTinh=@GioiTinh, DienThoai=@DienThoai, TaiKhoan=@TaiKhoan,TinhTrang=@TinhTrang " +
-                      "WHERE MaGiaoVien=@MaGiaoVien";
-
-
-                    using (SqlCommand cmd = new SqlCommand(updateQuerry, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@MaGiaoVien", gv.MaGV);
-                        cmd.Parameters.AddWithValue("@TenGiaoVien", gv.TenGV);
-                        cmd.Parameters.AddWithValue("@NgaySinh", gv.NgaySinh);
-                        cmd.Parameters.AddWithValue("@GioiTinh", gv.GioiTinh);
-                        cmd.Parameters.AddWithValue("@DienThoai", gv.DienThoai);
-                        cmd.Parameters.AddWithValue("@TaiKhoan", gv.TaiKhoan);
-                        cmd.Parameters.AddWithValue("@TinhTrang", gv.TinhTrang);
-                        return cmd.ExecuteNonQuery();
-
-                    }
-                }
+                return MyExecuteNonQuery(updateQuery, CommandType.Text, parameters);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return -1; // Trả về -1 nếu có lỗi
+                Console.WriteLine($"Error: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                return -1;
             }
         }
+
         public bool DeleteTeacher(int maGV)
         {
-            using (SqlConnection conn = new SqlConnection(cnn))
+            try
             {
-                conn.Open();
+                // Lấy mã tài khoản liên kết với giáo viên
+                string getAccountQuery = "SELECT TaiKhoan FROM GIAOVIEN WHERE MaGiaoVien = @MaGV";
+                var getAccountParams = new List<SqlParameter>
+        {
+            new SqlParameter("@MaGV", maGV)
+        };
+                object result = MyExecuteScalar(getAccountQuery, CommandType.Text, getAccountParams);
 
-                SqlTransaction transaction = conn.BeginTransaction();
-
-                try
+                if (result == null || result == DBNull.Value)
                 {
-                    // 1. Cập nhật tình trạng giáo viên
-                    string updateStatusQuery = "UPDATE GIAOVIEN SET TinhTrang = N'Nghỉ Dạy' WHERE MaGiaoVien = @MaGV";
-                    using (SqlCommand cmd1 = new SqlCommand(updateStatusQuery, conn, transaction))
-                    {
-                        cmd1.Parameters.AddWithValue("@MaGV", maGV);
-                        cmd1.ExecuteNonQuery();
-                    }
-                    transaction.Commit();
-
-                    // 2. Xóa tài khoản giáo viên
-                    string tenDangNhap = "gv" + maGV.ToString("D3");
-                    string deleteAccountQuery = "DELETE FROM TAIKHOAN WHERE TenDangNhap = @TenDangNhap";
-
-                    using (SqlCommand cmd2 = new SqlCommand(deleteAccountQuery, conn, transaction))
-                    {
-                        cmd2.Parameters.AddWithValue("@TenDangNhap", tenDangNhap);
-                        cmd2.ExecuteNonQuery();
-                    }
-
-                    transaction.Commit();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    MessageBox.Show("Lỗi khi xóa giáo viên: " + ex.Message);
                     return false;
                 }
+
+                int maTaiKhoan = Convert.ToInt32(result);
+
+                // Cập nhật tình trạng giáo viên và bỏ liên kết tài khoản
+                string updateGVQuery = "UPDATE GIAOVIEN SET TinhTrang = N'Nghỉ Dạy', TaiKhoan = NULL WHERE MaGiaoVien = @MaGV";
+                var updateGVParams = new List<SqlParameter>
+        {
+            new SqlParameter("@MaGV", maGV)
+        };
+                MyExecuteNonQuery(updateGVQuery, CommandType.Text, updateGVParams);
+
+                // Xóa tài khoản khỏi bảng TAIKHOAN
+                string deleteAccountQuery = "DELETE FROM TAIKHOAN WHERE MaTK = @MaTK";
+                var deleteParams = new List<SqlParameter>
+        {
+            new SqlParameter("@MaTK", maTaiKhoan)
+        };
+                MyExecuteNonQuery(deleteAccountQuery, CommandType.Text, deleteParams);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa giáo viên: " + ex.Message);
+                return false;
             }
         }
-
-
     }
 }

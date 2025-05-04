@@ -107,7 +107,7 @@
             this.pnLeft.Controls.Add(this.btStudent);
             this.pnLeft.Location = new System.Drawing.Point(-4, 52);
             this.pnLeft.Name = "pnLeft";
-            this.pnLeft.Size = new System.Drawing.Size(265, 722);
+            this.pnLeft.Size = new System.Drawing.Size(265, 818);
             this.pnLeft.TabIndex = 1;
             // 
             // btAttendance
@@ -130,7 +130,8 @@
             // 
             // btEnd
             // 
-            this.btEnd.BackColor = System.Drawing.Color.RosyBrown;
+
+            this.btEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btEnd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btEnd.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
             this.btEnd.FlatAppearance.BorderSize = 0;
@@ -138,7 +139,7 @@
             this.btEnd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btEnd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btEnd.Location = new System.Drawing.Point(25, 96);
+            this.btEnd.Location = new System.Drawing.Point(25, 641);
             this.btEnd.Name = "btEnd";
             this.btEnd.Size = new System.Drawing.Size(216, 50);
             this.btEnd.TabIndex = 2;
@@ -178,7 +179,7 @@
             this.btLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MidnightBlue;
             this.btLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btLogout.ForeColor = System.Drawing.Color.White;
-            this.btLogout.Location = new System.Drawing.Point(25, 648);
+            this.btLogout.Location = new System.Drawing.Point(25, 714);
             this.btLogout.Name = "btLogout";
             this.btLogout.Size = new System.Drawing.Size(216, 50);
             this.btLogout.TabIndex = 2;
@@ -298,7 +299,7 @@
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(360, 125);
+            this.pictureBox1.Location = new System.Drawing.Point(350, 224);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(331, 325);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -310,7 +311,7 @@
             this.pnbody.Controls.Add(this.pictureBox1);
             this.pnbody.Location = new System.Drawing.Point(267, 56);
             this.pnbody.Name = "pnbody";
-            this.pnbody.Size = new System.Drawing.Size(1076, 718);
+            this.pnbody.Size = new System.Drawing.Size(1076, 814);
             this.pnbody.TabIndex = 2;
             // 
             // FrmMain
@@ -318,7 +319,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1346, 775);
+            this.ClientSize = new System.Drawing.Size(1346, 871);
             this.Controls.Add(this.pnbody);
             this.Controls.Add(this.pnLeft);
             this.Controls.Add(this.panel1);

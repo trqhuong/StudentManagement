@@ -14,8 +14,8 @@ namespace TransferObject
         public string GioiTinh { get; set; }
         public string DienThoai { get; set; }
         public string TinhTrang { get; set; }
-        public int TaiKhoan { get; set; } // Mã tài khoản của giáo viên
-
+        public int TaiKhoan { get; set; }
+        public string Email { get; set; }
         public TeacherDTO(int maGV, string tenGV)
         {
             MaGV = maGV;
@@ -29,7 +29,7 @@ namespace TransferObject
             GioiTinh = gioiTinh;
             DienThoai = dienThoai;
         }
-        public TeacherDTO(int maGiaoVien, string tenGiaoVien, DateTime ngaySinh, string gioiTinh, string dienThoai, int taiKhoan, string tinhTrang)
+        public TeacherDTO(int maGiaoVien, string tenGiaoVien, DateTime ngaySinh, string gioiTinh, string dienThoai, int taiKhoan, string tinhTrang, string email)
         {
             MaGV = maGiaoVien;
             TenGV = tenGiaoVien;
@@ -38,16 +38,18 @@ namespace TransferObject
             DienThoai = dienThoai;
             TaiKhoan = taiKhoan;
             TinhTrang = tinhTrang;
+            Email = email;
         }
 
         // Dùng để thêm giáo viên (lúc này chưa có MaGV)
-        public TeacherDTO(string tenGiaoVien, DateTime ngaySinh, string gioiTinh, string dienThoai, string tinhTrang)
+        public TeacherDTO(string tenGiaoVien, DateTime ngaySinh, string gioiTinh, string dienThoai, string tinhTrang,string email)
         {
             TenGV = tenGiaoVien;
             NgaySinh = ngaySinh;
             GioiTinh = gioiTinh;
             DienThoai = dienThoai;
             TinhTrang = tinhTrang;
+            Email = email;
         }
 
     }

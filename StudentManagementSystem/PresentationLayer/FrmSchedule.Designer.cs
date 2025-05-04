@@ -45,12 +45,11 @@
             // 
             this.dgvClass.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClass.Location = new System.Drawing.Point(14, 714);
-            this.dgvClass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dgvClass.Location = new System.Drawing.Point(12, 536);
             this.dgvClass.Name = "dgvClass";
             this.dgvClass.RowHeadersWidth = 51;
             this.dgvClass.RowTemplate.Height = 24;
-            this.dgvClass.Size = new System.Drawing.Size(1170, 154);
+            this.dgvClass.Size = new System.Drawing.Size(1040, 158);
             this.dgvClass.TabIndex = 44;
             // 
             // label1
@@ -58,9 +57,9 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label1.Location = new System.Drawing.Point(454, 21);
+            this.label1.Location = new System.Drawing.Point(404, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(342, 40);
+            this.label1.Size = new System.Drawing.Size(288, 36);
             this.label1.TabIndex = 1;
             this.label1.Text = "Teaching Schedule";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -71,30 +70,28 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-1, -2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1201, 81);
+            this.panel1.Size = new System.Drawing.Size(1068, 65);
             this.panel1.TabIndex = 43;
             // 
             // dgvSchedule
             // 
             this.dgvSchedule.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSchedule.Location = new System.Drawing.Point(253, 260);
-            this.dgvSchedule.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dgvSchedule.Location = new System.Drawing.Point(410, 188);
             this.dgvSchedule.Name = "dgvSchedule";
             this.dgvSchedule.RowHeadersWidth = 51;
             this.dgvSchedule.RowTemplate.Height = 24;
-            this.dgvSchedule.Size = new System.Drawing.Size(686, 302);
+            this.dgvSchedule.Size = new System.Drawing.Size(610, 242);
             this.dgvSchedule.TabIndex = 44;
             // 
             // cbbClass
             // 
+            this.cbbClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbClass.FormattingEnabled = true;
-            this.cbbClass.Location = new System.Drawing.Point(613, 133);
-            this.cbbClass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cbbClass.Location = new System.Drawing.Point(177, 188);
             this.cbbClass.Name = "cbbClass";
-            this.cbbClass.Size = new System.Drawing.Size(168, 28);
+            this.cbbClass.Size = new System.Drawing.Size(185, 33);
             this.cbbClass.TabIndex = 46;
             this.cbbClass.SelectedIndexChanged += new System.EventHandler(this.cbbClass_SelectedIndexChanged);
             // 
@@ -103,9 +100,9 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(451, 126);
+            this.label2.Location = new System.Drawing.Point(42, 188);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 32);
+            this.label2.Size = new System.Drawing.Size(116, 29);
             this.label2.TabIndex = 47;
             this.label2.Text = "Chọn lớp:";
             // 
@@ -114,17 +111,20 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(391, 200);
+            this.label3.Location = new System.Drawing.Point(538, 135);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(427, 32);
+            this.label3.Size = new System.Drawing.Size(366, 29);
             this.label3.TabIndex = 47;
             this.label3.Text = "Môn học chưa được phân công";
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(902, 600);
+            this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btSave.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btSave.Location = new System.Drawing.Point(889, 459);
+            this.btSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(147, 46);
+            this.btSave.Size = new System.Drawing.Size(131, 44);
             this.btSave.TabIndex = 48;
             this.btSave.Text = "Save";
             this.btSave.UseVisualStyleBackColor = true;
@@ -132,10 +132,10 @@
             // 
             // FrmSchedule
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(1197, 886);
+            this.ClientSize = new System.Drawing.Size(1064, 709);
             this.Controls.Add(this.btSave);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -144,7 +144,6 @@
             this.Controls.Add(this.dgvClass);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmSchedule";
             this.Text = "FrmReport";
             this.Load += new System.EventHandler(this.FrmSchedule_Load);

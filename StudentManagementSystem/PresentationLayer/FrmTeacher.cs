@@ -31,26 +31,27 @@ namespace PresentationLayer
         private void LoadTeachers()
         {
             dgvTeacher.AutoGenerateColumns = true;
-            dgvTeacher.DataSource = teacherBUS.GetAllTeacher();//gán dữ liệu giáo viên vào datagridview
+            dgvTeacher.DataSource = teacherBUS.GetAllTeacher();
             ResetForm();
             dgvTeacher.ClearSelection();
             dgvTeacher.CurrentCell = null;
         }
         private void ResetForm()
         {
-            // Tắt sự kiện SelectionChanged để tránh tự động điền lại dữ liệu
+
             dgvTeacher.SelectionChanged -= dgvTeacher_SelectionChanged;
 
             txtTID.Text = string.Empty;
             txtTName.Text = string.Empty;
             txtTPhone.Text = string.Empty;
+            txtTEmail.Text = string.Empty;
             dtDob.Value = DateTime.Now;
             checkNam.Checked = false;
             checkNu.Checked = false;
 
             dgvTeacher.ClearSelection();
 
-            dgvTeacher.SelectionChanged += dgvTeacher_SelectionChanged; // Bật lại sự kiện
+            dgvTeacher.SelectionChanged += dgvTeacher_SelectionChanged; 
         }
         private void dgvTeacher_SelectionChanged(object sender, EventArgs e)
         {
@@ -59,11 +60,12 @@ namespace PresentationLayer
                 return;
             }
             DataGridViewRow row = dgvTeacher.SelectedRows[0];
-            // Lấy dữ liệu từ dòng đã chọn và điền vào các ô nhập liệu
+
             txtTID.Text = row.Cells["MaGV"].Value?.ToString();
             txtTName.Text = row.Cells["TenGV"].Value?.ToString();
             dtDob.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
             txtTPhone.Text = row.Cells["DienThoai"].Value?.ToString();
+            txtTEmail.Text = row.Cells["Email"].Value?.ToString();
 
             string gioiTinh = row.Cells["GioiTinh"].Value?.ToString();
             if (gioiTinh == "Nam")
@@ -87,24 +89,29 @@ namespace PresentationLayer
                 {
                     MessageBox.Show("Vui lòng nhập tên giáo viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtTName.Focus();
-                    return;//dung chuong trinh neu khong nhap ten
+                    return;
                 }
 
-                //kiem tra gioi tinh
                 if (!checkNam.Checked && !checkNu.Checked)
                 {
                     MessageBox.Show("Vui lòng chọn giới tính", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     checkNam.Focus();
                     return;
                 }
-                //khong duoc chon ca 2 gioi tinh
+
                 if (checkNam.Checked && checkNu.Checked)
                 {
                     MessageBox.Show("Vui lòng chọn một giới tính", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     checkNam.Focus();
                     return;
                 }
-                //kiem tra dien thoai
+                if (string.IsNullOrEmpty(txtTEmail.Text))
+                {
+                    MessageBox.Show("Vui lòng email tên giáo viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTName.Focus();
+                    return;
+                }
+
                 if (string.IsNullOrEmpty(txtTPhone.Text))
                 {
                     MessageBox.Show("Vui lòng nhập số điện thoại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -112,9 +119,9 @@ namespace PresentationLayer
                     return;
                 }
 
-                int age = DateTime.Now.Year - dtDob.Value.Year;//tinh tuoi dua vao ngay sinh
+                int age = DateTime.Now.Year - dtDob.Value.Year;
 
-                if (dtDob.Value > DateTime.Now.AddYears(-age))//chưa tới sinh nhật năm nay thì trừ đi 1 tuổi
+                if (dtDob.Value > DateTime.Now.AddYears(-age))
                 {
                     age--;
                 }
@@ -133,67 +140,102 @@ namespace PresentationLayer
                         dtDob.Value,
                         checkNam.Checked ? "Nam" : "Nữ",
                         txtTPhone.Text,
-                        "Đang dạy"
+                        "Đang dạy",
+                        txtTEmail.Text
                         );
                     if (teacherBUS.AddTeacher(gv))
                     {
-                        // Thêm giáo viên thành công
+
                         MessageBox.Show("Thêm giáo viên thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        // Xóa dữ liệu trong các ô nhập liệu
                         txtTName.Clear();
                         txtTPhone.Clear();
                         checkNam.Checked = false;
                         checkNu.Checked = false;
                         dtDob.Value = DateTime.Now;
 
-                        // Tải lại danh sách giáo viên
+
                         LoadTeachers();
                     }
                     else
                     {
-                        // Thêm giáo viên thất bại
                         MessageBox.Show("Thêm giáo viên thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             else
             {
-                // Nếu đã có mã giáo viên thì không cho phép thêm giáo viên mới
+
                 MessageBox.Show("Không thể thêm giáo viên mới khi đã có mã giáo viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void btUpdate_Click(object sender, EventArgs e)
         {
-            if (dgvTeacher.CurrentCell == null)//ktra xem co dong nao dang duoc chon hong
+            if (dgvTeacher.CurrentCell == null || string.IsNullOrEmpty(txtTID.Text))
             {
                 MessageBox.Show("Vui lòng chọn giáo viên để sửa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            //lay du lieu tu cac o nhap lieu
+            // Kiểm tra dữ liệu đầu vào
+            if (string.IsNullOrEmpty(txtTName.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên giáo viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTName.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(txtTEmail.Text))
+            {
+                MessageBox.Show("Vui lòng email tên giáo viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTName.Focus();
+                return;
+            }
+
+            if (!checkNam.Checked && !checkNu.Checked)
+            {
+                MessageBox.Show("Vui lòng chọn giới tính", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtTPhone.Text))
+            {
+                MessageBox.Show("Vui lòng nhập số điện thoại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTPhone.Focus();
+                return;
+            }
+
+            // Lấy dữ liệu từ form
+            int maGV = int.Parse(txtTID.Text);
             string tenGV = txtTName.Text;
             DateTime ngaySinh = dtDob.Value;
             string gioiTinh = checkNam.Checked ? "Nam" : "Nữ";
             string dienThoai = txtTPhone.Text;
+            string email = txtTEmail.Text;
 
-            //lay maGV va taikhoan tu dong dang duoc chon tron datagridview
-            int maGV = (int)dgvTeacher.CurrentRow.Cells["MaGV"].Value;
-            int taiKhoan = (int)dgvTeacher.CurrentRow.Cells["TaiKhoan"].Value;
-            string tinhTrang = "Đang dạy";
+            int age = DateTime.Now.Year - ngaySinh.Year;
+            if (ngaySinh > DateTime.Now.AddYears(-age)) age--;
 
-            //Tao doi tuong gv (DTO) de chua du lieu can cap nhat
-            TeacherDTO gv = new TeacherDTO(maGV, tenGV, ngaySinh, gioiTinh, dienThoai, taiKhoan, tinhTrang);
+            if ((gioiTinh == "Nam" && (age < 22 || age > 60)) || (gioiTinh == "Nữ" && (age < 22 || age > 55)))
+            {
+                MessageBox.Show("Tuổi giáo viên không hợp lệ. Nam: 22-60 tuổi, Nữ: 22-55 tuổi.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var row = dgvTeacher.SelectedRows[0];
+            int maTK = Convert.ToInt32(row.Cells["TaiKhoan"].Value);
+            string tinhTrang = row.Cells["TinhTrang"].Value?.ToString() ?? "Đang dạy";
+
+            TeacherDTO gv = new TeacherDTO(maGV, tenGV, ngaySinh, gioiTinh, dienThoai, maTK, tinhTrang,email);
 
             if (teacherBUS.UpdateTeacher(gv))
             {
                 MessageBox.Show("Cập nhật giáo viên thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadTeachers();// tai lai danh sach giao vien
+                LoadTeachers();
             }
             else
             {
-                MessageBox.Show("Cập nhật giáo viên thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cập nhật thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -214,7 +256,7 @@ namespace PresentationLayer
                 if (success)
                 {
                     MessageBox.Show("Đã cập nhật trạng thái giáo viên và xóa tài khoản.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadTeachers(); // Hàm này chị dùng để load lại DataGridView
+                    LoadTeachers();
                 }
                 else
                 {

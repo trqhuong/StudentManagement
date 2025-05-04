@@ -47,6 +47,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgvTeacher = new System.Windows.Forms.DataGridView();
             this.btReset = new System.Windows.Forms.Button();
+            this.txtTEmail = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTeacher)).BeginInit();
             this.SuspendLayout();
@@ -277,6 +279,26 @@
             this.btReset.UseVisualStyleBackColor = true;
             this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
+            // txtTEmail
+            // 
+            this.txtTEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTEmail.Location = new System.Drawing.Point(708, 246);
+            this.txtTEmail.Multiline = true;
+            this.txtTEmail.Name = "txtTEmail";
+            this.txtTEmail.Size = new System.Drawing.Size(301, 44);
+            this.txtTEmail.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(586, 265);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(66, 25);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Email:";
+            // 
             // FrmTeacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -293,9 +315,11 @@
             this.Controls.Add(this.dtDob);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtTEmail);
             this.Controls.Add(this.txtTPhone);
             this.Controls.Add(this.txtTName);
             this.Controls.Add(this.txtTID);
@@ -335,5 +359,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvTeacher;
         private System.Windows.Forms.Button btReset;
+        private System.Windows.Forms.TextBox txtTEmail;
+        private System.Windows.Forms.Label label8;
     }
 }
