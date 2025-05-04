@@ -108,5 +108,42 @@ namespace DataLayer
                 return false;
             }
         }
+
+
+        public List<ClassDTO> GetAllLopHocTheoTrangThai()
+        {
+            List<ClassDTO> lopHoc = new List<ClassDTO>();
+
+            string query = @"
+                            SELECT lh.*
+                            FROM LOPHOC lh
+                            WHERE lh.NamHoc IN (
+                                SELECT DISTINCT hk.NamHoc
+                                FROM HOCKY hk
+                                WHERE hk.TrangThai = 1
+                            )";
+
+            try
+            {
+                DataTable dt = MyExecuteReader(query, CommandType.Text);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    lopHoc.Add(new ClassDTO(
+                        Convert.ToInt32(row["MaLop"]),
+                        row["TenLop"].ToString(),
+                        row["NamHoc"].ToString(),
+                        row["GVQuanLi"].ToString(),
+                        Convert.ToInt32(row["SiSo"])
+                    ));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return lopHoc;
+        }
     }
 }

@@ -130,6 +130,7 @@
             // 
             // btEnd
             // 
+
             this.btEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btEnd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btEnd.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
