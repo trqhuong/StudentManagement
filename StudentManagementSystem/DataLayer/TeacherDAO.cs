@@ -12,25 +12,30 @@ namespace DataLayer
         public List<TeacherDTO> GetAllTeacher()
         {
             List<TeacherDTO> teachers = new List<TeacherDTO>();
-            string query = "SELECT gv.MaGiaoVien, gv.TenGiaoVien, gv.NgaySinh, gv.GioiTinh, gv.DienThoai, gv.TaiKhoan, gv.TinhTrang, tk.Email FROM GIAOVIEN gv " +
-                "           JOIN TAIKHOAN tk ON gv.TaiKhoan=tk.MaTK";
+            string query = "SELECT gv.MaGiaoVien, gv.TenGiaoVien, gv.NgaySinh, gv.GioiTinh, gv.DienThoai, gv.TaiKhoan, gv.TinhTrang, tk.Email " +
+                           "FROM GIAOVIEN gv " +
+                           "JOIN TAIKHOAN tk ON gv.TaiKhoan = tk.MaTK";
 
             try
             {
-                DataTable dt = MyExecuteReader(query, CommandType.Text);
-                foreach (DataRow row in dt.Rows)
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+
+               
+                while (reader.Read())
                 {
                     teachers.Add(new TeacherDTO(
-                        Convert.ToInt32(row["MaGiaoVien"]),
-                        row["TenGiaoVien"].ToString(),
-                        Convert.ToDateTime(row["NgaySinh"]),
-                        row["GioiTinh"].ToString(),
-                        row["DienThoai"].ToString(),
-                        Convert.ToInt32(row["TaiKhoan"]),
-                        row["TinhTrang"].ToString(),
-                        row["Email"].ToString()
+                        Convert.ToInt32(reader["MaGiaoVien"]),
+                        reader["TenGiaoVien"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString(),
+                        reader["DienThoai"].ToString(),
+                        Convert.ToInt32(reader["TaiKhoan"]),
+                        reader["TinhTrang"].ToString(),
+                        reader["Email"].ToString()
                     ));
                 }
+
+                reader.Close();
             }
             catch (Exception ex)
             {

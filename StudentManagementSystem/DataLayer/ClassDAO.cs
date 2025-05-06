@@ -16,17 +16,20 @@ namespace DataLayer
 
             try
             {
-                DataTable dt = MyExecuteReader(query, CommandType.Text);
-                foreach (DataRow row in dt.Rows)
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+
+                while (reader.Read())
                 {
                     lopHoc.Add(new ClassDTO(
-                        Convert.ToInt32(row["MaLop"]),
-                        row["TenLop"].ToString(),
-                        row["NamHoc"].ToString(),
-                        row["GVQuanLi"].ToString(),
-                        Convert.ToInt32(row["SiSo"])
+                        Convert.ToInt32(reader["MaLop"]),
+                        reader["TenLop"].ToString(),
+                        reader["NamHoc"].ToString(),
+                        reader["GVQuanLi"].ToString(),
+                        Convert.ToInt32(reader["SiSo"])
                     ));
                 }
+
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -35,7 +38,6 @@ namespace DataLayer
 
             return lopHoc;
         }
-
         public int AddClass(ClassDTO classDTO)
         {
             string query = @"INSERT INTO LOPHOC (TenLop, NamHoc, GVQuanLi, SiSo)
@@ -115,28 +117,28 @@ namespace DataLayer
             List<ClassDTO> lopHoc = new List<ClassDTO>();
 
             string query = @"
-                            SELECT lh.*
-                            FROM LOPHOC lh
-                            WHERE lh.NamHoc IN (
-                                SELECT DISTINCT hk.NamHoc
-                                FROM HOCKY hk
-                                WHERE hk.TrangThai = 1
-                            )";
+                    SELECT lh.*
+                    FROM LOPHOC lh
+                    WHERE lh.NamHoc IN (
+                        SELECT DISTINCT hk.NamHoc
+                        FROM HOCKY hk
+                        WHERE hk.TrangThai = 1
+                    )";
 
             try
             {
-                DataTable dt = MyExecuteReader(query, CommandType.Text);
-
-                foreach (DataRow row in dt.Rows)
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+                while (reader.Read())
                 {
                     lopHoc.Add(new ClassDTO(
-                        Convert.ToInt32(row["MaLop"]),
-                        row["TenLop"].ToString(),
-                        row["NamHoc"].ToString(),
-                        row["GVQuanLi"].ToString(),
-                        Convert.ToInt32(row["SiSo"])
+                        Convert.ToInt32(reader["MaLop"]),
+                        reader["TenLop"].ToString(),
+                        reader["NamHoc"].ToString(),
+                        reader["GVQuanLi"].ToString(),
+                        Convert.ToInt32(reader["SiSo"])
                     ));
                 }
+                reader.Close();
             }
             catch (Exception ex)
             {

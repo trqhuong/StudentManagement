@@ -11,29 +11,33 @@ namespace DataLayer
 {
     public class SemesterDAO : DataProvider
     {
-
-
         public List<SemesterDTO> GetAllHocKy()
         {
             List<SemesterDTO> list = new List<SemesterDTO>();
 
-
             string sql = "SELECT * FROM HOCKY";
-
-            // Gọi phương thức đọc dữ liệu
-            DataTable dt = MyExecuteReader(sql, CommandType.Text);
-
-            foreach (DataRow row in dt.Rows)
+            try
             {
-                SemesterDTO hk = new SemesterDTO
-                {
-                    MaHK = Convert.ToInt32(row["MaHK"]),
-                    SoHocKy = Convert.ToInt32(row["SoHocKy"]),
-                    NamHoc = Convert.ToInt32(row["NamHoc"]),
-                    TrangThai = Convert.ToBoolean(row["TrangThai"])
-                };
+                SqlDataReader reader = MyExecuteReader(sql, CommandType.Text);
 
-                list.Add(hk);
+                while (reader.Read())
+                {
+                    SemesterDTO hk = new SemesterDTO
+                    {
+                        MaHK = Convert.ToInt32(reader["MaHK"]),
+                        SoHocKy = Convert.ToInt32(reader["SoHocKy"]),
+                        NamHoc = Convert.ToInt32(reader["NamHoc"]),
+                        TrangThai = Convert.ToBoolean(reader["TrangThai"])
+                    };
+
+                    list.Add(hk);
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
             }
 
             return list;

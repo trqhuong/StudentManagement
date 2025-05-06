@@ -16,14 +16,20 @@ namespace DataLayer
 
             try
             {
-                DataTable dt = MyExecuteReader(query, CommandType.Text);
-                foreach (DataRow row in dt.Rows)
+              
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+
+              
+                while (reader.Read())
                 {
-                    int maMH = Convert.ToInt32(row["MaMonHoc"]);
-                    string tenMH = row["TenMonHoc"].ToString();
+                    int maMH = Convert.ToInt32(reader["MaMonHoc"]);
+                    string tenMH = reader["TenMonHoc"].ToString();
                     SubjectDTO subject = new SubjectDTO(maMH, tenMH);
                     subjects.Add(subject);
                 }
+
+              
+                reader.Close();
             }
             catch (Exception ex)
             {

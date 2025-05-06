@@ -35,7 +35,7 @@ namespace DataLayer
         {
             try
             {
-                if (cnn != null && cnn.State == ConnectionState.Closed)
+                if (cnn != null && cnn.State == ConnectionState.Open)
                 {
                     cnn.Close();
                 }
@@ -46,7 +46,7 @@ namespace DataLayer
             }
         }
 
-        public SqlDataReader ExecuteReader(string sql, CommandType type, List<SqlParameter> parameters = null)
+        public SqlDataReader MyExecuteReader(string sql, CommandType type, List<SqlParameter> parameters = null)
         {
             SqlCommand cmd = new SqlCommand(sql, cnn);
             cmd.CommandType = type;
@@ -63,10 +63,7 @@ namespace DataLayer
             {
                 throw ex;
             }
-            finally
-            {
-                DisConnect();
-            }
+           
         }
 
         public object MyExecuteScalar(string sql, CommandType type, List<SqlParameter> parameters = null)
@@ -118,32 +115,32 @@ namespace DataLayer
             }
         }
 
-        public DataTable MyExecuteReader(string sql, CommandType type, List<SqlParameter> parameters = null)
-        {
-            SqlCommand cd = new SqlCommand(sql, cnn);
-            cd.CommandType = type;
-            // Nếu có tham số, thêm chúng vào command
-            if (parameters != null)
-            {
-                cd.Parameters.AddRange(parameters.ToArray());
-            }
-            try
-            {
-                Connect();
-                DataTable dt = new DataTable();
-                dt.Load(cd.ExecuteReader());
-                return dt;
-            }
-            catch (Exception ex)
-            {
+        //public DataTable MyExecuteReader(string sql, CommandType type, List<SqlParameter> parameters = null)
+        //{
+        //    SqlCommand cd = new SqlCommand(sql, cnn);
+        //    cd.CommandType = type;
+        //    // Nếu có tham số, thêm chúng vào command
+        //    if (parameters != null)
+        //    {
+        //        cd.Parameters.AddRange(parameters.ToArray());
+        //    }
+        //    try
+        //    {
+        //        Connect();
+        //        DataTable dt = new DataTable();
+        //        dt.Load(cd.ExecuteReader());
+        //        return dt;
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw ex;
-            }
-            finally
-            {
-                DisConnect();
-            }
-        }
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        DisConnect();
+        //    }
+        //}
 
 
 

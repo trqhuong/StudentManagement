@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +18,18 @@ namespace DataLayer
 
             try
             {
-                DataTable dt = MyExecuteReader(query, CommandType.Text);
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
 
-                foreach (DataRow row in dt.Rows)
+                while (reader.Read())
                 {
                     years.Add(new SchoolYearDTO(
-                        Convert.ToInt32(row["MaNH"]),
-                        Convert.ToInt32(row["NamBatDau"]),
-                        Convert.ToInt32(row["NamKetThuc"])
+                        Convert.ToInt32(reader["MaNH"]),
+                        Convert.ToInt32(reader["NamBatDau"]),
+                        Convert.ToInt32(reader["NamKetThuc"])
                     ));
                 }
+
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -35,6 +38,7 @@ namespace DataLayer
 
             return years;
         }
+
 
     }
 }

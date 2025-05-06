@@ -21,7 +21,7 @@ namespace DataLayer
                 {
                     new SqlParameter("@MaGV", teacher_id)
                 };
-            using (SqlDataReader reader = ExecuteReader("sp_GetAssignmentSubject", CommandType.StoredProcedure, parameters))
+            using (SqlDataReader reader = MyExecuteReader("sp_GetAssignmentSubject", CommandType.StoredProcedure, parameters))
             {
                 while (reader.Read())
                 {
@@ -52,7 +52,7 @@ namespace DataLayer
                 new SqlParameter("@teacher_id", teacher_id),
                 new SqlParameter("@year_id", year_id)
             };
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
             {
                 while (reader.Read())
                 {
@@ -69,7 +69,7 @@ namespace DataLayer
         {
             List<SchoolYearDTO> schoolyears = new List<SchoolYearDTO>();
             string query = "SELECT * FROM NAMHOC";
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text))
             {
                 while (reader.Read())
                 {
@@ -94,7 +94,7 @@ namespace DataLayer
                 new SqlParameter("@class_id", class_id)
             };
 
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
             {
                 while (reader.Read())
                 {
@@ -118,7 +118,7 @@ namespace DataLayer
                 new SqlParameter("@MaNH", year_id)
             };
 
-            using (SqlDataReader reader = ExecuteReader(procedureName, CommandType.StoredProcedure, parameters))
+            using (SqlDataReader reader = MyExecuteReader(procedureName, CommandType.StoredProcedure, parameters))
             {
                 while (reader.Read())
                 {

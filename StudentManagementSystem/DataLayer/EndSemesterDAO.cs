@@ -18,7 +18,7 @@ namespace DataLayer
             {
                 SemesterDTO hocKy = new SemesterDTO();
                 string semester = "SELECT * FROM HocKy where TrangThai = 1";
-                using (SqlDataReader reader = ExecuteReader(semester, CommandType.Text))
+                using (SqlDataReader reader = MyExecuteReader(semester, CommandType.Text))
                 {
                     if (reader.Read())
                     {
@@ -55,7 +55,7 @@ namespace DataLayer
                     {
                         new SqlParameter("@namhoc", hocKy.NamHoc)
                     };
-                    using (SqlDataReader reader = ExecuteReader(year, CommandType.Text, parameter))
+                    using (SqlDataReader reader = MyExecuteReader(year, CommandType.Text, parameter))
                     {
                         if (reader.Read())
                         {

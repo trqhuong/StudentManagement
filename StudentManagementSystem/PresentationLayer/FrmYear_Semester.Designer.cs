@@ -57,7 +57,7 @@
             // 
             this.dgvYear.BackgroundColor = System.Drawing.Color.White;
             this.dgvYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvYear.Location = new System.Drawing.Point(186, 328);
+            this.dgvYear.Location = new System.Drawing.Point(115, 328);
             this.dgvYear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvYear.Name = "dgvYear";
             this.dgvYear.RowHeadersWidth = 62;
@@ -69,7 +69,7 @@
             // 
             this.dgvSemester.BackgroundColor = System.Drawing.Color.White;
             this.dgvSemester.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSemester.Location = new System.Drawing.Point(719, 328);
+            this.dgvSemester.Location = new System.Drawing.Point(585, 328);
             this.dgvSemester.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvSemester.Name = "dgvSemester";
             this.dgvSemester.RowHeadersWidth = 62;

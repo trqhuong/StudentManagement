@@ -18,7 +18,7 @@ namespace DataLayer
                          FROM LOPHOC l, NAMHOC n 
                          WHERE l.NamHoc = n.MaNH AND n.TrangThai = 1";
 
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text))
             {
                 while (reader.Read())
                 {
@@ -42,7 +42,7 @@ namespace DataLayer
             {
                 new SqlParameter("@class_id", class_id)
             };
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
             {
                 while (reader.Read())
                 {
@@ -65,7 +65,7 @@ namespace DataLayer
             {
                 new SqlParameter("@subject_id", subject_id)
             };
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
             {
                 while (reader.Read())
                 {

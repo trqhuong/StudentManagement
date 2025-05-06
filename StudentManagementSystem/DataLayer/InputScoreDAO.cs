@@ -23,7 +23,7 @@ namespace DataLayer
                 {
                     new SqlParameter("@MaGV", teacher_id)
                 };
-            using (SqlDataReader reader = ExecuteReader("sp_GetAssignmentSubject", CommandType.StoredProcedure, parameters))
+            using (SqlDataReader reader = MyExecuteReader("sp_GetAssignmentSubject", CommandType.StoredProcedure, parameters))
             {
                 while (reader.Read())
                 {
@@ -46,7 +46,7 @@ namespace DataLayer
                     new SqlParameter("@MaGV", teacher_id),
                     new SqlParameter("@MaMH", subject_id)
                 };
-            using (SqlDataReader reader = ExecuteReader("sp_GetAssignmentClass", CommandType.StoredProcedure, parameters))
+            using (SqlDataReader reader = MyExecuteReader("sp_GetAssignmentClass", CommandType.StoredProcedure, parameters))
             {
                 while (reader.Read())
                 {
@@ -67,7 +67,7 @@ namespace DataLayer
                 {
                     new SqlParameter("@class_id", class_id)
                 };
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
             {
                 while (reader.Read())
                 {
@@ -89,7 +89,7 @@ namespace DataLayer
                     new SqlParameter("@subject_id", subject_id)
                 };
 
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
             {
                 while (reader.Read())
                 {

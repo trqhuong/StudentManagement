@@ -14,11 +14,7 @@ namespace DataLayer
         public List<ReportDTO> ThongKeTyLeDat(int maMon, int hocKy, int namHoc)
         {
             List<ReportDTO> list = new List<ReportDTO>();
-
-            // Truy vấn SQL cho stored procedure
-            string sql = "sp_ThongKeTyLeDat"; // Tên của stored procedure
-
-            // Tạo các tham số cho stored procedure
+            string sql = "sp_ThongKeTyLeDat";
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@maMon", maMon),
@@ -26,24 +22,31 @@ namespace DataLayer
                 new SqlParameter("@namHoc", namHoc)
             };
 
-            // Sử dụng MyExecuteReader từ DataProvider để gọi stored procedure và nhận về DataTable
-            DataTable dt = MyExecuteReader(sql, CommandType.StoredProcedure, parameters);
-
-            // Duyệt qua DataTable và tạo các đối tượng ReportDTO
-            foreach (DataRow row in dt.Rows)
+            try
             {
-                ReportDTO tk = new ReportDTO();
-                tk.Lop = Convert.ToInt32(row["MaLop"]);
-                tk.TenLop = row["TenLop"].ToString();
-                tk.SiSo = Convert.ToInt32(row["SiSo"]);
-                tk.SoLuongDat = Convert.ToInt32(row["SoLuongDat"]);
-                tk.TyLeDat = Math.Round(100.0 * tk.SoLuongDat / tk.SiSo, 2);
-                list.Add(tk);
+              
+                SqlDataReader reader = MyExecuteReader(sql, CommandType.StoredProcedure, parameters);
+                while (reader.Read())
+                {
+                    ReportDTO tk = new ReportDTO
+                    {
+                        Lop = Convert.ToInt32(reader["MaLop"]),
+                        TenLop = reader["TenLop"].ToString(),
+                        SiSo = Convert.ToInt32(reader["SiSo"]),
+                        SoLuongDat = Convert.ToInt32(reader["SoLuongDat"])
+                    };
+                    tk.TyLeDat = Math.Round(100.0 * tk.SoLuongDat / tk.SiSo, 2);
+                    list.Add(tk);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi lấy thống kê tỷ lệ đạt: " + ex.Message);
             }
 
             return list;
         }
-
 
 
     }

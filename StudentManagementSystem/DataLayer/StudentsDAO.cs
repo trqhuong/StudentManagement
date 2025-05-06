@@ -11,7 +11,7 @@ namespace DataLayer
 {
     public class StudentsDAO:DataProvider
     {
-   
+
         public List<StudentsDTO> GetAllHocSinh()
         {
             List<StudentsDTO> students = new List<StudentsDTO>();
@@ -21,31 +21,31 @@ namespace DataLayer
 
             try
             {
-                // Sử dụng DataProvider để thực thi câu lệnh SQL
-                DataTable dt = MyExecuteReader(query, CommandType.Text);
-
-                // Duyệt qua DataTable và chuyển các hàng thành danh sách StudentsDTO
-                foreach (DataRow row in dt.Rows)
+                
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+                while (reader.Read())
                 {
                     students.Add(new StudentsDTO(
-                        Convert.ToInt32(row["MaHocSinh"]),
-                        row["TenHocSinh"].ToString(),
-                        Convert.ToDateTime(row["NgaySinh"]),
-                        row["GioiTinh"].ToString(),
-                        row["TinhTrang"].ToString(),
-                        row["QRCodePath"] as string,
-                        row["TenLop"].ToString()
+                        Convert.ToInt32(reader["MaHocSinh"]),
+                        reader["TenHocSinh"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString(),
+                        reader["TinhTrang"].ToString(),
+                        reader["QRCodePath"] as string,
+                        reader["TenLop"].ToString()
                     ));
                 }
+                reader.Close();  
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi chung
+               
                 Console.WriteLine("Error: " + ex.Message);
             }
 
             return students;
         }
+
 
         public int AddStudent(StudentsDTO hs, int idLop)
         {
@@ -223,32 +223,33 @@ namespace DataLayer
 
             try
             {
-                // Sử dụng MyExecuteReader để lấy dữ liệu
-                DataTable dt = MyExecuteReader(query, CommandType.StoredProcedure, parameters);
+                
+                SqlDataReader reader = MyExecuteReader(query, CommandType.StoredProcedure, parameters);
 
-                if (dt.Rows.Count > 0)
+                if (reader.HasRows)
                 {
-                    var row = dt.Rows[0];
+                    reader.Read();  
                     student = new StudentsDTO(
-                        Convert.ToInt32(row["MaHocSinh"]),
-                        row["TenHocSinh"].ToString(),
-                        Convert.ToDateTime(row["NgaySinh"]),
-                        row["GioiTinh"].ToString(),
-                        row["TinhTrang"].ToString(),
-                        row["QRCodePath"] as string,
-                        row["TenLop"].ToString()
+                        Convert.ToInt32(reader["MaHocSinh"]),
+                        reader["TenHocSinh"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString(),
+                        reader["TinhTrang"].ToString(),
+                        reader["QRCodePath"] as string,
+                        reader["TenLop"].ToString()
                     );
                 }
+                reader.Close();  
             }
             catch (Exception ex)
             {
-         
+               
                 Console.WriteLine("Error: " + ex.Message);
             }
 
             return student;
         }
-     
+
 
     }
 }

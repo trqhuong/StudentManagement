@@ -20,7 +20,7 @@ namespace DataLayer
             {
                 new SqlParameter("@classID", classID)
             };
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
             {
                 while (reader.Read())
                 {
@@ -51,7 +51,7 @@ namespace DataLayer
                 {
                     new SqlParameter("@teacherID", teacher_id)
                 };
-            using (SqlDataReader reader = ExecuteReader(query, CommandType.Text, parameters))
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
             {
                 while (reader.Read())
                 {

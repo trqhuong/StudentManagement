@@ -22,28 +22,29 @@ namespace DataLayer
             List<UsersDTO> list = new List<UsersDTO>();
             string sql = "SELECT * FROM TAIKHOAN WHERE tendangnhap = @username AND matkhau = @password";
 
-            // Tạo danh sách tham số
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@username", SqlDbType.NVarChar) { Value = username },
                 new SqlParameter("@password", SqlDbType.NVarChar) { Value = password }
             };
 
-            // Thực thi câu lệnh với tham số
-            DataTable result = MyExecuteReader(sql, CommandType.Text, parameters);
-
-            foreach (DataRow row in result.Rows)
+            using (SqlDataReader reader = MyExecuteReader(sql, CommandType.Text, parameters))
             {
-                string tenDangNhap = row["tendangnhap"].ToString();
-                string matKhau = row["matkhau"].ToString();
-                string loaiTaiKhoan = row["loaitaikhoan"].ToString();
+                while (reader.Read())
+                {
+                    string tenDangNhap = reader["tendangnhap"].ToString();
+                    string matKhau = reader["matkhau"].ToString();
+                    string loaiTaiKhoan = reader["loaitaikhoan"].ToString();
 
-                UsersDTO user = new UsersDTO(tenDangNhap, matKhau, loaiTaiKhoan);
-                list.Add(user);
+                    UsersDTO user = new UsersDTO(tenDangNhap, matKhau, loaiTaiKhoan);
+                    list.Add(user);
+                }
+                reader.Close();
             }
 
             return list;
         }
+
         public void Login(string username)
         {
             string query = "UPDATE TAIKHOAN SET TrangThai = 1 WHERE TenDangNhap = @username";
