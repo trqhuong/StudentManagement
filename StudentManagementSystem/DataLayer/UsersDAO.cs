@@ -17,7 +17,7 @@ namespace DataLayer
 {
     public class UsersDAO:DataProvider
     {
-        public List<UsersDTO> GetTaiKhoan(string username, string password)
+        public List<UsersDTO> GetTaiKhoan(string username,string password)
         {
             List<UsersDTO> list = new List<UsersDTO>();
             string sql = "SELECT * FROM TAIKHOAN WHERE tendangnhap = @username AND matkhau = @password";
@@ -26,6 +26,7 @@ namespace DataLayer
             {
                 new SqlParameter("@username", SqlDbType.NVarChar) { Value = username },
                 new SqlParameter("@password", SqlDbType.NVarChar) { Value = password }
+            
             };
 
             using (SqlDataReader reader = MyExecuteReader(sql, CommandType.Text, parameters))
@@ -36,8 +37,8 @@ namespace DataLayer
                     string matKhau = reader["matkhau"].ToString();
                     string loaiTaiKhoan = reader["loaitaikhoan"].ToString();
 
-                    UsersDTO user = new UsersDTO(tenDangNhap, matKhau, loaiTaiKhoan);
-                    list.Add(user);
+                    UsersDTO users = new UsersDTO(tenDangNhap, matKhau, loaiTaiKhoan);
+                    list.Add(users);
                 }
                 reader.Close();
             }

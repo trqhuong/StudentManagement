@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsentStudentDTO.cs" />
     <Compile Include="AttendanceDTO.cs" />
     <Compile Include="AssignmentDTO.cs" />
     <Compile Include="AverageScoreDTO.cs" />

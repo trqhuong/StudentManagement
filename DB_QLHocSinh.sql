@@ -19,7 +19,7 @@ BEGIN
         MatKhau NVARCHAR(255) NOT NULL,      
         LoaiTaiKhoan NVARCHAR(20) NOT NULL CHECK (LoaiTaiKhoan IN (N'Admin', N'Giáo viên')), 
         TrangThai BIT DEFAULT 0,
-		    Email NVARCHAR(100) NULL
+		Email NVARCHAR(100) NULL
     );
 END
 -- BẢNG NĂM HỌC
@@ -60,7 +60,7 @@ BEGIN
 END
 GO
 --Bảng điểm danh 
-IF NOT EXISTS (SELECT 1 FROM sys.objects WHERE name = 'ĐIEMDANH' AND type = 'U')
+IF NOT EXISTS (SELECT 1 FROM sys.objects WHERE name = 'DIEMDANH' AND type = 'U')
 BEGIN
     CREATE TABLE dbo.ĐIEMDANH (
         MaDiemdanh INT IDENTITY(1,1) PRIMARY KEY,
@@ -91,8 +91,9 @@ BEGIN
     CREATE TABLE dbo.LOPHOC (
         MaLop INT IDENTITY(1,1) PRIMARY KEY,
         TenLop NVARCHAR(100) NOT NULL,
+		Khoi int NOT NULL,
         NamHoc INT NOT NULL,
-        GVQuanLi INT NOT NULL,
+        GVQuanLi INT NULL,
         SiSo INT CHECK (SiSo >= 0) DEFAULT 0,
         FOREIGN KEY (NamHoc) REFERENCES dbo.NAMHOC (MaNH),
         FOREIGN KEY (GVQuanLi) REFERENCES dbo.GIAOVIEN (MaGiaoVien)
@@ -136,6 +137,7 @@ BEGIN
 		MaGV INT NOT NULL, 
         MaLop INT NOT NULL, 
         MaMH INT NOT NULL,  
+		PRIMARY KEY (MaGV, MaLop, MaMH),
 		CONSTRAINT FK_PC_GIAOVIEN FOREIGN KEY (MaGV) REFERENCES GIAOVIEN(MaGiaoVien),
         CONSTRAINT FK_PC_LOP FOREIGN KEY (MaLop) REFERENCES LOPHOC(MaLop),
         CONSTRAINT FK_PC_MONHOC FOREIGN KEY (MaMH) REFERENCES MONHOC(MaMonHoc)
@@ -149,6 +151,7 @@ BEGIN
 		MaHS INT NOT NULL,
 		MaMH INT NOT NULL,
         HocKy INT NOT NULL,
+		PRIMARY KEY (MaHS, MaLop, MaMH, HocKy),
 		Diem15P FLOAT CHECK (Diem15P BETWEEN 0 AND 10) DEFAULT 0,
 		Diem1T FLOAT CHECK (Diem1T BETWEEN 0 AND 10) DEFAULT 0,
 		DiemThi FLOAT CHECK (DiemThi BETWEEN 0 AND 10) DEFAULT 0,
@@ -169,7 +172,8 @@ VALUES
 GO
 -- NĂM HỌC, HỌC KỲ, MÔN HỌC
 INSERT INTO NAMHOC (NamBatDau,NamKetThuc,TrangThai) VALUES (2024,2025,1)
-INSERT INTO HOCKY (SoHocKy,NamHoc,TrangThai) VALUES (1,1,1)
+INSERT INTO HOCKY (SoHocKy,NamHoc,TrangThai) VALUES (1,1,0)
+INSERT INTO HOCKY (SoHocKy,NamHoc,TrangThai) VALUES (2,1,1)
 INSERT INTO MONHOC ([TenMonHoc]) 
 VALUES 
 	(N'Toán'),
@@ -200,11 +204,11 @@ GO
 INSERT INTO GIAOVIEN_DAY_MONHOC (MaGV, MaMH) 
 VALUES (1, 1), (2, 2), (3, 3)
 -- LỚP
-INSERT LOPHOC (TenLop, SiSo, GVQuanLi, NamHoc) 
+INSERT LOPHOC (TenLop, Khoi, SiSo, GVQuanLi, NamHoc) 
 VALUES 
-	(N'10A1', 0, 1,1),
-	(N'11B1', 0, 2,1),
-	(N'12C1', 0, 3,1)
+	(N'10A1',10, 0, 1,1),
+	(N'11B1',11, 0, 2,1),
+	(N'12C1',12, 0, 3,1)
 GO
 -- HỌC SINH HỌC LỚP
 INSERT HOCSINH_LOP(MaHS, MaLop) 
@@ -237,16 +241,39 @@ VALUES
 GO
 --Điểm
 INSERT INTO DIEM (MaLop, MaHS, MaMH, HocKy, Diem15P, Diem1T, DiemThi)
+VALUES
+-- Lớp 12C1 - Học kỳ 1
+(3, 1, 1, 1, 7.0, 7.5, 8.0), (3, 1, 2, 1, 7.0, 7.0, 8.0), (3, 1, 3, 1, 6.5, 6.5, 7.0),
+(3, 2, 1, 1, 9.0, 9.5, 9.0), (3, 2, 2, 1, 9.5, 9.0, 9.5), (3, 2, 3, 1, 10.0, 9.5, 10.0),
+(3, 3, 1, 1, 2.0, 2.5, 3.0), (3, 3, 2, 1, 3.0, 2.5, 3.0), (3, 3, 3, 1, 2.5, 3.0, 3.5),
+-- Lớp 11B1 - Học kỳ 1
+(2, 4, 1, 1, 6.0, 6.0, 6.5), (2, 4, 2, 1, 5.5, 6.0, 5.5), (2, 4, 3, 1, 6.0, 6.5, 6.5),
+(2, 5, 1, 1, 8.0, 7.5, 9.0), (2, 5, 2, 1, 8.0, 8.0, 8.5), (2, 5, 3, 1, 8.0, 9.0, 8.0),
+(2, 6, 1, 1, 3.0, 3.5, 4.0), (2, 6, 2, 1, 4.0, 3.5, 3.0), (2, 6, 3, 1, 4.5, 3.5, 4.0),
+-- Lớp 10A1 - Học kỳ 1
+(1, 7, 1, 1, 6.0, 6.5, 6.5), (1, 7, 2, 1, 6.0, 6.0, 6.0), (1, 7, 3, 1, 6.5, 7.0, 6.0),
+(1, 8, 1, 1, 7.5, 7.0, 7.5), (1, 8, 2, 1, 6.5, 7.0, 7.0), (1, 8, 3, 1, 7.0, 6.5, 6.5),
+(1, 9, 1, 1, 7.0, 8.0, 8.5), (1, 9, 2, 1, 9.0, 9.5, 8.0), (1, 9, 3, 1, 8.5, 9.0, 9.5),
+-- Lớp 12C1 - Học kỳ 2
+(3, 1, 1, 2, 5.5, 6.0, 6.5), (3, 1, 2, 2, 7.0, 6.0, 6.5), (3, 1, 3, 2, 6.0, 7.5, 7.0),
+(3, 2, 1, 2, 8.5, 8.0, 9.0), (3, 2, 2, 2, 9.5, 9.0, 10.0), (3, 2, 3, 2, 9.0, 9.5, 9.5),
+(3, 3, 1, 2, 2.0, 3.0, 3.0), (3, 3, 2, 2, 2.5, 2.0, 3.0), (3, 3, 3, 2, 3.5, 3.0, 4.0),
+-- Lớp 11B1 - Học kỳ 2
+(2, 4, 1, 2, 6.5, 5.5, 6.0), (2, 4, 2, 2, 6.0, 6.0, 5.5), (2, 4, 3, 2, 6.5, 7.0, 6.5),
+(2, 5, 1, 2, 8.0, 8.5, 9.0), (2, 5, 2, 2, 7.5, 7.0, 8.0), (2, 5, 3, 2, 8.0, 8.5, 8.0),
+(2, 6, 1, 2, 8.0, 8.5, 9.0), (2, 6, 2, 2, 7.0, 7.5, 8.0), (2, 6, 3, 2, 9.5, 9.5, 10.0),
+-- Lớp 10A1 - Học kỳ 2
+(1, 7, 1, 2, 6.0, 6.0, 6.0), (1, 7, 2, 2, 6.5, 6.0, 7.0), (1, 7, 3, 2, 6.0, 6.5, 6.5),
+(1, 8, 1, 2, 7.0, 7.5, 8.0), (1, 8, 2, 2, 7.5, 6.5, 6.0), (1, 8, 3, 2, 7.0, 6.5, 8.5),
+(1, 9, 1, 2, 7.0, 8.0, 8.5), (1, 9, 2, 2, 9.0, 9.5, 8.0), (1, 9, 3, 2, 8.5, 9.0, 9.5)
+GO
+--Điểm Danh
+INSERT INTO dbo.ĐIEMDANH (MaHS, NgayDiemDanh, TrangThai)
 VALUES 
--- Lớp 12C1 (HS1–3)
-(3, 1, 1, 1, 6.0, 7.5, 8.0),
-(3, 3, 3, 1, 3.5, 9.0, 3.0),
--- Lớp 11B1 (HS4–6)
-(2, 4, 1, 1, 7.0, 4.0, 2.5),
-(2, 5, 2, 1, 6.5, 7.0, 7.0),
--- Lớp 10A1 (HS7–9)
-(1, 8, 2, 1, 6.0, 7.0, 7.5),
-(1, 9, 3, 1, 7.5, 8.0, 8.0);
+    (3, '2025-05-11', N'Vắng mặt'),
+    (2, '2025-05-10', N'Vắng mặt'),
+    (3, '2025-05-10', N'Vắng mặt'),
+    (2, '2025-05-11', N'Vắng mặt');
 GO
 --Stored Procedure: 
 -- lấy mã giáo viên đang đăng nhập
@@ -298,33 +325,33 @@ GO
 -- Xuất điểm
 CREATE PROCEDURE sp_ExportScore
     @MaLop INT,
-    @MaMH INT,
-    @MaNH INT
+    @MaMH  INT
 AS
 BEGIN
     SELECT 
         hs.MaHocSinh,
-        -- Tính điểm TB học kỳ 1
-		ROUND(AVG(CASE WHEN hk.SoHocKy = 1 THEN 
-			(ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0) * 2 + ISNULL(d.DiemThi, 0) * 3) / 6 
-		END), 1) AS DiemTBHK1,
-		-- Tính điểm TB học kỳ 2
-		ROUND(AVG(CASE WHEN hk.SoHocKy = 2 THEN 
-			(ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0) * 2 + ISNULL(d.DiemThi, 0) * 3) / 6 
-		END), 1) AS DiemTBHK2
+        -- Điểm trung bình học kỳ 1
+        ROUND(AVG(
+            CASE WHEN hk.SoHocKy = 1 THEN 
+                (ISNULL(d.Diem15P,0) + ISNULL(d.Diem1T,0) * 2+ ISNULL(d.DiemThi,0)  * 3) / 6.0
+            END
+        ), 1) AS DiemTBHK1,
+        -- Điểm trung bình học kỳ 2
+        ROUND(AVG(
+            CASE WHEN hk.SoHocKy = 2 THEN 
+                (ISNULL(d.Diem15P,0) + ISNULL(d.Diem1T,0) * 2 + ISNULL(d.DiemThi,0)  * 3) / 6.0
+            END
+        ), 1) AS DiemTBHK2
     FROM DIEM d
-    INNER JOIN HOCSINH hs ON d.MaHS = hs.MaHocSinh
-    INNER JOIN MONHOC mh ON d.MaMH = mh.MaMonHoc
-    INNER JOIN LOPHOC l ON d.MaLop = l.MaLop
-    INNER JOIN HOCKY hk ON d.HocKy = hk.MaHK
-    INNER JOIN NAMHOC nh ON l.NamHoc = nh.MaNH
+    INNER JOIN HOCSINH hs ON d.MaHS   = hs.MaHocSinh
+    INNER JOIN MONHOC  mh ON d.MaMH   = mh.MaMonHoc
+    INNER JOIN LOPHOC  l  ON d.MaLop = l.MaLop
+    INNER JOIN HOCKY   hk ON d.HocKy  = hk.MaHK
     WHERE d.MaLop = @MaLop
-        AND d.MaMH = @MaMH
-        AND nh.MaNH = @MaNH
-    GROUP BY hs.MaHocSinh
+      AND d.MaMH  = @MaMH
+    GROUP BY hs.MaHocSinh;
 END
 GO
-
 --Tính thống kê
 CREATE PROCEDURE sp_ThongKeTyLeDat
     @maMon INT,
@@ -352,7 +379,6 @@ BEGIN
 END
 GO
 --
-
 --Lấy hs bằng ID
 CREATE PROCEDURE sp_GetHocSinhById
     @MaHocSinh INT
@@ -371,7 +397,88 @@ BEGIN
     WHERE hs.MaHocSinh = @MaHocSinh
 END
 GO
+-- tính điểm trung bình 
+CREATE PROCEDURE sp_FinalScore
+    @MaHS INT,
+    @MaLop INT
+AS
+BEGIN
+    SELECT 
+        mh.TenMonHoc,
+        ROUND((
+            ISNULL(AVG(CASE WHEN hk.SoHocKy = 1 THEN 
+                (ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0)*2 + ISNULL(d.DiemThi, 0)*3)/6.0
+            END), 0)
+            +
+            ISNULL(AVG(CASE WHEN hk.SoHocKy = 2 THEN 
+                (ISNULL(d.Diem15P, 0) + ISNULL(d.Diem1T, 0)*2 + ISNULL(d.DiemThi, 0)*3)/6.0
+            END), 0) * 2
+        ) / 3.0, 1) AS DiemTBCaNam
 
-
-
-
+    FROM DIEM d
+    INNER JOIN MONHOC mh ON d.MaMH = mh.MaMonHoc
+    INNER JOIN HOCKY hk ON d.HocKy = hk.MaHK
+    WHERE d.MaHS = @MaHS
+      AND d.MaLop = @MaLop
+    GROUP BY mh.TenMonHoc;
+END
+GO
+--lấy khối lớn nhất của học sinh chưa có lớp
+CREATE PROCEDURE sp_GetMaxKhoi
+AS
+BEGIN
+	SELECT 
+		hs.MaHocSinh, 
+		hs.TenHocSinh,
+		hs.GioiTinh,
+		hs.NgaySinh,
+		MAX(l.Khoi) AS KhoiLonNhat
+	FROM HOCSINH hs
+	JOIN HOCSINH_LOP hl ON hs.MaHocSinh = hl.MaHS
+	JOIN LOPHOC l ON hl.MaLop = l.MaLop
+	WHERE NOT EXISTS (
+		SELECT 1 
+		FROM HOCSINH_LOP hl2
+		JOIN LOPHOC l2 ON hl2.MaLop = l2.MaLop
+		JOIN NAMHOC n2 ON l2.NamHoc = n2.MaNH
+		WHERE hl2.MaHS = hs.MaHocSinh AND n2.TrangThai = 1
+	)
+	GROUP BY hs.MaHocSinh, hs.TenHocSinh, hs.GioiTinh, hs.NgaySinh;
+END;
+GO
+--------------------
+CREATE PROCEDURE sp_LayHocSinhVang2NgayLienTiep
+AS
+BEGIN 
+    WITH VangMatLienTiep AS ( --dùng CTE để lưu sử dụng bảng tạm thời
+        SELECT 
+            d1.MaHS,
+            d1.NgayDiemDanh AS Ngay1,
+            d2.NgayDiemDanh AS Ngay2
+        FROM ĐIEMDANH d1
+        JOIN ĐIEMDANH d2
+            ON d1.MaHS = d2.MaHS
+            AND d1.NgayDiemDanh = DATEADD(DAY, -1, d2.NgayDiemDanh) --day 1 là ngày trc day 2 1 ngày
+        WHERE d1.TrangThai = N'Vắng mặt'
+          AND d2.TrangThai = N'Vắng mặt'
+    )
+    SELECT 
+        hs.MaHocSinh,
+        hs.TenHocSinh,
+        l.MaLop,
+        l.TenLop,
+        gv.MaGiaoVien,
+        gv.TenGiaoVien,
+        tk.Email,
+        vml.Ngay1,
+        vml.Ngay2
+    FROM VangMatLienTiep vml
+    JOIN HOCSINH hs ON vml.MaHS = hs.MaHocSinh
+    JOIN HOCSINH_LOP hsl ON hs.MaHocSinh = hsl.MaHS
+    JOIN LOPHOC l ON hsl.MaLop = l.MaLop
+    JOIN GIAOVIEN gv ON l.GVQuanLi = gv.MaGiaoVien
+    JOIN TAIKHOAN tk ON gv.TaiKhoan = tk.MaTK
+    WHERE vml.Ngay1 = DATEADD(DAY, -1, CAST(GETDATE() AS DATE))
+      AND vml.Ngay2 = CAST(GETDATE() AS DATE)
+END
+GO

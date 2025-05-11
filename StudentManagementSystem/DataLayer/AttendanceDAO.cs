@@ -64,5 +64,75 @@ namespace DataLayer
             return rowsAffected > 0;
         }
 
+
+        public List<int> GetHocSinhChuaDiemDanh()
+        {
+            List<int> result = new List<int>();
+            string query = @"
+                SELECT hs.MaHocSinh
+                FROM HOCSINH hs
+                INNER JOIN HOCSINH_LOP hsl ON hs.MaHocSinh = hsl.MaHS
+                WHERE NOT EXISTS (
+                    SELECT 1 FROM ĐIEMDANH dd
+                    WHERE dd.MaHS = hs.MaHocSinh AND dd.NgayDiemDanh = CAST(GETDATE() AS DATE)
+                );";
+
+            SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+            while (reader.Read())
+            {
+                result.Add(reader.GetInt32(0));
+            }
+            reader.Close();
+            return result;
+        }
+
+        public bool InsertDiemDanhVangMat(int maHS)
+        {
+            string query = @"
+                INSERT INTO ĐIEMDANH (MaHS, NgayDiemDanh, TrangThai)
+                VALUES (@MaHS, CAST(GETDATE() AS DATE), N'Vắng mặt')";
+
+            var parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@MaHS", maHS)
+            };
+
+            int affected = MyExecuteNonQuery(query, CommandType.Text, parameters);
+            return affected > 0;
+        }
+
+        public List<AbsentStudentDTO> LayDanhSachHocSinhVangLienTiep()
+        {
+            List<AbsentStudentDTO> list = new List<AbsentStudentDTO>();
+            string proc = "sp_LayHocSinhVang2NgayLienTiep";
+
+
+            using (SqlDataReader reader = MyExecuteReader(proc, CommandType.StoredProcedure))
+            {
+                while (reader.Read())
+                {
+                    var hs = new AbsentStudentDTO
+                    {
+                        MaHocSinh = reader["MaHocSinh"].ToString(),
+                        TenHocSinh = reader["TenHocSinh"].ToString(),
+                        MaLop = reader["MaLop"].ToString(),
+                        TenLop = reader["TenLop"].ToString(),
+                        MaGiaoVien = reader["MaGiaoVien"].ToString(),
+                        TenGiaoVien = reader["TenGiaoVien"].ToString(),
+                        Email = reader["Email"].ToString(),
+                        Ngay1 = Convert.ToDateTime(reader["Ngay1"]),
+                        Ngay2 = Convert.ToDateTime(reader["Ngay2"])
+                    };
+
+                    list.Add(hs);
+                }
+
+                reader.Close();
+
+            }
+
+            return list;
+        }
+
     }
 }

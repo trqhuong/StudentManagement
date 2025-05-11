@@ -115,34 +115,6 @@ namespace DataLayer
             }
         }
 
-        //public DataTable MyExecuteReader(string sql, CommandType type, List<SqlParameter> parameters = null)
-        //{
-        //    SqlCommand cd = new SqlCommand(sql, cnn);
-        //    cd.CommandType = type;
-        //    // Nếu có tham số, thêm chúng vào command
-        //    if (parameters != null)
-        //    {
-        //        cd.Parameters.AddRange(parameters.ToArray());
-        //    }
-        //    try
-        //    {
-        //        Connect();
-        //        DataTable dt = new DataTable();
-        //        dt.Load(cd.ExecuteReader());
-        //        return dt;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        DisConnect();
-        //    }
-        //}
-
-
-
+       
     }
 }

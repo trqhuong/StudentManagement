@@ -105,15 +105,15 @@ namespace DataLayer
 
             try
             {
-                // Sử dụng phương thức MyExecuteNonQuery kế thừa từ DataProvider
+           
                 int rowsAffected = MyExecuteNonQuery(query, CommandType.Text, parameters);
 
-                return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+                return rowsAffected > 0; 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Lỗi khi cập nhật QRCodePath: " + ex.Message);
-                return false; // Trả về false nếu có lỗi
+                return false; 
             }
         }
 
@@ -133,7 +133,14 @@ namespace DataLayer
             };
 
             // Cập nhật lớp học của học sinh
-            string updateClassQuery = "UPDATE HOCSINH_LOP SET MaLop = (SELECT MaLop FROM LOPHOC WHERE TenLop = @TenLop) WHERE MaHS = @MaHocSinh";
+            string updateClassQuery = @"
+                                       UPDATE HOCSINH_LOP
+                                                        SET MaLop = (
+                                                            SELECT TOP 1 L.MaLop
+                                                            FROM LOPHOC L
+                                                            JOIN NAMHOC NH ON L.NamHoc = NH.MaNH
+                                                            WHERE L.TenLop = @TenLop AND NH.TrangThai = 1 ) WHERE MaHS = @MaHocSinh";
+
             var parameters2 = new List<SqlParameter>
             {
                 new SqlParameter("@TenLop", hs.tenLop),
@@ -142,19 +149,15 @@ namespace DataLayer
 
             try
             {
-                // Cập nhật học sinh
                 int studentRowsAffected = MyExecuteNonQuery(updateQuery, CommandType.Text, parameters1);
-
-                // Cập nhật lớp học
                 int classRowsAffected = MyExecuteNonQuery(updateClassQuery, CommandType.Text, parameters2);
-
-                // Nếu cả hai câu lệnh đều thành công, trả về true
+               
                 return studentRowsAffected > 0 && classRowsAffected > 0;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-                return false; // Trả về false nếu có lỗi
+                return false; 
             }
         }
 
@@ -192,22 +195,22 @@ namespace DataLayer
 
             try
             {
-                // Sử dụng phương thức MyExecuteScalar để lấy giá trị trả về
+            
                 object result = MyExecuteScalar(query, CommandType.Text, parameters);
 
                 if (result != null)
                 {
-                    return result.ToString(); // Trả về giá trị trạng thái
+                    return result.ToString(); 
                 }
                 else
                 {
-                    return null; // Trả về null nếu không tìm thấy
+                    return null; 
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-                return null; // Trả về null nếu có lỗi
+                return null; 
             }
         }
 
