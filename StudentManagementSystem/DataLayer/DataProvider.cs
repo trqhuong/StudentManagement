@@ -56,13 +56,14 @@ namespace DataLayer
             }
             try
             {
+                Connect();
                 return(cmd.ExecuteReader());
             }
             catch (SqlException ex)
             {
                 throw ex;
             }
-           
+
         }
 
         public object MyExecuteScalar(string sql, CommandType type, List<SqlParameter> parameters = null)
@@ -113,7 +114,5 @@ namespace DataLayer
                 DisConnect();
             }
         }
-
-       
     }
 }
