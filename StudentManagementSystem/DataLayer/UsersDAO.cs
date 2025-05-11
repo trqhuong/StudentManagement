@@ -17,43 +17,34 @@ namespace DataLayer
 {
     public class UsersDAO:DataProvider
     {
-        public List<UsersDTO> GetTaiKhoan(string username, string password)
+        public List<UsersDTO> GetTaiKhoan(string username,string password)
         {
             List<UsersDTO> list = new List<UsersDTO>();
             string sql = "SELECT * FROM TAIKHOAN WHERE tendangnhap = @username AND matkhau = @password";
+
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@username", SqlDbType.NVarChar) { Value = username },
                 new SqlParameter("@password", SqlDbType.NVarChar) { Value = password }
+            
             };
 
-            try
+            using (SqlDataReader reader = MyExecuteReader(sql, CommandType.Text, parameters))
             {
-                Connect();
-                using (SqlDataReader reader = MyExecuteReader(sql,CommandType.Text,parameters))
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        string tenDangNhap = reader["tendangnhap"].ToString();
-                        string matKhau = reader["matkhau"].ToString();
-                        string loaiTaiKhoan = reader["loaitaikhoan"].ToString();
-                        UsersDTO user = new UsersDTO(tenDangNhap, matKhau, loaiTaiKhoan);
-                        list.Add(user);
-                    }
+                    string tenDangNhap = reader["tendangnhap"].ToString();
+                    string matKhau = reader["matkhau"].ToString();
+                    string loaiTaiKhoan = reader["loaitaikhoan"].ToString();
+
+                    UsersDTO users = new UsersDTO(tenDangNhap, matKhau, loaiTaiKhoan);
+                    list.Add(users);
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                DisConnect();
+                reader.Close();
             }
 
             return list;
         }
-
 
         public void Login(string username)
         {

@@ -77,9 +77,15 @@ namespace PresentationLayer
                     {
                         StudentsBUS hsBUS = new StudentsBUS();
                         StudentsDTO hs = hsBUS.GetHocSinhById(maHS);
+                  
 
                         if (hs != null)
                         {
+                            if (!hsBUS.Check_TinhTrang(maHS))
+                            {
+                                MessageBox.Show("Học sinh này không còn học. Không thể điểm danh!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
                             txtSID.Text = hs.MaHS.ToString();
                             txtSName.Text = hs.TenHS;
                             txtClass.Text = hs.TenLop;
@@ -173,5 +179,35 @@ namespace PresentationLayer
            SafeStopCamera();
         }
 
+        private void FrmAttendance_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btEnd_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Bạn có chắc muốn kết thúc điểm danh?", "Xác nhận", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+
+                    diemDanh.KetThucDiemDanh();
+
+                    MessageBox.Show("Đã cập nhật trạng thái vắng mặt cho học sinh chưa điểm danh.");
+
+
+                    diemDanh.GuiMailThongBaoTheoDanhSach();
+
+                    MessageBox.Show("Đã gửi email thông báo đến GVCN danh sách học sinh vắng 2 ngày liên tiếp.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message);
+                }
+
+                LoadData();
+            }
+        }
     }
 }

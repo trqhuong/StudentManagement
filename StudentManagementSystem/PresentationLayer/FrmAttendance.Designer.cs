@@ -41,6 +41,7 @@
             this.cbbThietBi = new System.Windows.Forms.ComboBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dgvDiemDanh = new System.Windows.Forms.DataGridView();
+            this.btEnd = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picQR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiemDanh)).BeginInit();
@@ -260,6 +261,23 @@
             this.dgvDiemDanh.Size = new System.Drawing.Size(1014, 215);
             this.dgvDiemDanh.TabIndex = 15;
             // 
+            // btEnd
+            // 
+            this.btEnd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btEnd.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.btEnd.FlatAppearance.BorderSize = 0;
+            this.btEnd.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Cyan;
+            this.btEnd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
+            this.btEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btEnd.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btEnd.Location = new System.Drawing.Point(875, 410);
+            this.btEnd.Name = "btEnd";
+            this.btEnd.Size = new System.Drawing.Size(162, 44);
+            this.btEnd.TabIndex = 13;
+            this.btEnd.Text = "END";
+            this.btEnd.UseVisualStyleBackColor = true;
+            this.btEnd.Click += new System.EventHandler(this.btEnd_Click);
+            // 
             // FrmAttendance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -268,6 +286,7 @@
             this.ClientSize = new System.Drawing.Size(1064, 709);
             this.Controls.Add(this.dgvDiemDanh);
             this.Controls.Add(this.cbbThietBi);
+            this.Controls.Add(this.btEnd);
             this.Controls.Add(this.btStopQR);
             this.Controls.Add(this.txtClass);
             this.Controls.Add(this.btScanQR);
@@ -290,6 +309,7 @@
             this.Name = "FrmAttendance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmAttendancecs";
+            this.Load += new System.EventHandler(this.FrmAttendance_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picQR)).EndInit();
@@ -328,5 +348,6 @@
         private System.Windows.Forms.ComboBox cbbThietBi;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridView dgvDiemDanh;
+        private System.Windows.Forms.Button btEnd;
     }
 }

@@ -136,8 +136,7 @@ namespace PresentationLayer
 
         private void btUpdate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtSID.Text))
-            {
+            
                 if (dgvStudent.CurrentRow == null)
                 {
                     MessageBox.Show("Vui lòng chọn một học sinh để cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -163,16 +162,13 @@ namespace PresentationLayer
                 {
                     MessageBox.Show("Lỗi! Không thể cập nhật học sinh.");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Học sinh chưa tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            
+            
         }
 
         private void btCreateQR_Click(object sender, EventArgs e)
         {
-
+            
             if (dgvStudent.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn một học sinh!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -195,11 +191,15 @@ namespace PresentationLayer
             }
 
             int maHS = Convert.ToInt32(row.Cells["MaHS"].Value);  
-            string tenHS = row.Cells["TenHS"].Value.ToString();  
+            string tenHS = row.Cells["TenHS"].Value.ToString();
+            if (studentsBUS.Check_TinhTrang(maHS) == false)
+            {
+                MessageBox.Show("Không thể cấp mã QR với học sinh đã nghỉ học!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-           
-            StudentsBUS studentBUS = new StudentsBUS();
-            qrPath = studentBUS.GenerateQRCode(maHS, tenHS, picQR); 
+              
+            qrPath = studentsBUS.GenerateQRCode(maHS, tenHS, picQR); 
 
             if (!string.IsNullOrEmpty(qrPath))
             {
@@ -208,7 +208,6 @@ namespace PresentationLayer
 
                 MessageBox.Show("Mã QR đã được tạo và lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Làm mới DataGridView để hiển thị dữ liệu mới
                 dgvStudent.Refresh();
             }
             else
@@ -221,9 +220,6 @@ namespace PresentationLayer
         {
             if (dgvStudent.SelectedRows.Count == 0)
                 return;
-
-         
-
 
             DataGridViewRow row = dgvStudent.SelectedRows[0];
 

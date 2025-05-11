@@ -74,8 +74,6 @@ namespace PresentationLayer
                 client.EnableSsl = true;
                 client.Credentials = new NetworkCredential("quynhhuongtran314@gmail.com", "eeppxloexxkryxzd"); // Dùng app password nếu là Gmail
                 client.Send(mail);
-
-           
         }
 
     }

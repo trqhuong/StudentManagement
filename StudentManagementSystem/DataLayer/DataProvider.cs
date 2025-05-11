@@ -62,6 +62,7 @@ namespace DataLayer
             {
                 throw ex;
             }
+           
         }
 
         public object MyExecuteScalar(string sql, CommandType type, List<SqlParameter> parameters = null)
@@ -113,5 +114,6 @@ namespace DataLayer
             }
         }
 
+       
     }
 }

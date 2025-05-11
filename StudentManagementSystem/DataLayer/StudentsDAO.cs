@@ -21,25 +21,25 @@ namespace DataLayer
                            "JOIN LOPHOC l ON hs_l.MaLop = l.MaLop";
             try
             {
-                Connect();
-                using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text))
+                
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        students.Add(new StudentsDTO(
-                            Convert.ToInt32(reader["MaHocSinh"]),
-                            reader["TenHocSinh"].ToString(),
-                            Convert.ToDateTime(reader["NgaySinh"]),
-                            reader["GioiTinh"].ToString(),
-                            reader["TinhTrang"].ToString(),
-                            reader["QRCodePath"] as string,
-                            reader["TenLop"].ToString()
-                        ));
-                    }
+                    students.Add(new StudentsDTO(
+                        Convert.ToInt32(reader["MaHocSinh"]),
+                        reader["TenHocSinh"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString(),
+                        reader["TinhTrang"].ToString(),
+                        reader["QRCodePath"] as string,
+                        reader["TenLop"].ToString()
+                    ));
                 }
+                reader.Close();  
             }
             catch (Exception ex)
             {
+               
                 Console.WriteLine("Error: " + ex.Message);
             }
             finally
@@ -107,15 +107,15 @@ namespace DataLayer
 
             try
             {
-                // Sử dụng phương thức MyExecuteNonQuery kế thừa từ DataProvider
+           
                 int rowsAffected = MyExecuteNonQuery(query, CommandType.Text, parameters);
 
-                return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+                return rowsAffected > 0; 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Lỗi khi cập nhật QRCodePath: " + ex.Message);
-                return false; // Trả về false nếu có lỗi
+                return false; 
             }
         }
 
@@ -141,10 +141,7 @@ namespace DataLayer
                                                             SELECT TOP 1 L.MaLop
                                                             FROM LOPHOC L
                                                             JOIN NAMHOC NH ON L.NamHoc = NH.MaNH
-                                                            WHERE L.TenLop = @TenLop 
-                                                              AND NH.TrangThai = 1
-                                                        )
-                                                        WHERE MaHS = @MaHocSinh";
+                                                            WHERE L.TenLop = @TenLop AND NH.TrangThai = 1 ) WHERE MaHS = @MaHocSinh";
 
             var parameters2 = new List<SqlParameter>
             {
@@ -155,13 +152,13 @@ namespace DataLayer
             {
                 int studentRowsAffected = MyExecuteNonQuery(updateQuery, CommandType.Text, parameters1);
                 int classRowsAffected = MyExecuteNonQuery(updateClassQuery, CommandType.Text, parameters2);
-
+               
                 return studentRowsAffected > 0 && classRowsAffected > 0;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-                return false;
+                return false; 
             }
         }
 
@@ -197,22 +194,22 @@ namespace DataLayer
 
             try
             {
-                // Sử dụng phương thức MyExecuteScalar để lấy giá trị trả về
+            
                 object result = MyExecuteScalar(query, CommandType.Text, parameters);
 
                 if (result != null)
                 {
-                    return result.ToString(); // Trả về giá trị trạng thái
+                    return result.ToString(); 
                 }
                 else
                 {
-                    return null; // Trả về null nếu không tìm thấy
+                    return null; 
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-                return null; // Trả về null nếu có lỗi
+                return null; 
             }
         }
 
@@ -226,25 +223,27 @@ namespace DataLayer
             };
             try
             {
-                Connect();
-                using (SqlDataReader reader = MyExecuteReader(query, CommandType.StoredProcedure, parameters))
+                
+                SqlDataReader reader = MyExecuteReader(query, CommandType.StoredProcedure, parameters);
+
+                if (reader.HasRows)
                 {
-                    if (reader.Read())
-                    {
-                        student = new StudentsDTO(
-                            Convert.ToInt32(reader["MaHocSinh"]),
-                            reader["TenHocSinh"].ToString(),
-                            Convert.ToDateTime(reader["NgaySinh"]),
-                            reader["GioiTinh"].ToString(),
-                            reader["TinhTrang"].ToString(),
-                            reader["QRCodePath"] as string,
-                            reader["TenLop"].ToString()
-                        );
-                    }
+                    reader.Read();  
+                    student = new StudentsDTO(
+                        Convert.ToInt32(reader["MaHocSinh"]),
+                        reader["TenHocSinh"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString(),
+                        reader["TinhTrang"].ToString(),
+                        reader["QRCodePath"] as string,
+                        reader["TenLop"].ToString()
+                    );
                 }
+                reader.Close();  
             }
             catch (Exception ex)
             {
+               
                 Console.WriteLine("Error: " + ex.Message);
             }
             finally
@@ -253,72 +252,7 @@ namespace DataLayer
             }
             return student;
         }
-        public List<StudentsDTO> GetStudentByClass(int classID)
-        {
-            List<StudentsDTO> students = new List<StudentsDTO>();
-            string query = "SELECT * FROM HOCSINH WHERE MaHocSinh in (SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
-                    "where hl.MaHS = h.MaHocSinh and hl.MaLop = @classID )";
-            List<SqlParameter> parameters = new List<SqlParameter>
-            {
-                new SqlParameter("@classID", classID)
-            };
-            Connect();
-            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
-            {
-                while (reader.Read())
-                {
-                    students.Add(new StudentsDTO(
-                        Convert.ToInt32(reader["MaHocSinh"]),
-                        reader["TenHocSinh"].ToString(),
-                        Convert.ToDateTime(reader["NgaySinh"]),
-                        reader["GioiTinh"].ToString(),
-                        reader["TinhTrang"].ToString(),
-                        reader["QRCodePath"].ToString()
-                    ));
-                }
-            }
-            DisConnect();
-            return students;
-        }
-        public List<StudentsDTO> GetStudentNoClass(int class_id)
-        {
-            List<StudentsDTO> students = new List<StudentsDTO>();
-            string query = "SELECT Khoi From LOPHOC WHERE MaLop = @classID";
-            List<SqlParameter> parameters = new List<SqlParameter>
-            {
-                new SqlParameter("@classID", class_id)
-            };
-            int khoi = Convert.ToInt32(MyExecuteScalar(query, CommandType.Text, parameters));
-            string pro = "sp_GetMaxKhoi";
-            Connect();
-            using (SqlDataReader reader = MyExecuteReader(pro, CommandType.StoredProcedure))
-            {
-                while (reader.Read())
-                {
-                    if(Convert.ToInt32(reader["KhoiLonNhat"]) == khoi)
-                    {
-                        students.Add(new StudentsDTO(
-                        Convert.ToInt32(reader["MaHocSinh"]),
-                        reader["TenHocSinh"].ToString(),
-                        Convert.ToDateTime(reader["NgaySinh"]),
-                        reader["GioiTinh"].ToString()
-                        ));
-                    }    
-                }
-            }
-            DisConnect();
-            return students;
-        }
-        public bool AddStudentInClass(int class_id, int student_id)
-        {
-            string query = @"INSERT INTO HOCSINH_LOP (MaHS, MaLop) VALUES ( @student_id, @class_id )
-                            UPDATE LOPHOC SET SiSo = SiSo + 1 WHERE MaLop = @class_id ";
-            List<SqlParameter> parameters = new List<SqlParameter>
-            {
-                new SqlParameter("@class_id", class_id),
-                new SqlParameter("@student_id", student_id)
-            };
-            return MyExecuteNonQuery(query, CommandType.Text, parameters) > 0;
-        }
+
+
     }
 }

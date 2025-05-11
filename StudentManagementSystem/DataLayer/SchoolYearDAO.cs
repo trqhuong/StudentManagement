@@ -17,19 +17,18 @@ namespace DataLayer
             string query = "SELECT * FROM NAMHOC";
             try
             {
-                Connect();
-                using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text))
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        years.Add(new SchoolYearDTO(
-                            Convert.ToInt32(reader["MaNH"]),
-                            Convert.ToInt32(reader["NamBatDau"]),
-                            Convert.ToInt32(reader["NamKetThuc"]),
-                            Convert.ToBoolean(reader["TrangThai"])
-                        ));
-                    }
+                    years.Add(new SchoolYearDTO(
+                        Convert.ToInt32(reader["MaNH"]),
+                        Convert.ToInt32(reader["NamBatDau"]),
+                        Convert.ToInt32(reader["NamKetThuc"])
+                    ));
                 }
+
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -41,5 +40,7 @@ namespace DataLayer
             }
             return years;
         }
+
+
     }
 }

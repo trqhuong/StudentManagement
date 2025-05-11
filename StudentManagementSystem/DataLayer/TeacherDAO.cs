@@ -13,27 +13,29 @@ namespace DataLayer
         {
             List<TeacherDTO> teachers = new List<TeacherDTO>();
             string query = "SELECT gv.MaGiaoVien, gv.TenGiaoVien, gv.NgaySinh, gv.GioiTinh, gv.DienThoai, gv.TaiKhoan, gv.TinhTrang, tk.Email " +
-                           "FROM GIAOVIEN gv JOIN TAIKHOAN tk ON gv.TaiKhoan = tk.MaTK";
+                           "FROM GIAOVIEN gv " +
+                           "JOIN TAIKHOAN tk ON gv.TaiKhoan = tk.MaTK";
 
             try
             {
-                Connect();
-                using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text))
+                SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
+
+               
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        teachers.Add(new TeacherDTO(
-                            Convert.ToInt32(reader["MaGiaoVien"]),
-                            reader["TenGiaoVien"].ToString(),
-                            Convert.ToDateTime(reader["NgaySinh"]),
-                            reader["GioiTinh"].ToString(),
-                            reader["DienThoai"].ToString(),
-                            Convert.ToInt32(reader["TaiKhoan"]),
-                            reader["TinhTrang"].ToString(),
-                            reader["Email"].ToString()
-                        ));
-                    }
+                    teachers.Add(new TeacherDTO(
+                        Convert.ToInt32(reader["MaGiaoVien"]),
+                        reader["TenGiaoVien"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString(),
+                        reader["DienThoai"].ToString(),
+                        Convert.ToInt32(reader["TaiKhoan"]),
+                        reader["TinhTrang"].ToString(),
+                        reader["Email"].ToString()
+                    ));
                 }
+
+                reader.Close();
             }
             catch (Exception ex)
             {

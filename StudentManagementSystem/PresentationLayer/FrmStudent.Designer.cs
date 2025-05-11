@@ -40,8 +40,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dtDob = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
-            this.checkNam = new System.Windows.Forms.CheckBox();
-            this.checkNu = new System.Windows.Forms.CheckBox();
             this.btReset = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
@@ -49,6 +47,8 @@
             this.dgvStudent = new System.Windows.Forms.DataGridView();
             this.cbbClass = new System.Windows.Forms.ComboBox();
             this.btCreateQR = new System.Windows.Forms.Button();
+            this.checkNu = new System.Windows.Forms.CheckBox();
+            this.checkNam = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picQR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudent)).BeginInit();
@@ -181,32 +181,6 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Dob:";
             // 
-            // checkNam
-            // 
-            this.checkNam.AutoSize = true;
-            this.checkNam.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkNam.ForeColor = System.Drawing.Color.White;
-            this.checkNam.Location = new System.Drawing.Point(645, 307);
-            this.checkNam.Name = "checkNam";
-            this.checkNam.Size = new System.Drawing.Size(75, 29);
-            this.checkNam.TabIndex = 5;
-            this.checkNam.Text = "Nam";
-            this.checkNam.UseVisualStyleBackColor = true;
-            // 
-            // checkNu
-            // 
-            this.checkNu.AutoSize = true;
-            this.checkNu.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkNu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkNu.ForeColor = System.Drawing.Color.White;
-            this.checkNu.Location = new System.Drawing.Point(767, 307);
-            this.checkNu.Name = "checkNu";
-            this.checkNu.Size = new System.Drawing.Size(59, 29);
-            this.checkNu.TabIndex = 6;
-            this.checkNu.Text = "Nữ";
-            this.checkNu.UseVisualStyleBackColor = true;
-            // 
             // btReset
             // 
             this.btReset.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -313,6 +287,32 @@
             this.btCreateQR.UseVisualStyleBackColor = true;
             this.btCreateQR.Click += new System.EventHandler(this.btCreateQR_Click);
             // 
+            // checkNu
+            // 
+            this.checkNu.AutoSize = true;
+            this.checkNu.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkNu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkNu.ForeColor = System.Drawing.Color.White;
+            this.checkNu.Location = new System.Drawing.Point(767, 307);
+            this.checkNu.Name = "checkNu";
+            this.checkNu.Size = new System.Drawing.Size(59, 29);
+            this.checkNu.TabIndex = 6;
+            this.checkNu.Text = "Nữ";
+            this.checkNu.UseVisualStyleBackColor = true;
+            // 
+            // checkNam
+            // 
+            this.checkNam.AutoSize = true;
+            this.checkNam.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkNam.ForeColor = System.Drawing.Color.White;
+            this.checkNam.Location = new System.Drawing.Point(645, 307);
+            this.checkNam.Name = "checkNam";
+            this.checkNam.Size = new System.Drawing.Size(75, 29);
+            this.checkNam.TabIndex = 5;
+            this.checkNam.Text = "Nam";
+            this.checkNam.UseVisualStyleBackColor = true;
+            // 
             // FrmStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -370,8 +370,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dtDob;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox checkNam;
-        private System.Windows.Forms.CheckBox checkNu;
         private System.Windows.Forms.Button btReset;
         private System.Windows.Forms.Button btAdd;
         private System.Windows.Forms.Button btUpdate;
@@ -379,5 +377,7 @@
         private System.Windows.Forms.DataGridView dgvStudent;
         private System.Windows.Forms.ComboBox cbbClass;
         private System.Windows.Forms.Button btCreateQR;
+        private System.Windows.Forms.CheckBox checkNu;
+        private System.Windows.Forms.CheckBox checkNam;
     }
 }
