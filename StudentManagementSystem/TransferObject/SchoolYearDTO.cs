@@ -11,7 +11,7 @@ namespace TransferObject
         public int MaNH { get; set; }
         public int NamBatDau { get; set; }
         public int NamKetThuc { get; set; }
-        public int TrangThai { get; set; }
+        public bool TrangThai { get; set; }
 
         public SchoolYearDTO() { }
         public SchoolYearDTO(int maNH, int namBatDau, int namKetThuc)
@@ -19,6 +19,13 @@ namespace TransferObject
             MaNH = maNH;
             NamBatDau = namBatDau;
             NamKetThuc = namKetThuc;
+        }
+        public SchoolYearDTO(int maNH, int namBatDau, int namKetThuc, bool trangThai)
+        {
+            MaNH = maNH;
+            NamBatDau = namBatDau;
+            NamKetThuc = namKetThuc;
+            TrangThai = trangThai;
         }
         public string NamHienThi
         {

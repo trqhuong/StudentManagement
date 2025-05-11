@@ -27,5 +27,13 @@ namespace BusinessLayer
         {
             return subjectDAO.DeleteSubject(subject);
         }
+        public List<SubjectDTO> GetAssignmentSubject()
+        {
+            return subjectDAO.GetAssignmentSubject();
+        }
+        public List<SubjectDTO> GetSubjectNoSchedule(int class_id)
+        {
+            return subjectDAO.GetSubjectNoSchedule(class_id);
+        }
     }
 }

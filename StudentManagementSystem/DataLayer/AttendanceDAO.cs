@@ -14,26 +14,30 @@ namespace DataLayer
         public List<AttendanceDTO> GetAllAttendance()
         {
             List<AttendanceDTO> list = new List<AttendanceDTO>();
-
-            string query = "SELECT * FROM ĐIEMDANH";
+            string query = "SELECT * FROM DIEMDANH";
             try
             {
-                DataTable dt = MyExecuteReader(query, CommandType.Text);
-
-                foreach (DataRow row in dt.Rows)
+                Connect();
+                using (SqlDataReader reader = MyExecuteReader(query,CommandType.Text))
                 {
-                   
-                    list.Add(new AttendanceDTO(
-                         Convert.ToInt32(row["MaDiemDanh"]),
-                         Convert.ToInt32(row["MaHS"]),
-                         Convert.ToDateTime(row["NgayDiemDanh"]),
-                         row["TrangThai"].ToString()
+                    while (reader.Read())
+                    {
+                        list.Add(new AttendanceDTO(
+                            Convert.ToInt32(reader["MaDiemDanh"]),
+                            Convert.ToInt32(reader["MaHS"]),
+                            Convert.ToDateTime(reader["NgayDiemDanh"]),
+                            reader["TrangThai"].ToString()
                         ));
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                DisConnect();
             }
 
             return list;
