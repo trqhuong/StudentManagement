@@ -253,6 +253,74 @@ namespace DataLayer
             return student;
         }
 
+        public List<StudentsDTO> GetStudentByClass(int classID)
+        {
+            List<StudentsDTO> students = new List<StudentsDTO>();
+            string query = "SELECT * FROM HOCSINH WHERE MaHocSinh in (SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
+                    "where hl.MaHS = h.MaHocSinh and hl.MaLop = @classID )";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@classID", classID)
+            };
+            Connect();
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
+            {
+                while (reader.Read())
+                {
+                    students.Add(new StudentsDTO(
+                        Convert.ToInt32(reader["MaHocSinh"]),
+                        reader["TenHocSinh"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString(),
+                        reader["TinhTrang"].ToString(),
+                        reader["QRCodePath"].ToString()
+                    ));
+                }
+            }
+            DisConnect();
+            return students;
+        }
+        public List<StudentsDTO> GetStudentNoClass(int class_id)
+        {
+            List<StudentsDTO> students = new List<StudentsDTO>();
+            string query = "SELECT Khoi From LOPHOC WHERE MaLop = @classID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@classID", class_id)
+            };
+            int khoi = Convert.ToInt32(MyExecuteScalar(query, CommandType.Text, parameters));
+            string pro = "sp_GetMaxKhoi";
+            Connect();
+            using (SqlDataReader reader = MyExecuteReader(pro, CommandType.StoredProcedure))
+            {
+                while (reader.Read())
+                {
+                    if (Convert.ToInt32(reader["KhoiLonNhat"]) == khoi)
+                    {
+                        students.Add(new StudentsDTO(
+                        Convert.ToInt32(reader["MaHocSinh"]),
+                        reader["TenHocSinh"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString()
+                        ));
+                    }
+                }
+            }
+            DisConnect();
+            return students;
+        }
+        public bool AddStudentInClass(int class_id, int student_id)
+        {
+            string query = @"INSERT INTO HOCSINH_LOP (MaHS, MaLop) VALUES ( @student_id, @class_id )
+                            UPDATE LOPHOC SET SiSo = SiSo + 1 WHERE MaLop = @class_id ";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@class_id", class_id),
+                new SqlParameter("@student_id", student_id)
+            };
+            return MyExecuteNonQuery(query, CommandType.Text, parameters) > 0;
+        }
+
 
     }
 }
