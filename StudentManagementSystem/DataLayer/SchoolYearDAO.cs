@@ -14,8 +14,7 @@ namespace DataLayer
         public List<SchoolYearDTO> GetAllSchoolYears()
         {
             List<SchoolYearDTO> years = new List<SchoolYearDTO>();
-            string query = "SELECT MaNH, NamBatDau, NamKetThuc FROM NAMHOC";
-
+            string query = "SELECT * FROM NAMHOC";
             try
             {
                 SqlDataReader reader = MyExecuteReader(query, CommandType.Text);
@@ -35,7 +34,10 @@ namespace DataLayer
             {
                 Console.WriteLine("Lỗi khi lấy năm học: " + ex.Message);
             }
-
+            finally
+            {
+                DisConnect();
+            }
             return years;
         }
 

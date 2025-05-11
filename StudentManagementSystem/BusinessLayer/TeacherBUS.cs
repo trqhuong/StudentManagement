@@ -27,5 +27,9 @@ namespace BusinessLayer
         {
             return teacherDAO.DeleteTeacher(maGV);
         }
+        public List<TeacherDTO> GetTeacherBySubject(int subject_id)
+        {
+            return teacherDAO.GetTeacherBySubject(subject_id);
+        }
     }
 }

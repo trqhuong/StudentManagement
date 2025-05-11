@@ -17,7 +17,7 @@ namespace DataLayer
             cnn = new SqlConnection(cnStr);
         }
 
-        private void Connect()
+        public void Connect()
         {
             try
             {
@@ -56,8 +56,7 @@ namespace DataLayer
             }
             try
             {
-                Connect();
-                return (cmd.ExecuteReader());
+                return(cmd.ExecuteReader());
             }
             catch (SqlException ex)
             {

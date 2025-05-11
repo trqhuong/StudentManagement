@@ -16,9 +16,9 @@ namespace DataLayer
         {
             List<StudentsDTO> students = new List<StudentsDTO>();
             string query = "SELECT hs.MaHocSinh, hs.TenHocSinh, hs.NgaySinh, hs.GioiTinh, hs.TinhTrang, hs.QRCodePath, l.TenLop " +
-                           "FROM HOCSINH hs, LOPHOC l, HOCSINH_LOP hs_l " +
-                           "WHERE hs.MaHocSinh=hs_l.MaHS AND hs_l.MaLop=l.MaLop";
-
+                           "FROM HOCSINH hs " +
+                           "JOIN HOCSINH_LOP hs_l ON hs.MaHocSinh = hs_l.MaHS " +
+                           "JOIN LOPHOC l ON hs_l.MaLop = l.MaLop";
             try
             {
                 
@@ -41,6 +41,10 @@ namespace DataLayer
             {
                
                 Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                DisConnect();
             }
 
             return students;
@@ -92,8 +96,6 @@ namespace DataLayer
             }
         }
 
-
-
         public bool UpdateQRCode(int maHS, string filePath)
         {
             string query = "UPDATE HOCSINH SET QRCodePath = @QRCodePath WHERE MaHocSinh = @MaHocSinh";
@@ -143,10 +145,9 @@ namespace DataLayer
 
             var parameters2 = new List<SqlParameter>
             {
-                new SqlParameter("@TenLop", hs.tenLop),
+                new SqlParameter("@TenLop", hs.TenLop),
                 new SqlParameter("@MaHocSinh", hs.MaHS)
             };
-
             try
             {
                 int studentRowsAffected = MyExecuteNonQuery(updateQuery, CommandType.Text, parameters1);
@@ -183,8 +184,6 @@ namespace DataLayer
                 return false; // Trả về false nếu có lỗi
             }
         }
-
-
         public string getTinhTrang(int maHS)
         {
             string query = "SELECT TinhTrang FROM HOCSINH WHERE MaHocSinh = @maHS";
@@ -218,12 +217,10 @@ namespace DataLayer
         {
             StudentsDTO student = null;
             string query = "sp_GetHocSinhById";
-
             var parameters = new List<SqlParameter>
             {
                 new SqlParameter("@MaHocSinh", maHS)
             };
-
             try
             {
                 
@@ -249,7 +246,10 @@ namespace DataLayer
                
                 Console.WriteLine("Error: " + ex.Message);
             }
-
+            finally
+            {
+                DisConnect();
+            }
             return student;
         }
 

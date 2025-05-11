@@ -39,6 +39,10 @@ namespace DataLayer
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
+            finally
+            {
+                DisConnect();
+            }
 
             return list;
         }

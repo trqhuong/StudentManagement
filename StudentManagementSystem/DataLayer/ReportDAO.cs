@@ -15,6 +15,7 @@ namespace DataLayer
         {
             List<ReportDTO> list = new List<ReportDTO>();
             string sql = "sp_ThongKeTyLeDat";
+            string sql = "sp_ThongKeTyLeDat"; 
             List<SqlParameter> parameters = new List<SqlParameter>
             {
                 new SqlParameter("@maMon", maMon),
@@ -44,10 +45,36 @@ namespace DataLayer
             {
                 Console.WriteLine("Lỗi khi lấy thống kê tỷ lệ đạt: " + ex.Message);
             }
+            try
+            {
+                Connect();
+                using (SqlDataReader reader = MyExecuteReader(sql,CommandType.StoredProcedure,parameters))
+                {
+                    while (reader.Read())
+                    {
+                        ReportDTO tk = new ReportDTO
+                        {
+                            Lop = Convert.ToInt32(reader["MaLop"]),
+                            TenLop = reader["TenLop"].ToString(),
+                            SiSo = Convert.ToInt32(reader["SiSo"]),
+                            SoLuongDat = Convert.ToInt32(reader["SoLuongDat"])
+                        };
+                        tk.TyLeDat = Math.Round(100.0 * tk.SoLuongDat / tk.SiSo, 2);
+                        list.Add(tk);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                DisConnect();
+            }
 
             return list;
         }
-
 
     }
 }

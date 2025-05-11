@@ -41,9 +41,14 @@ namespace DataLayer
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
+            finally
+            {
+                DisConnect();
+            }
 
             return teachers;
         }
+
 
         public int AddTeacher(TeacherDTO gv)
         {
@@ -147,17 +152,17 @@ namespace DataLayer
                 // Cập nhật tình trạng giáo viên và bỏ liên kết tài khoản
                 string updateGVQuery = "UPDATE GIAOVIEN SET TinhTrang = N'Nghỉ Dạy', TaiKhoan = NULL WHERE MaGiaoVien = @MaGV";
                 var updateGVParams = new List<SqlParameter>
-        {
-            new SqlParameter("@MaGV", maGV)
-        };
+                {
+                    new SqlParameter("@MaGV", maGV)
+                };
                 MyExecuteNonQuery(updateGVQuery, CommandType.Text, updateGVParams);
 
                 // Xóa tài khoản khỏi bảng TAIKHOAN
                 string deleteAccountQuery = "DELETE FROM TAIKHOAN WHERE MaTK = @MaTK";
                 var deleteParams = new List<SqlParameter>
-        {
-            new SqlParameter("@MaTK", maTaiKhoan)
-        };
+                {
+                    new SqlParameter("@MaTK", maTaiKhoan)
+                };
                 MyExecuteNonQuery(deleteAccountQuery, CommandType.Text, deleteParams);
 
                 return true;
@@ -167,6 +172,30 @@ namespace DataLayer
                 MessageBox.Show("Lỗi khi xóa giáo viên: " + ex.Message);
                 return false;
             }
+        }
+        public List<TeacherDTO> GetTeacherBySubject(int subject_id)
+        {
+            List<TeacherDTO> teachers = new List<TeacherDTO>();
+            string query = @"SELECT g.MaGiaoVien, g.TenGiaoVien 
+                         FROM GIAOVIEN g, GIAOVIEN_DAY_MONHOC d 
+                         WHERE g.MaGiaoVien = d.MaGV AND d.MaMH = @subject_id AND g.TinhTrang = N'Đang dạy' ";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@subject_id", subject_id)
+            };
+            Connect();
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
+            {
+                while (reader.Read())
+                {
+                    teachers.Add(new TeacherDTO(
+                        Convert.ToInt32(reader["MaGiaoVien"]),
+                        reader["TenGiaoVien"].ToString()
+                    ));
+                }
+            }
+            DisConnect();
+            return teachers;
         }
     }
 }

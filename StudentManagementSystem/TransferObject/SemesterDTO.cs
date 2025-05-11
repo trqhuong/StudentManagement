@@ -20,5 +20,12 @@ namespace TransferObject
             SoHocKy = soHocKy;
             NamHoc = namHoc;
         }
+        public SemesterDTO(int maHK, int soHocKy, int namHoc, bool trangThai)
+        {
+            MaHK = maHK;
+            SoHocKy = soHocKy;
+            NamHoc = namHoc;
+            TrangThai = trangThai;
+        }
     }
 }

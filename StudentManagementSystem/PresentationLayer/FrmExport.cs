@@ -20,10 +20,12 @@ namespace PresentationLayer
 
     public partial class FrmExport : Form
     {
-        private ExportScoreBUS exportBUS = new ExportScoreBUS();
         List<DisplayScoreDTO> displayList = new List<DisplayScoreDTO>();
-
-
+        private SchoolYearBUS yearBUS = new SchoolYearBUS();
+        private SubjectBUS subjectBUS = new SubjectBUS();
+        private ClassBUS classBUS = new ClassBUS();
+        private StudentsBUS studentBUS = new StudentsBUS();
+        private ScoreBUS exportScore = new ScoreBUS();
         public FrmExport()
         {
             InitializeComponent();
@@ -32,13 +34,13 @@ namespace PresentationLayer
         private void FrmExport_Load(object sender, EventArgs e)
         {
             //năm học
-            List<SchoolYearDTO> years = exportBUS.GetSchoolYear();
+            List<SchoolYearDTO> years = yearBUS.GetAllSchoolYears();
             years.Insert(0, new SchoolYearDTO(0, 0, 0));
             cbbSchoolYear.DataSource = years;
             cbbSchoolYear.DisplayMember = "NamHienThi";
             cbbSchoolYear.ValueMember = "MaNH";
             //môn học
-            List<SubjectDTO> subjects = exportBUS.GetAssignmentSubject();
+            List<SubjectDTO> subjects = subjectBUS.GetAssignmentSubject();
             subjects.Insert(0, new SubjectDTO(0, "Chọn môn học"));
             cbbSubject.DataSource = subjects;
             cbbSubject.DisplayMember = "TenMH";
@@ -86,7 +88,7 @@ namespace PresentationLayer
                 if (int.TryParse(cbbSubject.SelectedValue?.ToString(), out int subject_id) && subject_id > 0)
                 {
                     //lấy danh sách các lớp
-                    List<ClassDTO> classes = exportBUS.GetAssignmentClass(subject_id,year_id);
+                    List<ClassDTO> classes = classBUS.GetAssignmentClass(subject_id,year_id);
                     classes.Insert(0, new ClassDTO(0, "Chọn lớp"));
                     cbbClass.DataSource = classes;
                     cbbClass.DisplayMember = "TenLop";
@@ -108,7 +110,7 @@ namespace PresentationLayer
                 if (int.TryParse(cbbSchoolYear.SelectedValue?.ToString(), out int subject_id) && subject_id > 0)
                 {
                     //lấy danh sách các lớp
-                    List<ClassDTO> classes = exportBUS.GetAssignmentClass(subject_id, year_id);
+                    List<ClassDTO> classes = classBUS.GetAssignmentClass(subject_id, year_id);
                     classes.Insert(0, new ClassDTO(0, "Chọn lớp"));
                     cbbClass.DataSource = classes;
                     cbbClass.DisplayMember = "TenLop";
@@ -126,9 +128,8 @@ namespace PresentationLayer
             if (int.TryParse(cbbClass.SelectedValue?.ToString(), out int class_id) && class_id > 0)
             {
                 int subject_id = Convert.ToInt32(cbbSubject.SelectedValue);
-                int year_id = Convert.ToInt32(cbbSchoolYear.SelectedValue);
-                List<AverageScoreDTO> averagescores = exportBUS.ExportScore(subject_id, class_id, year_id);
-                List<StudentsDTO> students = exportBUS.GetStudentInClass(class_id);
+                List<AverageScoreDTO> averagescores = exportScore.ExportScore(subject_id, class_id);
+                List<StudentsDTO> students = studentBUS.GetStudentByClass(class_id);
                 // Gộp 2 danh sách lại theo MaHocSinh
                 displayList = students.Select((s, index) =>
                 {

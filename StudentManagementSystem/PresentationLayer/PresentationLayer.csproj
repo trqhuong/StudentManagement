@@ -101,6 +101,12 @@
     <Compile Include="FrmClassList.Designer.cs">
       <DependentUpon>FrmClassList.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmClassStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmClassStudent.Designer.cs">
+      <DependentUpon>FrmClassStudent.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmExport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,10 +176,9 @@
     <Compile Include="FrmYear_Semester.cs">
       <SubType>Form</SubType>
     </Compile>
-   <Compile Include="FrmYear_Semester.Designer.cs">
-  <DependentUpon>FrmYear_Semester.cs</DependentUpon>
-</Compile>
-
+    <Compile Include="FrmYear_Semester.Designer.cs">
+      <DependentUpon>FrmYear_Semester.cs</DependentUpon>
+    </Compile>
     <Compile Include="OTP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmClassList.resx">
       <DependentUpon>FrmClassList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmClassStudent.resx">
+      <DependentUpon>FrmClassStudent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmExport.resx">
       <DependentUpon>FrmExport.cs</DependentUpon>
@@ -230,10 +238,9 @@
     <EmbeddedResource Include="FrmTeacher.resx">
       <DependentUpon>FrmTeacher.cs</DependentUpon>
     </EmbeddedResource>
-   <EmbeddedResource Include="FrmYear_Semester.resx">
-  <DependentUpon>FrmYear_Semester.cs</DependentUpon>
-</EmbeddedResource>
-
+    <EmbeddedResource Include="FrmYear_Semester.resx">
+      <DependentUpon>FrmYear_Semester.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OTP.resx">
       <DependentUpon>OTP.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,6 +280,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

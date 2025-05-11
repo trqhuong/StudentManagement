@@ -88,7 +88,7 @@ namespace PresentationLayer
                             }
                             txtSID.Text = hs.MaHS.ToString();
                             txtSName.Text = hs.TenHS;
-                            txtClass.Text = hs.tenLop;
+                            txtClass.Text = hs.TenLop;
                             dtDob.Text = hs.NgaySinh.ToShortDateString();
                             checkNam.Checked = hs.GioiTinh == "Nam";
                             checkNu.Checked = hs.GioiTinh == "Nữ";

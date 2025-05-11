@@ -15,6 +15,9 @@ namespace PresentationLayer
     public partial class FrmSchedule: Form
     {
         private ScheduleBUS scheduleBUS = new ScheduleBUS();
+        private ClassBUS classBUS = new ClassBUS();
+        private SubjectBUS subjectBUS = new SubjectBUS();
+        private TeacherBUS teacherBUS = new TeacherBUS();
         public FrmSchedule()
         {
             InitializeComponent();
@@ -22,7 +25,7 @@ namespace PresentationLayer
 
         private void FrmSchedule_Load(object sender, EventArgs e)
         {
-            List<ClassDTO> classList = scheduleBUS.GetAllClass();
+            List<ClassDTO> classList = classBUS.GetAllClass();
             // Thêm dòng đầu tiên "Chọn lớp"
             classList.Insert(0, new ClassDTO(0, "Chọn lớp"));
             // Gán dữ liệu vào ComboBox
@@ -63,13 +66,13 @@ namespace PresentationLayer
             if (int.TryParse(cbbClass.SelectedValue.ToString(), out int class_id) && class_id > 0)
             {
                 //lấy môn học chưa được phân công
-                List<SubjectDTO> subjects = scheduleBUS.GetSubject(class_id);
+                List<SubjectDTO> subjects = subjectBUS.GetSubjectNoSchedule(class_id);
                 dgvSchedule.DataSource = subjects;
                 // Gán từng danh sách giáo viên tương ứng cho từng dòng
                 foreach (DataGridViewRow row in dgvSchedule.Rows)
                 {
                     int subject_id = int.Parse(row.Cells["MaMH"].Value.ToString());
-                    List<TeacherDTO> teachers = scheduleBUS.GetTeacher(subject_id);
+                    List<TeacherDTO> teachers = teacherBUS.GetTeacherBySubject(subject_id);
                     var comboCell = new DataGridViewComboBoxCell();
                     comboCell.DataSource = teachers;
                     comboCell.DisplayMember = "TenGV";

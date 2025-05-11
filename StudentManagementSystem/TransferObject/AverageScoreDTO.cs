@@ -13,6 +13,12 @@ namespace TransferObject
         public float DiemTBHK1 { get; set; }
         public float DiemTBHK2 { get; set; }
         public float DiemTBCaNam { get; set; }
+
+        public AverageScoreDTO(int maHocSinh, float dTB)
+        {
+            MaHocSinh = maHocSinh;
+            DiemTBCaNam = dTB;
+        }
         public AverageScoreDTO(int maHocSinh, float dTBHK1, float dTBHK2, float dTB)
         {
             MaHocSinh = maHocSinh;

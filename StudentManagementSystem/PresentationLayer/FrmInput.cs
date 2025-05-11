@@ -14,7 +14,10 @@ namespace PresentationLayer
 {
     public partial class FrmInput: Form
     {
-        private InputScoreBUS inputScore = new InputScoreBUS();
+        private SubjectBUS subjectBUS = new SubjectBUS();
+        private ClassBUS classBUS = new ClassBUS();
+        private StudentsBUS studentsBUS = new StudentsBUS();
+        private ScoreBUS inputScore = new ScoreBUS();
         public FrmInput()
         {
             InitializeComponent();
@@ -22,7 +25,7 @@ namespace PresentationLayer
 
         private void FrmInput_Load(object sender, EventArgs e)
         {
-            List<SubjectDTO> subjects = inputScore.GetAssignmentSubject();
+            List<SubjectDTO> subjects = subjectBUS.GetAssignmentSubject();
             // Thêm dòng đầu tiên "Chọn môn học"
             subjects.Insert(0, new SubjectDTO(0, "Chọn môn học"));
             // Gán dữ liệu vào ComboBox
@@ -74,7 +77,7 @@ namespace PresentationLayer
 
         public void showScore(int class_id, int subject_id)
         {
-            List<StudentsDTO> students = inputScore.GetStudentInClass(class_id);
+            List<StudentsDTO> students = studentsBUS.GetStudentByClass(class_id);
             List<ScoreDTO> scores = inputScore.GetScore(class_id, subject_id);
             // Gộp 2 danh sách lại theo MaHocSinh
             var displayList = students.Select((s, index) => {
@@ -119,7 +122,7 @@ namespace PresentationLayer
             designData();
             if (cbbSubject.SelectedValue != null && int.TryParse(cbbSubject.SelectedValue?.ToString(), out int subject_id) && subject_id > 0)
             {
-                List<ClassDTO> classes = inputScore.GetAssignmentClass(subject_id);
+                List<ClassDTO> classes = classBUS.GetAssignmentClass(subject_id);
                 // Thêm dòng đầu tiên "Chọn lớp"
                 classes.Insert(0, new ClassDTO(0, "Chọn lớp"));
                 // Gán dữ liệu vào ComboBox
