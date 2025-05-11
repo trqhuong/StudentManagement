@@ -13,19 +13,6 @@ namespace BusinessLayer
     public class ScheduleBUS
     {
         private ScheduleDAO scheduleDAO = new ScheduleDAO();
-
-        public List<ClassDTO> GetAllClass()
-        {
-            return scheduleDAO.GetAllClass();
-        }
-        public List<SubjectDTO> GetSubject(int class_id)
-        {
-            return scheduleDAO.GetSubject(class_id);
-        }
-        public List<TeacherDTO> GetTeacher(int subject_id)
-        {
-            return scheduleDAO.GetTeacher(subject_id);
-        }
         public bool SaveSchedule(List<ScheduleDTO> schedules)
         {
             return scheduleDAO.SaveSchedule(schedules);

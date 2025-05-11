@@ -12,9 +12,9 @@ namespace BusinessLayer
     {
         private ClassDAO classDAO = new ClassDAO();
 
-        public List<ClassDTO> GetDanhSachLop()
+        public List<ClassDTO> GetAllClass()
         {
-            return classDAO.GetAllLopHoc();
+            return classDAO.GetAllClass();
         }
         public bool AddClass(ClassDTO clas)
         {
@@ -28,9 +28,21 @@ namespace BusinessLayer
         {
             return classDAO.DeleteClass(maLop);
         }
-        public List<ClassDTO> GetDanhSachLopTheoTrangThai()
+        public List<ClassDTO> GetClassTeacher()
         {
-            return classDAO.GetAllLopHocTheoTrangThai();
+            return classDAO.GetClassTeacher();
+        }
+        public List<ClassDTO> GetAssignmentClass(int subject_id)
+        {
+            return classDAO.GetAssignmentClass(subject_id);
+        }
+        public List<ClassDTO> GetAssignmentClass(int subject_id, int year)
+        {
+            return classDAO.GetAssignmentClass(subject_id, year);
+        }
+        public ClassDTO GetClassById(int class_id)
+        {
+            return classDAO.GetClassById(class_id);
         }
     }
 }

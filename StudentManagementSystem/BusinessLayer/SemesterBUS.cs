@@ -10,11 +10,15 @@ namespace BusinessLayer
 {
     public class SemesterBUS
     {
-        private SemesterDAO hocKyDAO = new SemesterDAO();
+        private SemesterDAO semesterDAO = new SemesterDAO();
 
         public List<SemesterDTO> GetAllHocKy()
         {
-            return hocKyDAO.GetAllHocKy();
+            return semesterDAO.GetAllHocKy();
+        }
+        public bool EndSemester()
+        {
+            return semesterDAO.EndSemester();
         }
     }
 }

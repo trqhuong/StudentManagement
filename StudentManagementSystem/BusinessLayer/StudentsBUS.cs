@@ -93,5 +93,17 @@ namespace BusinessLayer
             }
             return false;
         }
+        public List<StudentsDTO> GetStudentByClass(int classID)
+        {
+            return studentDAO.GetStudentByClass(classID);
+        }
+        public List<StudentsDTO> GetStudentNoClass(int classID)
+        {
+            return studentDAO.GetStudentNoClass(classID);
+        }
+        public bool AddStudentInClass(int class_id, int student_id)
+        {
+            return studentDAO.AddStudentInClass(class_id, student_id);
+        }
     }
 }

@@ -11,41 +11,45 @@ namespace DataLayer
 {
     public class StudentsDAO:DataProvider
     {
-   
+
         public List<StudentsDTO> GetAllHocSinh()
         {
             List<StudentsDTO> students = new List<StudentsDTO>();
             string query = "SELECT hs.MaHocSinh, hs.TenHocSinh, hs.NgaySinh, hs.GioiTinh, hs.TinhTrang, hs.QRCodePath, l.TenLop " +
-                           "FROM HOCSINH hs, LOPHOC l, HOCSINH_LOP hs_l " +
-                           "WHERE hs.MaHocSinh=hs_l.MaHS AND hs_l.MaLop=l.MaLop";
-
+                           "FROM HOCSINH hs " +
+                           "JOIN HOCSINH_LOP hs_l ON hs.MaHocSinh = hs_l.MaHS " +
+                           "JOIN LOPHOC l ON hs_l.MaLop = l.MaLop";
             try
             {
-                // Sử dụng DataProvider để thực thi câu lệnh SQL
-                DataTable dt = MyExecuteReader(query, CommandType.Text);
-
-                // Duyệt qua DataTable và chuyển các hàng thành danh sách StudentsDTO
-                foreach (DataRow row in dt.Rows)
+                Connect();
+                using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text))
                 {
-                    students.Add(new StudentsDTO(
-                        Convert.ToInt32(row["MaHocSinh"]),
-                        row["TenHocSinh"].ToString(),
-                        Convert.ToDateTime(row["NgaySinh"]),
-                        row["GioiTinh"].ToString(),
-                        row["TinhTrang"].ToString(),
-                        row["QRCodePath"] as string,
-                        row["TenLop"].ToString()
-                    ));
+                    while (reader.Read())
+                    {
+                        students.Add(new StudentsDTO(
+                            Convert.ToInt32(reader["MaHocSinh"]),
+                            reader["TenHocSinh"].ToString(),
+                            Convert.ToDateTime(reader["NgaySinh"]),
+                            reader["GioiTinh"].ToString(),
+                            reader["TinhTrang"].ToString(),
+                            reader["QRCodePath"] as string,
+                            reader["TenLop"].ToString()
+                        ));
+                    }
                 }
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi chung
                 Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                DisConnect();
             }
 
             return students;
         }
+
 
         public int AddStudent(StudentsDTO hs, int idLop)
         {
@@ -92,8 +96,6 @@ namespace DataLayer
             }
         }
 
-
-
         public bool UpdateQRCode(int maHS, string filePath)
         {
             string query = "UPDATE HOCSINH SET QRCodePath = @QRCodePath WHERE MaHocSinh = @MaHocSinh";
@@ -133,28 +135,33 @@ namespace DataLayer
             };
 
             // Cập nhật lớp học của học sinh
-            string updateClassQuery = "UPDATE HOCSINH_LOP SET MaLop = (SELECT MaLop FROM LOPHOC WHERE TenLop = @TenLop) WHERE MaHS = @MaHocSinh";
+            string updateClassQuery = @"
+                                       UPDATE HOCSINH_LOP
+                                                        SET MaLop = (
+                                                            SELECT TOP 1 L.MaLop
+                                                            FROM LOPHOC L
+                                                            JOIN NAMHOC NH ON L.NamHoc = NH.MaNH
+                                                            WHERE L.TenLop = @TenLop 
+                                                              AND NH.TrangThai = 1
+                                                        )
+                                                        WHERE MaHS = @MaHocSinh";
+
             var parameters2 = new List<SqlParameter>
             {
-                new SqlParameter("@TenLop", hs.tenLop),
+                new SqlParameter("@TenLop", hs.TenLop),
                 new SqlParameter("@MaHocSinh", hs.MaHS)
             };
-
             try
             {
-                // Cập nhật học sinh
                 int studentRowsAffected = MyExecuteNonQuery(updateQuery, CommandType.Text, parameters1);
-
-                // Cập nhật lớp học
                 int classRowsAffected = MyExecuteNonQuery(updateClassQuery, CommandType.Text, parameters2);
 
-                // Nếu cả hai câu lệnh đều thành công, trả về true
                 return studentRowsAffected > 0 && classRowsAffected > 0;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-                return false; // Trả về false nếu có lỗi
+                return false;
             }
         }
 
@@ -180,8 +187,6 @@ namespace DataLayer
                 return false; // Trả về false nếu có lỗi
             }
         }
-
-
         public string getTinhTrang(int maHS)
         {
             string query = "SELECT TinhTrang FROM HOCSINH WHERE MaHocSinh = @maHS";
@@ -215,40 +220,105 @@ namespace DataLayer
         {
             StudentsDTO student = null;
             string query = "sp_GetHocSinhById";
-
             var parameters = new List<SqlParameter>
             {
                 new SqlParameter("@MaHocSinh", maHS)
             };
-
             try
             {
-                // Sử dụng MyExecuteReader để lấy dữ liệu
-                DataTable dt = MyExecuteReader(query, CommandType.StoredProcedure, parameters);
-
-                if (dt.Rows.Count > 0)
+                Connect();
+                using (SqlDataReader reader = MyExecuteReader(query, CommandType.StoredProcedure, parameters))
                 {
-                    var row = dt.Rows[0];
-                    student = new StudentsDTO(
-                        Convert.ToInt32(row["MaHocSinh"]),
-                        row["TenHocSinh"].ToString(),
-                        Convert.ToDateTime(row["NgaySinh"]),
-                        row["GioiTinh"].ToString(),
-                        row["TinhTrang"].ToString(),
-                        row["QRCodePath"] as string,
-                        row["TenLop"].ToString()
-                    );
+                    if (reader.Read())
+                    {
+                        student = new StudentsDTO(
+                            Convert.ToInt32(reader["MaHocSinh"]),
+                            reader["TenHocSinh"].ToString(),
+                            Convert.ToDateTime(reader["NgaySinh"]),
+                            reader["GioiTinh"].ToString(),
+                            reader["TinhTrang"].ToString(),
+                            reader["QRCodePath"] as string,
+                            reader["TenLop"].ToString()
+                        );
+                    }
                 }
             }
             catch (Exception ex)
             {
-         
                 Console.WriteLine("Error: " + ex.Message);
             }
-
+            finally
+            {
+                DisConnect();
+            }
             return student;
         }
-     
-
+        public List<StudentsDTO> GetStudentByClass(int classID)
+        {
+            List<StudentsDTO> students = new List<StudentsDTO>();
+            string query = "SELECT * FROM HOCSINH WHERE MaHocSinh in (SELECT h.MaHocSinh FROM HOCSINH_LOP hl, HOCSINH h " +
+                    "where hl.MaHS = h.MaHocSinh and hl.MaLop = @classID )";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@classID", classID)
+            };
+            Connect();
+            using (SqlDataReader reader = MyExecuteReader(query, CommandType.Text, parameters))
+            {
+                while (reader.Read())
+                {
+                    students.Add(new StudentsDTO(
+                        Convert.ToInt32(reader["MaHocSinh"]),
+                        reader["TenHocSinh"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString(),
+                        reader["TinhTrang"].ToString(),
+                        reader["QRCodePath"].ToString()
+                    ));
+                }
+            }
+            DisConnect();
+            return students;
+        }
+        public List<StudentsDTO> GetStudentNoClass(int class_id)
+        {
+            List<StudentsDTO> students = new List<StudentsDTO>();
+            string query = "SELECT Khoi From LOPHOC WHERE MaLop = @classID";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@classID", class_id)
+            };
+            int khoi = Convert.ToInt32(MyExecuteScalar(query, CommandType.Text, parameters));
+            string pro = "sp_GetMaxKhoi";
+            Connect();
+            using (SqlDataReader reader = MyExecuteReader(pro, CommandType.StoredProcedure))
+            {
+                while (reader.Read())
+                {
+                    if(Convert.ToInt32(reader["KhoiLonNhat"]) == khoi)
+                    {
+                        students.Add(new StudentsDTO(
+                        Convert.ToInt32(reader["MaHocSinh"]),
+                        reader["TenHocSinh"].ToString(),
+                        Convert.ToDateTime(reader["NgaySinh"]),
+                        reader["GioiTinh"].ToString()
+                        ));
+                    }    
+                }
+            }
+            DisConnect();
+            return students;
+        }
+        public bool AddStudentInClass(int class_id, int student_id)
+        {
+            string query = @"INSERT INTO HOCSINH_LOP (MaHS, MaLop) VALUES ( @student_id, @class_id )
+                            UPDATE LOPHOC SET SiSo = SiSo + 1 WHERE MaLop = @class_id ";
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@class_id", class_id),
+                new SqlParameter("@student_id", student_id)
+            };
+            return MyExecuteNonQuery(query, CommandType.Text, parameters) > 0;
+        }
     }
 }

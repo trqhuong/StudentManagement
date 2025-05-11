@@ -57,10 +57,7 @@
   <ItemGroup>
     <Compile Include="AttendanceBUS.cs" />
     <Compile Include="ClassBUS.cs" />
-    <Compile Include="ClassListBUS.cs" />
-    <Compile Include="EndSemesterBUS.cs" />
-    <Compile Include="ExportScoreBUS.cs" />
-    <Compile Include="InputScoreBUS.cs" />
+    <Compile Include="ScoreBUS.cs" />
     <Compile Include="LoginBUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportBUS.cs" />

@@ -15,7 +15,8 @@ namespace PresentationLayer
 {
     public partial class FrmClassList: Form
     {
-        private ClassListBUS classListBUS = new ClassListBUS();
+        private ClassBUS classBUS = new ClassBUS();
+        private StudentsBUS studentsBUS = new StudentsBUS();
         public FrmClassList()
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace PresentationLayer
 
         private void FrmClassList_Load(object sender, EventArgs e)
         {
-            List<ClassDTO> classList = classListBUS.GetClassTeacher();
+            List<ClassDTO> classList = classBUS.GetClassTeacher();
             // Thêm dòng đầu tiên "Chọn lớp"
             classList.Insert(0, new ClassDTO(0, "Chọn lớp"));
             // Gán dữ liệu vào ComboBox
@@ -67,7 +68,7 @@ namespace PresentationLayer
         {
             if (cbbClass.SelectedValue != null && int.TryParse(cbbClass.SelectedValue.ToString(), out int maLop) && maLop > 0)
             {
-                List<StudentsDTO> students = classListBUS.GetAllStudent(maLop);
+                List<StudentsDTO> students = studentsBUS.GetStudentByClass(maLop);
                 dgvClassList.DataSource = students;
                 txtClassSize.Text = students.Count.ToString();
                 for (int i = 0; i < dgvClassList.Rows.Count; i++)

@@ -29,7 +29,7 @@ namespace PresentationLayer
         }
         private void LoadLopHoc()
         {
-            List<ClassDTO> danhSachLop = classBUS.GetDanhSachLopTheoTrangThai();
+            List<ClassDTO> danhSachLop = classBUS.GetAllClass();
             cbbClass.DataSource = danhSachLop;
             cbbClass.DisplayMember = "TenLop";
             cbbClass.ValueMember = "MaLop";
