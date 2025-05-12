@@ -48,7 +48,7 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(12, 41);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(381, 365);
+            this.pictureBox1.Size = new System.Drawing.Size(381, 423);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -151,10 +151,11 @@
             // 
             // btForgotPass
             // 
-            this.btForgotPass.BackColor = System.Drawing.Color.White;
+            this.btForgotPass.BackColor = System.Drawing.Color.MidnightBlue;
             this.btForgotPass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btForgotPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btForgotPass.Location = new System.Drawing.Point(556, 409);
+            this.btForgotPass.ForeColor = System.Drawing.Color.White;
+            this.btForgotPass.Location = new System.Drawing.Point(556, 432);
             this.btForgotPass.Name = "btForgotPass";
             this.btForgotPass.Size = new System.Drawing.Size(180, 32);
             this.btForgotPass.TabIndex = 6;
@@ -167,7 +168,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(782, 453);
+            this.ClientSize = new System.Drawing.Size(782, 504);
             this.Controls.Add(this.btForgotPass);
             this.Controls.Add(this.checkShowPass);
             this.Controls.Add(this.lbCancel);

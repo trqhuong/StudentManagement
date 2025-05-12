@@ -46,6 +46,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
@@ -56,6 +58,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
@@ -68,18 +71,21 @@
             // 
             // dgvSubject
             // 
+            this.dgvSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvSubject.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvSubject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSubject.Location = new System.Drawing.Point(10, 347);
+            this.dgvSubject.Location = new System.Drawing.Point(12, 343);
             this.dgvSubject.Name = "dgvSubject";
             this.dgvSubject.RowHeadersWidth = 51;
             this.dgvSubject.RowTemplate.Height = 24;
-            this.dgvSubject.Size = new System.Drawing.Size(1040, 349);
+            this.dgvSubject.Size = new System.Drawing.Size(1040, 576);
             this.dgvSubject.TabIndex = 53;
             this.dgvSubject.SelectionChanged += new System.EventHandler(this.dgvSubject_SelectionChanged);
             // 
             // btDelete
             // 
+            this.btDelete.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btDelete.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btDelete.FlatAppearance.BorderSize = 0;
@@ -87,7 +93,7 @@
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btDelete.Location = new System.Drawing.Point(540, 249);
+            this.btDelete.Location = new System.Drawing.Point(540, 284);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(115, 44);
             this.btDelete.TabIndex = 49;
@@ -97,6 +103,7 @@
             // 
             // btUpdate
             // 
+            this.btUpdate.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btUpdate.FlatAppearance.BorderSize = 0;
@@ -104,7 +111,7 @@
             this.btUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btUpdate.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btUpdate.Location = new System.Drawing.Point(401, 249);
+            this.btUpdate.Location = new System.Drawing.Point(401, 284);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(115, 44);
             this.btUpdate.TabIndex = 50;
@@ -114,6 +121,7 @@
             // 
             // btAdd
             // 
+            this.btAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btAdd.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btAdd.FlatAppearance.BorderSize = 0;
@@ -121,7 +129,7 @@
             this.btAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAdd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAdd.Location = new System.Drawing.Point(262, 249);
+            this.btAdd.Location = new System.Drawing.Point(262, 284);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(115, 44);
             this.btAdd.TabIndex = 51;
@@ -134,7 +142,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(536, 160);
+            this.label4.Location = new System.Drawing.Point(301, 211);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 25);
             this.label4.TabIndex = 44;
@@ -145,7 +153,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(30, 160);
+            this.label3.Location = new System.Drawing.Point(301, 152);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 25);
             this.label3.TabIndex = 45;
@@ -153,8 +161,10 @@
             // 
             // txtSID
             // 
+            this.txtSID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSID.Location = new System.Drawing.Point(185, 141);
+            this.txtSID.Location = new System.Drawing.Point(456, 133);
             this.txtSID.Multiline = true;
             this.txtSID.Name = "txtSID";
             this.txtSID.Size = new System.Drawing.Size(311, 44);
@@ -162,6 +172,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
@@ -173,8 +184,10 @@
             // 
             // txtSName
             // 
+            this.txtSName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSName.Location = new System.Drawing.Point(691, 141);
+            this.txtSName.Location = new System.Drawing.Point(456, 192);
             this.txtSName.Multiline = true;
             this.txtSName.Name = "txtSName";
             this.txtSName.Size = new System.Drawing.Size(311, 44);
@@ -182,9 +195,10 @@
             // 
             // btReset
             // 
+            this.btReset.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btReset.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btReset.Location = new System.Drawing.Point(680, 249);
+            this.btReset.Location = new System.Drawing.Point(680, 284);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(115, 44);
             this.btReset.TabIndex = 54;
@@ -197,7 +211,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.ClientSize = new System.Drawing.Size(1064, 931);
             this.Controls.Add(this.btReset);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvSubject);
@@ -213,6 +227,7 @@
             this.Name = "FrmSubject";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmSubject";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmSubject_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

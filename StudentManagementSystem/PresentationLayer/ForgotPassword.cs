@@ -76,5 +76,9 @@ namespace PresentationLayer
                 client.Send(mail);
         }
 
+        private void lbCancel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

@@ -195,5 +195,15 @@ namespace PresentationLayer
                 LoadClass();
             }
         }
+
+        private void txtCTID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -44,31 +44,36 @@
             // 
             // dgvExport
             // 
+            this.dgvExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvExport.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvExport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvExport.Location = new System.Drawing.Point(12, 218);
+            this.dgvExport.Location = new System.Drawing.Point(12, 185);
             this.dgvExport.Name = "dgvExport";
             this.dgvExport.RowHeadersWidth = 51;
             this.dgvExport.RowTemplate.Height = 24;
-            this.dgvExport.Size = new System.Drawing.Size(1040, 479);
+            this.dgvExport.Size = new System.Drawing.Size(1040, 749);
             this.dgvExport.TabIndex = 13;
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(-2, 0);
+            this.panel1.Location = new System.Drawing.Point(-2, -1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1068, 69);
             this.panel1.TabIndex = 12;
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label1.Location = new System.Drawing.Point(421, 18);
+            this.label1.Location = new System.Drawing.Point(425, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(220, 36);
             this.label1.TabIndex = 1;
@@ -77,6 +82,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
@@ -88,6 +94,7 @@
             // 
             // cbbClass
             // 
+            this.cbbClass.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbbClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbClass.FormattingEnabled = true;
             this.cbbClass.Location = new System.Drawing.Point(749, 127);
@@ -98,6 +105,7 @@
             // 
             // cbbSubject
             // 
+            this.cbbSubject.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbbSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbSubject.FormattingEnabled = true;
             this.cbbSubject.Location = new System.Drawing.Point(465, 127);
@@ -108,6 +116,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
@@ -119,6 +128,7 @@
             // 
             // cbbSchoolYear
             // 
+            this.cbbSchoolYear.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbbSchoolYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbSchoolYear.FormattingEnabled = true;
             this.cbbSchoolYear.Location = new System.Drawing.Point(167, 127);
@@ -129,6 +139,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
@@ -140,6 +151,7 @@
             // 
             // btExport
             // 
+            this.btExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btExport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btExport.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btExport.FlatAppearance.BorderSize = 0;
@@ -151,7 +163,7 @@
             this.btExport.Name = "btExport";
             this.btExport.Size = new System.Drawing.Size(115, 44);
             this.btExport.TabIndex = 20;
-            this.btExport.Text = "Lưu";
+            this.btExport.Text = "Export";
             this.btExport.UseVisualStyleBackColor = true;
             this.btExport.Click += new System.EventHandler(this.btExport_Click);
             // 
@@ -160,7 +172,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.ClientSize = new System.Drawing.Size(1064, 956);
             this.Controls.Add(this.btExport);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -173,6 +185,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmExport";
             this.Text = "FrmExport";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmExport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvExport)).EndInit();
             this.panel1.ResumeLayout(false);

@@ -111,10 +111,23 @@ namespace PresentationLayer
                     txtTName.Focus();
                     return;
                 }
+                if (!IsValidEmail(txtTEmail.Text))
+                {
+                    MessageBox.Show("Định dạng email không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTEmail.Focus();
+                    return;
+                }
 
                 if (string.IsNullOrEmpty(txtTPhone.Text))
                 {
                     MessageBox.Show("Vui lòng nhập số điện thoại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTPhone.Focus();
+                    return;
+                }
+
+                if (txtTPhone.Text.Length != 10 || !txtTPhone.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Số điện thoại phải có đúng 10 số", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtTPhone.Focus();
                     return;
                 }
@@ -127,7 +140,7 @@ namespace PresentationLayer
                 }
 
 
-                if ((checkNam.Checked && age > 60 && age < 22) || (checkNu.Checked && age > 55 && age < 22))
+                if ((checkNam.Checked && age > 60 || age < 22) || (checkNu.Checked && age > 55 || age < 22))
                 {
                     MessageBox.Show("Tuổi giáo viên không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     dtDob.Focus();
@@ -170,6 +183,8 @@ namespace PresentationLayer
             }
         }
 
+        
+
         private void btUpdate_Click(object sender, EventArgs e)
         {
             if (dgvTeacher.CurrentCell == null || string.IsNullOrEmpty(txtTID.Text))
@@ -188,7 +203,13 @@ namespace PresentationLayer
             if (string.IsNullOrEmpty(txtTEmail.Text))
             {
                 MessageBox.Show("Vui lòng email tên giáo viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTName.Focus();
+                txtTEmail.Focus();
+                return;
+            }
+            if (!IsValidEmail(txtTEmail.Text))
+            {
+                MessageBox.Show("Email không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTEmail.Focus();
                 return;
             }
 
@@ -204,6 +225,12 @@ namespace PresentationLayer
                 txtTPhone.Focus();
                 return;
             }
+            if (txtTPhone.Text.Length != 10 || !txtTPhone.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Số điện thoại phải có đúng 10 số", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTPhone.Focus();
+                return;
+            }
 
             // Lấy dữ liệu từ form
             int maGV = int.Parse(txtTID.Text);
@@ -216,9 +243,10 @@ namespace PresentationLayer
             int age = DateTime.Now.Year - ngaySinh.Year;
             if (ngaySinh > DateTime.Now.AddYears(-age)) age--;
 
-            if ((gioiTinh == "Nam" && (age < 22 || age > 60)) || (gioiTinh == "Nữ" && (age < 22 || age > 55)))
+            if ((checkNam.Checked && age > 60 || age < 22) || (checkNu.Checked && age > 55 || age < 22))
             {
-                MessageBox.Show("Tuổi giáo viên không hợp lệ. Nam: 22-60 tuổi, Nữ: 22-55 tuổi.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Tuổi giáo viên không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtDob.Focus();
                 return;
             }
 
@@ -268,6 +296,18 @@ namespace PresentationLayer
         private void btReset_Click(object sender, EventArgs e)
         {
             ResetForm();
+        }
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
