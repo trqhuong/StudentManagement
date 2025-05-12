@@ -110,6 +110,7 @@
             this.lbCancel.TabIndex = 4;
             this.lbCancel.Text = "X";
             this.lbCancel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbCancel.Click += new System.EventHandler(this.lbCancel_Click);
             // 
             // ForgotPassword
             // 

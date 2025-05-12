@@ -55,6 +55,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
@@ -65,6 +67,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
@@ -77,6 +80,7 @@
             // 
             // btDelete
             // 
+            this.btDelete.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btDelete.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btDelete.FlatAppearance.BorderSize = 0;
@@ -84,7 +88,7 @@
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btDelete.Location = new System.Drawing.Point(532, 324);
+            this.btDelete.Location = new System.Drawing.Point(532, 420);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(115, 44);
             this.btDelete.TabIndex = 20;
@@ -94,6 +98,7 @@
             // 
             // btUpdate
             // 
+            this.btUpdate.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btUpdate.FlatAppearance.BorderSize = 0;
@@ -101,7 +106,7 @@
             this.btUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btUpdate.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btUpdate.Location = new System.Drawing.Point(393, 324);
+            this.btUpdate.Location = new System.Drawing.Point(393, 420);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(115, 44);
             this.btUpdate.TabIndex = 21;
@@ -111,6 +116,7 @@
             // 
             // btAdd
             // 
+            this.btAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btAdd.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btAdd.FlatAppearance.BorderSize = 0;
@@ -118,7 +124,7 @@
             this.btAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btAdd.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btAdd.Location = new System.Drawing.Point(254, 324);
+            this.btAdd.Location = new System.Drawing.Point(254, 420);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(115, 44);
             this.btAdd.TabIndex = 22;
@@ -128,35 +134,39 @@
             // 
             // checkNu
             // 
+            this.checkNu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkNu.AutoSize = true;
             this.checkNu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkNu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkNu.ForeColor = System.Drawing.Color.White;
-            this.checkNu.Location = new System.Drawing.Point(830, 200);
+            this.checkNu.Location = new System.Drawing.Point(820, 200);
             this.checkNu.Name = "checkNu";
-            this.checkNu.Size = new System.Drawing.Size(59, 29);
+            this.checkNu.Size = new System.Drawing.Size(99, 29);
             this.checkNu.TabIndex = 19;
-            this.checkNu.Text = "Nữ";
+            this.checkNu.Text = "Female";
             this.checkNu.UseVisualStyleBackColor = true;
             // 
             // checkNam
             // 
+            this.checkNam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkNam.AutoSize = true;
             this.checkNam.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkNam.ForeColor = System.Drawing.Color.White;
-            this.checkNam.Location = new System.Drawing.Point(708, 200);
+            this.checkNam.Location = new System.Drawing.Point(706, 200);
             this.checkNam.Name = "checkNam";
-            this.checkNam.Size = new System.Drawing.Size(75, 29);
+            this.checkNam.Size = new System.Drawing.Size(77, 29);
             this.checkNam.TabIndex = 18;
-            this.checkNam.Text = "Nam";
+            this.checkNam.Text = "Male";
             this.checkNam.UseVisualStyleBackColor = true;
             // 
             // dtDob
             // 
+            this.dtDob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtDob.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDob.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dtDob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtDob.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtDob.Location = new System.Drawing.Point(708, 144);
             this.dtDob.Name = "dtDob";
             this.dtDob.Size = new System.Drawing.Size(301, 30);
@@ -164,6 +174,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
@@ -175,6 +186,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
@@ -189,7 +201,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(34, 265);
+            this.label5.Location = new System.Drawing.Point(37, 262);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 25);
             this.label5.TabIndex = 9;
@@ -200,7 +212,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(34, 204);
+            this.label4.Location = new System.Drawing.Point(37, 201);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(143, 25);
             this.label4.TabIndex = 10;
@@ -211,7 +223,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(34, 143);
+            this.label3.Location = new System.Drawing.Point(37, 140);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(110, 25);
             this.label3.TabIndex = 11;
@@ -219,6 +231,8 @@
             // 
             // txtTPhone
             // 
+            this.txtTPhone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTPhone.Location = new System.Drawing.Point(189, 246);
             this.txtTPhone.Multiline = true;
@@ -228,6 +242,8 @@
             // 
             // txtTName
             // 
+            this.txtTName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTName.Location = new System.Drawing.Point(189, 185);
             this.txtTName.Multiline = true;
@@ -237,6 +253,8 @@
             // 
             // txtTID
             // 
+            this.txtTID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTID.Location = new System.Drawing.Point(189, 124);
             this.txtTID.Multiline = true;
@@ -246,6 +264,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
@@ -257,21 +276,24 @@
             // 
             // dgvTeacher
             // 
+            this.dgvTeacher.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTeacher.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvTeacher.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTeacher.Location = new System.Drawing.Point(12, 408);
+            this.dgvTeacher.Location = new System.Drawing.Point(12, 481);
             this.dgvTeacher.Name = "dgvTeacher";
             this.dgvTeacher.RowHeadersWidth = 51;
             this.dgvTeacher.RowTemplate.Height = 24;
-            this.dgvTeacher.Size = new System.Drawing.Size(1040, 276);
+            this.dgvTeacher.Size = new System.Drawing.Size(1040, 447);
             this.dgvTeacher.TabIndex = 24;
             this.dgvTeacher.SelectionChanged += new System.EventHandler(this.dgvTeacher_SelectionChanged);
             // 
             // btReset
             // 
+            this.btReset.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btReset.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btReset.Location = new System.Drawing.Point(677, 324);
+            this.btReset.Location = new System.Drawing.Point(677, 420);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(115, 44);
             this.btReset.TabIndex = 25;
@@ -281,8 +303,10 @@
             // 
             // txtTEmail
             // 
+            this.txtTEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTEmail.Location = new System.Drawing.Point(708, 246);
+            this.txtTEmail.Location = new System.Drawing.Point(189, 310);
             this.txtTEmail.Multiline = true;
             this.txtTEmail.Name = "txtTEmail";
             this.txtTEmail.Size = new System.Drawing.Size(301, 44);
@@ -293,7 +317,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(586, 265);
+            this.label8.Location = new System.Drawing.Point(37, 326);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 25);
             this.label8.TabIndex = 9;
@@ -304,7 +328,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.ClientSize = new System.Drawing.Size(1064, 940);
             this.Controls.Add(this.btReset);
             this.Controls.Add(this.dgvTeacher);
             this.Controls.Add(this.btDelete);
@@ -329,6 +353,7 @@
             this.Name = "FrmTeacher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmTeacher";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmTeacher_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -55,6 +55,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.MidnightBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lbCancel);
@@ -66,6 +68,7 @@
             // 
             // lbCancel
             // 
+            this.lbCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbCancel.BackColor = System.Drawing.Color.White;
             this.lbCancel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbCancel.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -81,6 +84,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
@@ -92,6 +96,8 @@
             // 
             // pnLeft
             // 
+            this.pnLeft.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pnLeft.BackColor = System.Drawing.Color.MidnightBlue;
             this.pnLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnLeft.Controls.Add(this.btAttendance);
@@ -107,11 +113,12 @@
             this.pnLeft.Controls.Add(this.btStudent);
             this.pnLeft.Location = new System.Drawing.Point(-4, 52);
             this.pnLeft.Name = "pnLeft";
-            this.pnLeft.Size = new System.Drawing.Size(265, 818);
+            this.pnLeft.Size = new System.Drawing.Size(265, 853);
             this.pnLeft.TabIndex = 1;
             // 
             // btAttendance
             // 
+            this.btAttendance.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btAttendance.BackColor = System.Drawing.Color.White;
             this.btAttendance.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btAttendance.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -130,6 +137,7 @@
             // 
             // btEnd
             // 
+            this.btEnd.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btEnd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btEnd.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -148,6 +156,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(78, 3);
             this.pictureBox2.Name = "pictureBox2";
@@ -158,6 +167,7 @@
             // 
             // lbName
             // 
+            this.lbName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbName.AutoSize = true;
             this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbName.ForeColor = System.Drawing.Color.AliceBlue;
@@ -170,6 +180,7 @@
             // 
             // btLogout
             // 
+            this.btLogout.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btLogout.BackColor = System.Drawing.Color.DodgerBlue;
             this.btLogout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btLogout.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -188,6 +199,7 @@
             // 
             // btStatistical
             // 
+            this.btStatistical.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btStatistical.BackColor = System.Drawing.Color.White;
             this.btStatistical.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btStatistical.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -206,6 +218,7 @@
             // 
             // btSchedule
             // 
+            this.btSchedule.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btSchedule.BackColor = System.Drawing.Color.White;
             this.btSchedule.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btSchedule.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -224,6 +237,7 @@
             // 
             // btSubject
             // 
+            this.btSubject.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btSubject.BackColor = System.Drawing.Color.White;
             this.btSubject.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btSubject.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -242,6 +256,7 @@
             // 
             // btClass
             // 
+            this.btClass.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btClass.BackColor = System.Drawing.Color.White;
             this.btClass.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btClass.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -260,6 +275,7 @@
             // 
             // btTeacher
             // 
+            this.btTeacher.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btTeacher.BackColor = System.Drawing.Color.White;
             this.btTeacher.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btTeacher.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -278,6 +294,7 @@
             // 
             // btStudent
             // 
+            this.btStudent.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btStudent.BackColor = System.Drawing.Color.White;
             this.btStudent.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btStudent.FlatAppearance.BorderColor = System.Drawing.Color.MidnightBlue;
@@ -296,6 +313,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(350, 224);
@@ -307,6 +325,9 @@
             // 
             // pnbody
             // 
+            this.pnbody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnbody.Controls.Add(this.pictureBox1);
             this.pnbody.Location = new System.Drawing.Point(267, 56);
             this.pnbody.Name = "pnbody";
@@ -318,6 +339,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1346, 882);
             this.Controls.Add(this.pnbody);
@@ -330,6 +352,7 @@
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Admin";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

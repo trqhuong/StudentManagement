@@ -48,6 +48,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
@@ -58,10 +60,11 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label1.Location = new System.Drawing.Point(444, 11);
+            this.label1.Location = new System.Drawing.Point(485, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 36);
             this.label1.TabIndex = 1;
@@ -70,6 +73,8 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
@@ -80,6 +85,8 @@
             // 
             // cbbSubject
             // 
+            this.cbbSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbSubject.FormattingEnabled = true;
             this.cbbSubject.Location = new System.Drawing.Point(477, 96);
@@ -100,6 +107,8 @@
             // 
             // cbbSemester
             // 
+            this.cbbSemester.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbSemester.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbSemester.FormattingEnabled = true;
             this.cbbSemester.Location = new System.Drawing.Point(477, 162);
@@ -120,7 +129,8 @@
             // 
             // btReport
             // 
-            this.btReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btReport.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btReport.Location = new System.Drawing.Point(477, 279);
             this.btReport.Name = "btReport";
             this.btReport.Size = new System.Drawing.Size(109, 43);
@@ -131,6 +141,8 @@
             // 
             // cbbYear
             // 
+            this.cbbYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbYear.FormattingEnabled = true;
             this.cbbYear.Location = new System.Drawing.Point(477, 223);
@@ -151,18 +163,20 @@
             // 
             // chartReport
             // 
+            this.chartReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.Name = "ChartArea1";
             this.chartReport.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartReport.Legends.Add(legend1);
-            this.chartReport.Location = new System.Drawing.Point(110, 345);
+            this.chartReport.Location = new System.Drawing.Point(12, 328);
             this.chartReport.Name = "chartReport";
             this.chartReport.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartReport.Series.Add(series1);
-            this.chartReport.Size = new System.Drawing.Size(832, 331);
+            this.chartReport.Size = new System.Drawing.Size(1040, 595);
             this.chartReport.TabIndex = 21;
             this.chartReport.Text = "chart1";
             // 
@@ -171,7 +185,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.ClientSize = new System.Drawing.Size(1064, 935);
             this.Controls.Add(this.chartReport);
             this.Controls.Add(this.btReport);
             this.Controls.Add(this.label5);
@@ -185,6 +199,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmReport";
             this.Text = "FrmReport";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmReport_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

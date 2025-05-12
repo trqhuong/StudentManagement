@@ -56,6 +56,8 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
@@ -66,6 +68,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
@@ -80,13 +83,14 @@
             // 
             this.picQR.Location = new System.Drawing.Point(12, 69);
             this.picQR.Name = "picQR";
-            this.picQR.Size = new System.Drawing.Size(444, 331);
+            this.picQR.Size = new System.Drawing.Size(444, 360);
             this.picQR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picQR.TabIndex = 1;
             this.picQR.TabStop = false;
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
@@ -98,6 +102,8 @@
             // 
             // txtSID
             // 
+            this.txtSID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSID.Location = new System.Drawing.Point(645, 128);
             this.txtSID.Multiline = true;
@@ -119,6 +125,8 @@
             // 
             // txtSName
             // 
+            this.txtSName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSName.Location = new System.Drawing.Point(645, 189);
             this.txtSName.Multiline = true;
@@ -161,6 +169,8 @@
             // 
             // dtDob
             // 
+            this.dtDob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dtDob.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDob.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dtDob.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -183,6 +193,7 @@
             // 
             // btReset
             // 
+            this.btReset.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btReset.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btReset.FlatAppearance.BorderSize = 0;
@@ -200,6 +211,7 @@
             // 
             // btAdd
             // 
+            this.btAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btAdd.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btAdd.FlatAppearance.BorderSize = 0;
@@ -217,6 +229,7 @@
             // 
             // btUpdate
             // 
+            this.btUpdate.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btUpdate.FlatAppearance.BorderSize = 0;
@@ -234,6 +247,7 @@
             // 
             // btDelete
             // 
+            this.btDelete.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btDelete.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.btDelete.FlatAppearance.BorderSize = 0;
@@ -251,18 +265,22 @@
             // 
             // dgvStudent
             // 
+            this.dgvStudent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvStudent.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvStudent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStudent.Location = new System.Drawing.Point(12, 498);
             this.dgvStudent.Name = "dgvStudent";
             this.dgvStudent.RowHeadersWidth = 51;
             this.dgvStudent.RowTemplate.Height = 24;
-            this.dgvStudent.Size = new System.Drawing.Size(1040, 185);
+            this.dgvStudent.Size = new System.Drawing.Size(1040, 424);
             this.dgvStudent.TabIndex = 8;
             this.dgvStudent.SelectionChanged += new System.EventHandler(this.dgvStudent_SelectionChanged);
             // 
             // cbbClass
             // 
+            this.cbbClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbClass.FormattingEnabled = true;
             this.cbbClass.Location = new System.Drawing.Point(645, 351);
@@ -289,28 +307,32 @@
             // 
             // checkNu
             // 
+            this.checkNu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.checkNu.AutoSize = true;
             this.checkNu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkNu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkNu.ForeColor = System.Drawing.Color.White;
             this.checkNu.Location = new System.Drawing.Point(767, 307);
             this.checkNu.Name = "checkNu";
-            this.checkNu.Size = new System.Drawing.Size(59, 29);
+            this.checkNu.Size = new System.Drawing.Size(99, 29);
             this.checkNu.TabIndex = 6;
-            this.checkNu.Text = "Nữ";
+            this.checkNu.Text = "Female";
             this.checkNu.UseVisualStyleBackColor = true;
             // 
             // checkNam
             // 
+            this.checkNam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.checkNam.AutoSize = true;
             this.checkNam.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkNam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkNam.ForeColor = System.Drawing.Color.White;
             this.checkNam.Location = new System.Drawing.Point(645, 307);
             this.checkNam.Name = "checkNam";
-            this.checkNam.Size = new System.Drawing.Size(75, 29);
+            this.checkNam.Size = new System.Drawing.Size(77, 29);
             this.checkNam.TabIndex = 5;
-            this.checkNam.Text = "Nam";
+            this.checkNam.Text = "Male";
             this.checkNam.UseVisualStyleBackColor = true;
             // 
             // FrmStudent
@@ -318,7 +340,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(1064, 709);
+            this.ClientSize = new System.Drawing.Size(1064, 934);
             this.Controls.Add(this.btCreateQR);
             this.Controls.Add(this.cbbClass);
             this.Controls.Add(this.dgvStudent);
@@ -345,6 +367,7 @@
             this.Name = "FrmStudent";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmStudent";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmStudent_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
