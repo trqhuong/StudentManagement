@@ -77,7 +77,6 @@ namespace PresentationLayer
         {
             if (string.IsNullOrWhiteSpace(txtSID.Text))
             {
-
                 if (string.IsNullOrWhiteSpace(txtSName.Text))
                 {
                     MessageBox.Show("Vui lòng nhập tên học sinh!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -89,50 +88,67 @@ namespace PresentationLayer
                     MessageBox.Show("Vui lòng chọn lớp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
                 if (!checkNam.Checked && !checkNu.Checked)
                 {
                     MessageBox.Show("Vui lòng chọn giới tính!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
                 if (checkNam.Checked && checkNu.Checked)
                 {
                     MessageBox.Show("Chỉ được chọn một giới tính!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                int age = DateTime.Now.Year - dtDob.Value.Year;
 
+                int age = DateTime.Now.Year - dtDob.Value.Year;
                 if (age < 16 || age > 18)
                 {
                     MessageBox.Show("Độ tuổi hợp lệ từ 16 -> 18 tuổi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                else
+
+                // Tạo đối tượng học sinh
+                StudentsDTO hs = new StudentsDTO(
+                    txtSName.Text,
+                    dtDob.Value,
+                    checkNam.Checked ? "Nam" : "Nữ",
+                    "Đang học",
+                    null,
+                    cbbClass.Text
+                );
+
+                int idLop = Convert.ToInt32(cbbClass.SelectedValue);
+                int maHS = studentsBUS.AddStudent(hs, idLop);
+
+                if (maHS > 0)
                 {
-                    StudentsDTO hs = new StudentsDTO(
-                                                      txtSName.Text,
-                                                      dtDob.Value,
-                                                      checkNam.Checked ? "Nam" : "Nữ",
-                                                      "Đang học",
-                                                      null, cbbClass.Text);
+                    //tạo mã qr sau khi add
+                    string qrPath = studentsBUS.GenerateQRCode(maHS, hs.TenHS, picQR);
 
-                    int idLop = Convert.ToInt32(cbbClass.SelectedValue);
-
-                    if (studentsBUS.AddStudent(hs, idLop))
+                    if (!string.IsNullOrEmpty(qrPath))
                     {
-                        MessageBox.Show("Thêm học sinh thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        txtSName.Clear();
-                        checkNam.Checked = false;
-                        checkNu.Checked = false;
-                        cbbClass.SelectedIndex = 0;
-                        LoadHocSinh();
+                        MessageBox.Show("Thêm học sinh và tạo mã QR thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Thêm thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Thêm thành công, nhưng tạo mã QR thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                }
 
-            } else { MessageBox.Show("Học sinh đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                    ResetForm();
+                    LoadHocSinh();
+                }
+                else
+                {
+                    MessageBox.Show("Thêm thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Học sinh đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+
 
         private void btUpdate_Click(object sender, EventArgs e)
         {
