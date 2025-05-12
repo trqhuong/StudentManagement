@@ -25,9 +25,9 @@ namespace BusinessLayer
         {
             return studentDAO.GetHocSinhById(maHS);
         }
-        public bool AddStudent(StudentsDTO hs,  int id)
+        public int AddStudent(StudentsDTO hs,  int id)
         {
-            return studentDAO.AddStudent(hs, id) > 0;
+            return studentDAO.AddStudent(hs, id) ;
         }
 
         public string GenerateQRCode(int maHS, string tenHS, PictureBox picQR)
