@@ -15,7 +15,6 @@ namespace TransferObject
         public string TenLop { get; set; }
         public string MaGiaoVien { get; set; }
         public string TenGiaoVien { get; set; }
-        public DateTime Ngay1 { get; set; }
-        public DateTime Ngay2 { get; set; }
+        public DateTime NgayVang { get; set; }
     }
 }

@@ -199,7 +199,7 @@ namespace PresentationLayer
 
                     diemDanh.GuiMailThongBaoTheoDanhSach();
 
-                    MessageBox.Show("Đã gửi email thông báo đến GVCN danh sách học sinh vắng 2 ngày liên tiếp.");
+                     MessageBox.Show("Đã gửi email thông báo đến GVCN danh sách học sinh vắng trong ngày hôm nay.");
                 }
                 catch (Exception ex)
                 {
@@ -208,6 +208,11 @@ namespace PresentationLayer
 
                 LoadData();
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

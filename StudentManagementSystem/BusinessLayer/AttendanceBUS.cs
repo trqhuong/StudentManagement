@@ -40,45 +40,47 @@ namespace BusinessLayer
         }
 
 
-        public List<AbsentStudentDTO> LayHocSinhVang2Ngay()
+        public List<AbsentStudentDTO> LayHocSinhVang()
         {
-            return diemDanh.LayDanhSachHocSinhVangLienTiep();
+            return diemDanh.LayDanhSachHocSinhVang();
         }
 
         public void GuiMailThongBaoTheoDanhSach()
         {
-            var danhSach = LayHocSinhVang2Ngay();
+            var danhSach = LayHocSinhVang();
 
             // Nhóm theo GVCN
             var nhomTheoGVCN = danhSach
                 .GroupBy(hs => new { hs.Email, hs.TenGiaoVien })
                 .ToList();
 
-            foreach (var group in nhomTheoGVCN)
+            foreach (var group in nhomTheoGVCN) // nhóm hs theo GVCN
             {
                 string emailGVCN = group.Key.Email;
                 string tenGV = group.Key.TenGiaoVien;
 
 
-                // Tạo nội dung danh sách học sinh vắng
+
                 StringBuilder bodyBuilder = new StringBuilder();
                 bodyBuilder.AppendLine($"Kính gửi Thầy/Cô {tenGV},");
-                bodyBuilder.AppendLine("Danh sách học sinh vắng 2 ngày liên tiếp:");
+
+                string tenLop = group.First().TenLop;// lấy tên lớp của hs đầu tiên trong group
+                bodyBuilder.AppendLine($"Danh sách học sinh lớp {tenLop} vắng mặt ngày {DateTime.Now:dd/MM/yyyy}:");
 
                 foreach (var hs in group)
                 {
-                    bodyBuilder.AppendLine($"- {hs.TenHocSinh} (Lớp: {hs.TenLop}) - Ngày nghỉ: {hs.Ngay1:dd/MM/yyyy}, {hs.Ngay2:dd/MM/yyyy}");
+                    bodyBuilder.AppendLine($"- {hs.TenHocSinh} (Lớp: {hs.TenLop}) - Ngày nghỉ: {hs.NgayVang:dd/MM/yyyy}");
                 }
 
                 bodyBuilder.AppendLine("\nTrân trọng.");
 
-               
+                // Gửi mail
                 try
                 {
                     MailMessage mail = new MailMessage();
                     mail.From = new MailAddress("quynhhuongtran314@gmail.com");
                     mail.To.Add(emailGVCN);
-                    mail.Subject = "Danh sách học sinh vắng 2 ngày liên tiếp";
+                    mail.Subject = "Thông báo học sinh vắng hôm nay";
                     mail.Body = bodyBuilder.ToString();
 
                     SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
@@ -86,7 +88,7 @@ namespace BusinessLayer
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
 
-                    //Console.WriteLine($"Đã gửi email đến GVCN: {emailGVCN}");
+                    Console.WriteLine($"Đã gửi email đến GVCN: {emailGVCN}");
                 }
                 catch (Exception ex)
                 {
