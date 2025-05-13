@@ -105,10 +105,10 @@ namespace DataLayer
             return affected > 0;
         }
 
-        public List<AbsentStudentDTO> LayDanhSachHocSinhVangLienTiep()
+        public List<AbsentStudentDTO> LayDanhSachHocSinhVang()
         {
             List<AbsentStudentDTO> list = new List<AbsentStudentDTO>();
-            string proc = "sp_LayHocSinhVang2NgayLienTiep";
+            string proc = "sp_ThongBaoHocSinhVangHomNay";
 
 
             using (SqlDataReader reader = MyExecuteReader(proc, CommandType.StoredProcedure))
@@ -124,8 +124,7 @@ namespace DataLayer
                         MaGiaoVien = reader["MaGiaoVien"].ToString(),
                         TenGiaoVien = reader["TenGiaoVien"].ToString(),
                         Email = reader["Email"].ToString(),
-                        Ngay1 = Convert.ToDateTime(reader["Ngay1"]),
-                        Ngay2 = Convert.ToDateTime(reader["Ngay2"])
+                        NgayVang = Convert.ToDateTime(reader["NgayDiemDanh"])
                     };
 
                     list.Add(hs);

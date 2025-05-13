@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvClass = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvSchedule = new System.Windows.Forms.DataGridView();
@@ -36,23 +35,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btSave = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgvClass
-            // 
-            this.dgvClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvClass.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dgvClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClass.Location = new System.Drawing.Point(12, 475);
-            this.dgvClass.Name = "dgvClass";
-            this.dgvClass.RowHeadersWidth = 51;
-            this.dgvClass.RowTemplate.Height = 24;
-            this.dgvClass.Size = new System.Drawing.Size(1040, 509);
-            this.dgvClass.TabIndex = 44;
             // 
             // label1
             // 
@@ -150,14 +135,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbbClass);
             this.Controls.Add(this.dgvSchedule);
-            this.Controls.Add(this.dgvClass);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmSchedule";
             this.Text = "FrmReport";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmSchedule_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
@@ -167,8 +150,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dgvClass;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dgvSchedule;
