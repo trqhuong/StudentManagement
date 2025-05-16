@@ -167,7 +167,7 @@ INSERT INTO TAIKHOAN (TenDangNhap, MatKhau, LoaiTaiKhoan, Email)
 VALUES 
     (N'admin', '123456', N'Admin','quynhhuongtran314@gmail.com'),
     (N'gv001', '123456', N'Giáo viên','sheisthy29@gmail.com'),
-    (N'gv002', '123456', N'Giáo viên',NULL),
+    (N'gv002', '123456', N'Giáo viên','quynhhuongtran314@gmail.com'),
     (N'gv003', '123456', N'Giáo viên',NULL);
 GO
 -- NĂM HỌC, HỌC KỲ, MÔN HỌC
@@ -237,7 +237,11 @@ VALUES
     -- Lớp 11A1 (MaLop = 2)
     (1, 2, 1),
     (2, 2, 2),
-    (3, 2, 3)
+    (3, 2, 3),
+	 -- Lớp 12A1 (MaLop = 3)
+    (1, 3, 1),
+    (2, 3, 2),
+    (3, 3, 3)
 GO
 --Điểm
 INSERT INTO DIEM (MaLop, MaHS, MaMH, HocKy, Diem15P, Diem1T, DiemThi)
@@ -427,41 +431,29 @@ GO
 CREATE PROCEDURE sp_GetMaxKhoi
 AS
 BEGIN
-	SELECT 
-		hs.MaHocSinh, 
-		hs.TenHocSinh,
-		hs.GioiTinh,
-		hs.NgaySinh,
-		MAX(l.Khoi) AS KhoiLonNhat
-	FROM HOCSINH hs
-	JOIN HOCSINH_LOP hl ON hs.MaHocSinh = hl.MaHS
-	JOIN LOPHOC l ON hl.MaLop = l.MaLop
-	WHERE NOT EXISTS (
-		SELECT 1 
-		FROM HOCSINH_LOP hl2
-		JOIN LOPHOC l2 ON hl2.MaLop = l2.MaLop
-		JOIN NAMHOC n2 ON l2.NamHoc = n2.MaNH
-		WHERE hl2.MaHS = hs.MaHocSinh AND n2.TrangThai = 1
-	)
-	GROUP BY hs.MaHocSinh, hs.TenHocSinh, hs.GioiTinh, hs.NgaySinh;
+ SELECT 
+        hs.MaHocSinh, 
+        hs.TenHocSinh,
+        hs.GioiTinh,
+        hs.NgaySinh,
+        MAX(l.Khoi) AS KhoiLonNhat
+    FROM HOCSINH hs
+    JOIN HOCSINH_LOP hl ON hs.MaHocSinh = hl.MaHS
+    JOIN LOPHOC l ON hl.MaLop = l.MaLop
+    WHERE hs.MaHocSinh NOT IN (
+        SELECT hl2.MaHS
+        FROM HOCSINH_LOP hl2
+        JOIN LOPHOC l2 ON hl2.MaLop = l2.MaLop
+        JOIN NAMHOC n2 ON l2.NamHoc = n2.MaNH
+        WHERE n2.TrangThai = 1
+    ) AND hs.TinhTrang = N'Đang học'
+    GROUP BY hs.MaHocSinh, hs.TenHocSinh, hs.GioiTinh, hs.NgaySinh;
 END;
 GO
---------------------
-CREATE PROCEDURE sp_LayHocSinhVang2NgayLienTiep
+--Lấy hs Vắng
+CREATE PROCEDURE sp_ThongBaoHocSinhVangHomNay
 AS
-BEGIN 
-    WITH VangMatLienTiep AS ( --dùng CTE để lưu sử dụng bảng tạm thời
-        SELECT 
-            d1.MaHS,
-            d1.NgayDiemDanh AS Ngay1,
-            d2.NgayDiemDanh AS Ngay2
-        FROM ĐIEMDANH d1
-        JOIN ĐIEMDANH d2
-            ON d1.MaHS = d2.MaHS
-            AND d1.NgayDiemDanh = DATEADD(DAY, -1, d2.NgayDiemDanh) --day 1 là ngày trc day 2 1 ngày
-        WHERE d1.TrangThai = N'Vắng mặt'
-          AND d2.TrangThai = N'Vắng mặt'
-    )
+BEGIN
     SELECT 
         hs.MaHocSinh,
         hs.TenHocSinh,
@@ -470,15 +462,16 @@ BEGIN
         gv.MaGiaoVien,
         gv.TenGiaoVien,
         tk.Email,
-        vml.Ngay1,
-        vml.Ngay2
-    FROM VangMatLienTiep vml
-    JOIN HOCSINH hs ON vml.MaHS = hs.MaHocSinh
+        dd.NgayDiemDanh
+    FROM ĐIEMDANH dd
+    JOIN HOCSINH hs ON dd.MaHS = hs.MaHocSinh
     JOIN HOCSINH_LOP hsl ON hs.MaHocSinh = hsl.MaHS
     JOIN LOPHOC l ON hsl.MaLop = l.MaLop
     JOIN GIAOVIEN gv ON l.GVQuanLi = gv.MaGiaoVien
     JOIN TAIKHOAN tk ON gv.TaiKhoan = tk.MaTK
-    WHERE vml.Ngay1 = DATEADD(DAY, -1, CAST(GETDATE() AS DATE))
-      AND vml.Ngay2 = CAST(GETDATE() AS DATE)
+    WHERE dd.TrangThai = N'Vắng mặt'
+      AND CAST(dd.NgayDiemDanh AS DATE) = CAST(GETDATE() AS DATE)
 END
 GO
+
+

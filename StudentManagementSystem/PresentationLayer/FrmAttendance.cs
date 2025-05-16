@@ -115,6 +115,13 @@ namespace PresentationLayer
                                 MessageBox.Show("Điểm danh thất bại hoặc học sinh đã điểm danh rồi!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 //SafeStopCamera();
                             }
+
+                            // Sau khi điểm danh xong (dù thành công hay thất bại)
+                            Task.Delay(2000).ContinueWith(_ =>
+                            {
+                                daQuetQR = false;
+                            });
+
                         }
                         else
                         {
@@ -132,16 +139,7 @@ namespace PresentationLayer
 
             picQR.Image = bitmap;
         }
-        private void ResetForm()
-        {
-            txtSID.Text = string.Empty;
-            txtSName.Text = string.Empty;
-            dtDob.Value = DateTime.Now;
-            checkNam.Checked = false;
-            checkNu.Checked = false;
-            txtClass.Text = null;
-
-        }
+      
         private void SafeStopCamera()
         {
             // Giữ lại camera hiện tại để đảm bảo không bị "cam mới" ghi đè
@@ -151,9 +149,9 @@ namespace PresentationLayer
             {
                 if (currentCam != null && currentCam.IsRunning)
                 {
-                    currentCam.SignalToStop();    // Gửi yêu cầu dừng camera
-                    currentCam.WaitForStop();     // Chờ camera dừng hoàn toàn
-                    currentCam.NewFrame -= camFrame; // Gỡ bỏ event xử lý ảnh
+                    currentCam.SignalToStop();    //  dừng camera
+                    currentCam.WaitForStop();     // dừng hoàn toàn
+                    currentCam.NewFrame -= camFrame; // bỏ event xử lý ảnh
                 }
 
                 if (this.InvokeRequired)
@@ -169,10 +167,19 @@ namespace PresentationLayer
                 }
             });
 
-            // cam gán null ở ngoài (tránh bị null trước khi Task xử lý xong)
+            // cam gán null ở ngoài 
             cam = null;
         }
-   
+        private void ResetForm()
+        {
+            txtSID.Text = string.Empty;
+            txtSName.Text = string.Empty;
+            dtDob.Value = DateTime.Now;
+            checkNam.Checked = false;
+            checkNu.Checked = false;
+            txtClass.Text = null;
+
+        }
 
         private void btStopQR_Click(object sender, EventArgs e)
         {

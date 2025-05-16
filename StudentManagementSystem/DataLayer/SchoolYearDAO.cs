@@ -24,7 +24,8 @@ namespace DataLayer
                     years.Add(new SchoolYearDTO(
                         Convert.ToInt32(reader["MaNH"]),
                         Convert.ToInt32(reader["NamBatDau"]),
-                        Convert.ToInt32(reader["NamKetThuc"])
+                        Convert.ToInt32(reader["NamKetThuc"]),
+                        Convert.ToBoolean(reader["TrangThai"])
                     ));
                 }
 
@@ -34,10 +35,7 @@ namespace DataLayer
             {
                 Console.WriteLine("Lỗi khi lấy năm học: " + ex.Message);
             }
-            finally
-            {
-                DisConnect();
-            }
+            
             return years;
         }
 

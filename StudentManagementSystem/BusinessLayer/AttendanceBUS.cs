@@ -44,55 +44,58 @@ namespace BusinessLayer
         {
             return diemDanh.LayDanhSachHocSinhVang();
         }
-
+        bool flag = false;
         public void GuiMailThongBaoTheoDanhSach()
         {
+           
+            if (flag == false) { 
             var danhSach = LayHocSinhVang();
 
-            // Nhóm theo GVCN
+            // Nhóm hs theo GVCN
             var nhomTheoGVCN = danhSach
                 .GroupBy(hs => new { hs.Email, hs.TenGiaoVien })
                 .ToList();
 
-            foreach (var group in nhomTheoGVCN) // nhóm hs theo GVCN
-            {
-                string emailGVCN = group.Key.Email;
-                string tenGV = group.Key.TenGiaoVien;
-
-
-
-                StringBuilder bodyBuilder = new StringBuilder();
-                bodyBuilder.AppendLine($"Kính gửi Thầy/Cô {tenGV},");
-
-                string tenLop = group.First().TenLop;// lấy tên lớp của hs đầu tiên trong group
-                bodyBuilder.AppendLine($"Danh sách học sinh lớp {tenLop} vắng mặt ngày {DateTime.Now:dd/MM/yyyy}:");
-
-                foreach (var hs in group)
+                foreach (var group in nhomTheoGVCN) 
                 {
-                    bodyBuilder.AppendLine($"- {hs.TenHocSinh} (Lớp: {hs.TenLop}) - Ngày nghỉ: {hs.NgayVang:dd/MM/yyyy}");
-                }
+                    string emailGVCN = group.Key.Email;
+                    string tenGV = group.Key.TenGiaoVien;
 
-                bodyBuilder.AppendLine("\nTrân trọng.");
 
-                // Gửi mail
-                try
-                {
-                    MailMessage mail = new MailMessage();
-                    mail.From = new MailAddress("quynhhuongtran314@gmail.com");
-                    mail.To.Add(emailGVCN);
-                    mail.Subject = "Thông báo học sinh vắng hôm nay";
-                    mail.Body = bodyBuilder.ToString();
+                    StringBuilder bodyBuilder = new StringBuilder();
+                    bodyBuilder.AppendLine($"Kính gửi Thầy/Cô {tenGV},");
 
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                    smtp.Credentials = new NetworkCredential("quynhhuongtran314@gmail.com", "eeppxloexxkryxzd");
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
+                    string tenLop = group.First().TenLop;// lấy tên lớp của hs đầu tiên trong group
+                    bodyBuilder.AppendLine($"Danh sách học sinh lớp {tenLop} vắng mặt ngày {DateTime.Now:dd/MM/yyyy}:");
 
-                    Console.WriteLine($"Đã gửi email đến GVCN: {emailGVCN}");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Lỗi gửi email tới {emailGVCN}: {ex.Message}");
+                    foreach (var hs in group)
+                    {
+                        bodyBuilder.AppendLine($"- {hs.TenHocSinh} (Lớp: {hs.TenLop}) - Ngày nghỉ: {hs.NgayVang:dd/MM/yyyy}");
+                    }
+
+                    bodyBuilder.AppendLine("\nTrân trọng.");
+
+                    // Gửi mail
+                    try
+                    {
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress("quynhhuongtran314@gmail.com");
+                        mail.To.Add(emailGVCN);
+                        mail.Subject = "Thông báo học sinh vắng hôm nay";
+                        mail.Body = bodyBuilder.ToString();
+
+                        SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                        smtp.Credentials = new NetworkCredential("quynhhuongtran314@gmail.com", "eeppxloexxkryxzd");
+                        smtp.EnableSsl = true;
+                        smtp.Send(mail);
+                        flag = true;
+
+                        //Console.WriteLine($"Đã gửi email đến GVCN: {emailGVCN}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Lỗi gửi email tới {emailGVCN}: {ex.Message}");
+                    }
                 }
             }
         }

@@ -154,7 +154,7 @@ namespace PresentationLayer
         }
         public void ExportToPDF(List<DisplayScoreDTO> displayList, string class_name, string year_name, string subject_name)
         {
-            string filePath = $@"D:\Project\StudentManagement\ExportScore\{class_name}_{year_name}_{subject_name}.pdf";
+            string filePath = $@"D:\StudentManagement\ExportScore\{class_name}_{year_name}_{subject_name}.pdf";
 
             Document doc = new Document(PageSize.A4, 36, 36, 36, 36);
 

@@ -40,7 +40,7 @@ namespace BusinessLayer
             string fileName = $"{maHS}_{tenHS}.png";
             string filePath = Path.Combine(folderPath, fileName);
 
-            // Kiểm tra nếu mã QR đã tồn tại trong CSDL (hoặc kiểm tra file QR)
+            
             if (File.Exists(filePath))
             {
              
